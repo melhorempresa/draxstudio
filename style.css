@@ -11,8 +11,8 @@ html {
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #1A1D2D; /* Novo: Azul escuro profundo para fundo */
-    color: #E8EAF6; /* Novo: Lavanda muito claro para texto */
+    background-color: var(--dark-bg); /* Usa a variável */
+    color: var(--text-default);     /* Usa a variável */
     line-height: 1.6;
 }
 
@@ -39,22 +39,25 @@ img {
 
 h1, h2, h3, h4 {
     margin-bottom: 0.8em;
-    color: #FFFFFF; /* Títulos em branco */
+    color: #FFFFFF; /* Títulos em branco para máximo contraste */
     font-weight: 600;
 }
 
-/* --- Nova Paleta de Cores (Roxo Azulado) --- */
+/* --- Nova Paleta de Cores (Fornecida pelo Usuário) --- */
 :root {
-    --primary-color: #7E57C2;       /* Novo: Roxo Ametista (principal) */
-    --primary-hover-color: #673AB7; /* Novo: Roxo Índigo (hover mais escuro) */
-    --secondary-color: #5C6BC0;    /* Novo: Azul Índigo (para alguns detalhes) */
-    --dark-bg: #1A1D2D;             /* Azul escuro profundo */
-    --section-bg: #23273A;          /* Novo: Azul acinzentado escuro para seções */
-    --card-bg: #2C3147;             /* Novo: Azul ardósia escuro para cards */
-    --text-light: #E8EAF6;          /* Lavanda muito claro */
-    --text-medium: #B0BEC5;         /* Cinza azulado claro */
-    --border-color: #39405E;        /* Azul acinzentado para bordas */
-    --accent-shadow-color: rgba(126, 87, 194, 0.3); /* Sombra roxa para destaques */
+    --dark-bg: #0D0D1A;              /* Fundo principal (quase preto com tom azulado) */
+    --primary-color: #7F3FBF;        /* Cor principal (roxo vibrante) */
+    --primary-hover-color: #6A34A2;  /* Roxo mais escuro para hover de botões primários */
+    --secondary-highlight-color: #B185DB; /* Roxo mais claro (para hover de links ou destaques secundários) */
+
+    --text-default: #EAEAEA;         /* Texto padrão (cinza muito claro) */
+    --text-secondary: #A0A0A0;       /* Texto secundário (cinza médio) */
+
+    /* Cores derivadas para seções, cards e bordas */
+    --section-bg: #121223;           /* Um pouco mais claro que dark-bg, mantendo o tom */
+    --card-bg: #1A1A2E;              /* Um pouco mais claro que section-bg */
+    --border-color: #2A2A3D;         /* Para bordas sutis */
+    --accent-shadow-color: rgba(127, 63, 191, 0.3); /* Sombra roxa para destaques */
 }
 
 /* Header */
@@ -90,7 +93,7 @@ header nav ul li {
 }
 
 header nav ul li a {
-    color: var(--text-light);
+    color: var(--text-default);
     font-weight: 500;
     transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
     padding-bottom: 5px;
@@ -99,8 +102,8 @@ header nav ul li a {
 
 header nav ul li a:hover,
 header nav ul li a.active {
-    color: var(--primary-color);
-    border-bottom-color: var(--primary-color);
+    color: var(--secondary-highlight-color); /* Roxo mais claro para hover/ativo dos links */
+    border-bottom-color: var(--secondary-highlight-color);
 }
 
 /* Hero Section */
@@ -124,7 +127,7 @@ header nav ul li a.active {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, rgba(26, 29, 45, 0.5), rgba(26, 29, 45, 0.85)); /* Overlay com cor do body */
+    background: linear-gradient(to bottom, rgba(13, 13, 26, 0.5), rgba(13, 13, 26, 0.85)); /* Overlay com cor --dark-bg */
     z-index: 1;
 }
 
@@ -143,7 +146,7 @@ header nav ul li a.active {
 .hero-content p {
     font-size: 1.25em;
     margin-bottom: 1.8em;
-    color: var(--text-light);
+    color: var(--text-default);
     max-width: 650px;
     margin-left: auto;
     margin-right: auto;
@@ -164,12 +167,12 @@ header nav ul li a.active {
 
 .btn-primary {
     background-color: var(--primary-color);
-    color: #FFFFFF; /* Texto branco para bom contraste com roxo */
+    color: #FFFFFF; /* Texto branco para bom contraste */
     border-color: var(--primary-color);
 }
 
 .btn-primary:hover {
-    background-color: var(--primary-hover-color);
+    background-color: var(--primary-hover-color); /* Roxo mais escuro */
     border-color: var(--primary-hover-color);
     transform: translateY(-3px) scale(1.02);
     box-shadow: 0 5px 15px var(--accent-shadow-color);
@@ -177,15 +180,15 @@ header nav ul li a.active {
 
 .btn-secondary {
     background-color: transparent;
-    color: var(--primary-color);
-    border-color: var(--primary-color);
+    color: var(--secondary-highlight-color); /* Roxo mais claro para secundário */
+    border-color: var(--secondary-highlight-color);
 }
 
 .btn-secondary:hover {
-    background-color: var(--primary-color);
-    color: #FFFFFF;
+    background-color: var(--secondary-highlight-color);
+    color: var(--dark-bg); /* Texto escuro para contraste quando o fundo clareia */
     transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 5px 15px var(--accent-shadow-color);
+    box-shadow: 0 5px 15px rgba(177, 133, 219, 0.3); /* Sombra do roxo mais claro */
 }
 
 .hero-stats {
@@ -207,7 +210,7 @@ header nav ul li a.active {
 
 .stat-item p {
     font-size: 0.9em;
-    color: var(--text-medium);
+    color: var(--text-secondary);
     margin-bottom: 0;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -231,7 +234,7 @@ header nav ul li a.active {
 }
 .top-hits > .container > p {
     font-size: 1.1em;
-    color: var(--text-medium);
+    color: var(--text-secondary);
     margin-bottom: 50px;
     text-align: center;
     max-width: 700px;
@@ -275,7 +278,7 @@ header nav ul li a.active {
 
 .game-card h3, .game-card-detailed h3 {
     margin: 15px 15px 8px 15px;
-    color: var(--primary-color);
+    color: var(--primary-color); /* Título do jogo com roxo vibrante */
     font-size: 1.25em;
 }
 .game-card-detailed h3 {
@@ -285,7 +288,7 @@ header nav ul li a.active {
 
 .game-card p {
     font-size: 0.9em;
-    color: var(--text-medium);
+    color: var(--text-secondary);
     margin: 0 15px 15px 15px;
     flex-grow: 1;
 }
@@ -313,7 +316,7 @@ header nav ul li a.active {
 
 .stat-item-detailed p {
     font-size: 0.7em;
-    color: var(--text-medium);
+    color: var(--text-secondary);
     text-transform: uppercase;
     margin: 0;
     letter-spacing: 0.5px;
@@ -321,9 +324,9 @@ header nav ul li a.active {
 
 /* Footer Detalhado */
 .site-footer-detailed {
-    background-color: #131521; /* Footer ainda mais escuro, tom de azul */
+    background-color: #0A0A14; /* Footer ainda mais escuro, tom do --dark-bg */
     padding: 50px 0 0 0;
-    color: var(--text-medium);
+    color: var(--text-secondary);
     font-size: 0.9em;
     border-top: 1px solid var(--border-color);
 }
@@ -344,7 +347,7 @@ header nav ul li a.active {
 
 .footer-links h4 {
     font-size: 1.15em;
-    color: var(--text-light);
+    color: var(--text-default);
     margin-bottom: 18px;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -367,12 +370,12 @@ header nav ul li a.active {
 }
 
 .footer-links ul li a {
-    color: var(--text-medium);
+    color: var(--text-secondary);
     transition: color 0.2s ease, padding-left 0.2s ease;
 }
 
 .footer-links ul li a:hover {
-    color: var(--primary-color);
+    color: var(--secondary-highlight-color); /* Roxo mais claro no hover */
     padding-left: 5px;
 }
 
@@ -381,7 +384,7 @@ header nav ul li a.active {
     padding: 25px 0;
     border-top: 1px solid var(--border-color);
     font-size: 0.85em;
-    color: #78909C; /* Cinza azulado mais escuro */
+    color: #6A6A7A; /* Cinza um pouco mais escuro para copyright */
 }
 
 /* --- Estilos para a Página Contato / Aquisições (contact.html) --- */
@@ -395,7 +398,7 @@ header nav ul li a.active {
 }
 .page-header-contact p {
     font-size: 1.1em;
-    color: var(--text-medium);
+    color: var(--text-secondary);
     max-width: 700px;
     margin: 0 auto;
 }
@@ -409,7 +412,7 @@ header nav ul li a.active {
     padding: 25px;
     margin-bottom: 25px;
     border-radius: 8px;
-    border-left: 5px solid var(--primary-color); /* Destaque roxo */
+    border-left: 5px solid var(--primary-color);
     box-shadow: 0 3px 10px rgba(0,0,0,0.2);
 }
 
@@ -420,11 +423,11 @@ header nav ul li a.active {
 }
 .acquisitions-info .info-block h4 {
     font-size: 1.25em;
-    color: var(--text-light);
+    color: var(--text-default);
     margin-bottom: 8px;
 }
 .acquisitions-info .info-block p {
-    color: var(--text-medium);
+    color: var(--text-secondary);
     line-height: 1.7;
 }
 
@@ -439,9 +442,9 @@ header nav ul li a.active {
     border-radius: 12px;
     max-width: 700px;
     margin: 0 auto;
-    color: var(--text-light);
+    color: var(--text-default);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-    border-top: 4px solid var(--primary-color); /* Destaque roxo no topo */
+    border-top: 4px solid var(--primary-color);
 }
 
 .contact-box-header {
@@ -464,7 +467,7 @@ header nav ul li a.active {
 
 .contact-box-header p {
     font-size: 1em;
-    color: var(--text-medium);
+    color: var(--text-secondary);
 }
 
 .contact-form-main .form-group {
@@ -477,28 +480,28 @@ header nav ul li a.active {
     padding: 16px;
     border-radius: 6px;
     border: 1px solid var(--border-color);
-    background-color: #282C40; /* Fundo dos inputs um pouco mais escuro, tom azulado */
-    color: var(--text-light);
+    background-color: #1F1F33; /* Um tom mais escuro, mas correspondente aos cards */
+    color: var(--text-default);
     font-size: 1em;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 .contact-form-main input[type="email"]::placeholder,
 .contact-form-main textarea::placeholder {
-    color: #78909C; /* Cinza azulado para placeholder */
+    color: #7A7A8A; /* Cinza para placeholder */
 }
 
 .contact-form-main input[type="email"]:focus,
 .contact-form-main textarea:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px var(--accent-shadow-color); /* Brilho roxo no foco */
+    box-shadow: 0 0 0 3px var(--accent-shadow-color);
 }
 
 .contact-form-main .checkbox-group {
     display: flex;
     align-items: center;
     font-size: 0.9em;
-    color: var(--text-medium);
+    color: var(--text-secondary);
 }
 
 .contact-form-main .checkbox-group input[type="checkbox"] {
@@ -506,7 +509,7 @@ header nav ul li a.active {
     width: 18px;
     height: 18px;
     accent-color: var(--primary-color);
-    background-color: #282C40;
+    background-color: #1F1F33;
     border: 1px solid var(--border-color);
 }
 .contact-form-main .checkbox-group label {
@@ -535,7 +538,7 @@ header nav ul li a.active {
 .form-disclaimer {
     text-align: center;
     font-size: 0.8em;
-    color: var(--text-medium);
+    color: var(--text-secondary);
     margin-top: 30px;
 }
 
@@ -548,17 +551,17 @@ header nav ul li a.active {
 
 .about-text {
     flex: 1.2;
-    color: var(--text-light);
+    color: var(--text-default);
 }
 
 .about-text p {
     margin-bottom: 1.5em;
     line-height: 1.75;
     font-size: 1.05em;
-    color: var(--text-medium);
+    color: var(--text-secondary);
 }
 .about-text p:first-of-type {
-    color: var(--text-light);
+    color: var(--text-default);
     font-size: 1.1em;
 }
 
