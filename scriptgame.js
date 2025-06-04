@@ -27,11 +27,11 @@ let waveTransition = false;
 
 // Parâmetros de dificuldade por onda
 const waveSettings = {
-    1: { dragonHealth: 100, dragonAttackInterval: 100, projectileSpeedMultiplier: 1, numProjectiles: 1 }, // ticks para ataque (60 ticks = 1s)
-    2: { dragonHealth: 120, dragonAttackInterval: 85, projectileSpeedMultiplier: 1.1, numProjectiles: 1 },
-    3: { dragonHealth: 150, dragonAttackInterval: 70, projectileSpeedMultiplier: 1.2, numProjectiles: 2 },
-    4: { dragonHealth: 180, dragonAttackInterval: 60, projectileSpeedMultiplier: 1.3, numProjectiles: 2, laserChance: 0.3 },
-    5: { dragonHealth: 220, dragonAttackInterval: 50, projectileSpeedMultiplier: 1.4, numProjectiles: 3, laserChance: 0.5 }
+    1: { dragonHealth: 100, dragonAttackInterval: 100, projectileSpeedMultiplier: 1,   numProjectiles: 1, dragonMoveSpeedBase: 0.7 },
+    2: { dragonHealth: 120, dragonAttackInterval: 85,  projectileSpeedMultiplier: 1.1, numProjectiles: 1, dragonMoveSpeedBase: 0.8 },
+    3: { dragonHealth: 150, dragonAttackInterval: 70,  projectileSpeedMultiplier: 1.2, numProjectiles: 2, dragonMoveSpeedBase: 0.9 },
+    4: { dragonHealth: 180, dragonAttackInterval: 60,  projectileSpeedMultiplier: 1.3, numProjectiles: 2, laserChance: 0.3, dragonMoveSpeedBase: 1.0 },
+    5: { dragonHealth: 220, dragonAttackInterval: 50,  projectileSpeedMultiplier: 1.4, numProjectiles: 3, laserChance: 0.5, dragonMoveSpeedBase: 1.1 }
 };
 const MAX_WAVES = Object.keys(waveSettings).length;
 
@@ -71,6 +71,14 @@ class Player extends GameObject {
         if (keys['ArrowRight'] && this.x < canvas.width - this.width) {
             this.x += this.speed;
         }
+        // Movimento Vertical (opcional, se quiser)
+        // if (keys['ArrowUp'] && this.y > canvas.height * 0.6) { // Limitar movimento para cima
+        //     this.y -= this.speed;
+        // }
+        // if (keys['ArrowDown'] && this.y < canvas.height - this.height - 10) { // Limitar para baixo
+        //     this.y += this.speed;
+        // }
+
         if (keys['Space'] && this.shootTimer === 0) {
             this.shoot();
             this.shootTimer = this.shootCooldown;
@@ -94,35 +102,45 @@ class Player extends GameObject {
 }
 
 class Dragon extends GameObject {
-    constructor(x, y, width, height, color, health, attackIntervalBase) {
+    constructor(x, y, width, height, color, health, attackIntervalBase, moveSpeedBase) {
         super(x, y, width, height, color);
         this.health = health;
         this.maxHealth = health;
-        this.attackIntervalBase = attackIntervalBase; // será ajustado pela onda
-        this.attackTimer = this.attackIntervalBase;
-        this.targetX = canvas.width / 2 - this.width / 2; // Posição X alvo
-        this.moveSpeed = 0.5; // Velocidade de movimento lateral suave
+        this.attackIntervalBase = attackIntervalBase;
+        this.attackTimer = this.attackIntervalBase; // Inicia o timer com o intervalo base
+
+        this.moveSpeedBase = moveSpeedBase; // Velocidade de movimento base da onda
+        this.moveDirection = 1; // 1 para direita, -1 para esquerda
+        // Deixar uma margem para o dragão não encostar totalmente nas bordas
+        this.moveRange = { minX: 30, maxX: canvas.width - this.width - 30 };
     }
 
-    update(settings) {
-        // Movimento suave para a posição X alvo (centro)
-        if (Math.abs(this.x - this.targetX) > this.moveSpeed) {
-            if (this.x < this.targetX) this.x += this.moveSpeed;
-            else this.x -= this.moveSpeed;
+    update(settings) { // settings aqui são as configurações da onda atual
+        // Movimento horizontal
+        const currentMoveSpeed = this.moveSpeedBase * settings.projectileSpeedMultiplier;
+        this.x += currentMoveSpeed * this.moveDirection;
+
+        // Inverter direção ao atingir os limites
+        if (this.x <= this.moveRange.minX && this.moveDirection === -1) {
+            this.moveDirection = 1;
+            this.x = this.moveRange.minX; // Correção para não ultrapassar
+        } else if (this.x >= this.moveRange.maxX && this.moveDirection === 1) {
+            this.moveDirection = -1;
+            this.x = this.moveRange.maxX; // Correção para não ultrapassar
         }
 
-
+        // Ataque
         this.attackTimer--;
         if (this.attackTimer <= 0) {
             this.attack(settings);
-            this.attackTimer = settings.dragonAttackInterval;
+            this.attackTimer = settings.dragonAttackInterval; // Reseta com o intervalo da onda atual
         }
         this.draw();
     }
 
     attack(settings) {
         for (let i = 0; i < settings.numProjectiles; i++) {
-            setTimeout(() => { // Pequeno atraso entre projéteis se houver múltiplos
+            setTimeout(() => {
                 let projectileType = 'fire';
                 let projectileColor = 'orange';
                 let projectileWidth = 10;
@@ -146,17 +164,17 @@ class Dragon extends GameObject {
                     'dragon'
                 );
                 dragonProjectiles.push(projectile);
-            }, i * 150); // Atraso de 150ms entre projéteis em uma rajada
+            }, i * 150);
         }
     }
 
     takeDamage(amount) {
         this.health -= amount;
-        score += 10; // Ganha pontos por acertar o dragão
+        score += 10;
         updateUI();
         if (this.health <= 0) {
             this.health = 0;
-            score += 100 * currentWave; // Bônus por derrotar o dragão
+            score += 100 * currentWave;
             nextWave();
         }
     }
@@ -166,7 +184,7 @@ class Projectile extends GameObject {
     constructor(x, y, width, height, color, speed, owner) {
         super(x, y, width, height, color);
         this.speed = speed;
-        this.owner = owner; // 'player' ou 'dragon'
+        this.owner = owner;
     }
 
     update() {
@@ -179,7 +197,6 @@ class Projectile extends GameObject {
     }
 }
 
-// Funções do Jogo
 function initGame() {
     gameOver = false;
     waveTransition = false;
@@ -192,25 +209,32 @@ function initGame() {
     gameOverScreen.style.display = 'none';
     victoryScreen.style.display = 'none';
 
-    player = new Player(canvas.width / 2 - 25, canvas.height - 60, 50, 30, 'lime', 7, 100);
+    player = new Player(canvas.width / 2 - 25, canvas.height - 70, 50, 30, 'lime', 7, 100); // Posição Y do jogador um pouco mais para cima
     setupWave(currentWave);
     updateUI();
     gameLoop();
 }
 
 function setupWave(waveNum) {
-    const settings = waveSettings[waveNum] || waveSettings[MAX_WAVES]; // Usa a última configuração se passar do máximo
+    const settings = waveSettings[waveNum] || waveSettings[MAX_WAVES]; // Usa a última config se passar do máximo
 
     dragon = new Dragon(
-        canvas.width / 2 - 50, 30, 100, 80, 'purple',
+        canvas.width / 2 - 50, // Posição X inicial
+        30,                    // Posição Y
+        100,                   // Largura
+        80,                    // Altura
+        'purple',              // Cor
         settings.dragonHealth,
-        settings.dragonAttackInterval
+        settings.dragonAttackInterval,
+        settings.dragonMoveSpeedBase // Nova propriedade para velocidade base de movimento
     );
-    dragon.attackTimer = settings.dragonAttackInterval; // Reseta o timer de ataque do dragão para a nova onda
+    // O attackTimer já é setado no construtor do Dragão com attackIntervalBase,
+    // mas resetar aqui garante que sempre comece certo para a onda.
+    dragon.attackTimer = settings.dragonAttackInterval;
     
-    player.health = player.maxHealth; // Restaura a vida do jogador no início de cada onda (opcional)
+    player.health = player.maxHealth;
     
-    playerProjectiles = []; // Limpa projéteis da tela
+    playerProjectiles = [];
     dragonProjectiles = [];
 
     updateUI();
@@ -218,7 +242,7 @@ function setupWave(waveNum) {
 
 function nextWave() {
     if (currentWave >= MAX_WAVES) {
-        triggerGameWin(); // Uma função para caso o jogador vença todas as ondas
+        triggerGameWin();
         return;
     }
     currentWave++;
@@ -229,18 +253,20 @@ function nextWave() {
         victoryScreen.style.display = 'none';
         setupWave(currentWave);
         waveTransition = false;
-        if (!gameOver) gameLoop(); // Resume o loop se não for game over
-    }, 3000); // 3 segundos de transição
+        if (!gameOver) gameLoop();
+    }, 3000);
 }
 
 function triggerGameWin() {
     gameOver = true;
+    // Limpar o conteúdo anterior para evitar duplicar o botão de restart
     gameOverScreen.innerHTML = `
         <h2>VOCÊ VENCEU!</h2>
         <p>Todos os dragões foram derrotados!</p>
-        <p>Pontuação Final: <span id="finalScore">${score}</span></p>
+        <p>Pontuação Final: <span id="finalScoreWin">${score}</span></p>
         <button id="restartButtonWin">Jogar Novamente</button>
     `;
+    document.getElementById('finalScoreWin').textContent = score; // Atualiza o score na tela de vitória
     gameOverScreen.style.display = 'block';
     document.getElementById('restartButtonWin').addEventListener('click', initGame);
 }
@@ -254,7 +280,6 @@ function updateUI() {
 }
 
 function checkCollisions() {
-    // Projéteis do jogador vs Dragão
     for (let i = playerProjectiles.length - 1; i >= 0; i--) {
         const p = playerProjectiles[i];
         if (dragon &&
@@ -263,12 +288,11 @@ function checkCollisions() {
             p.y < dragon.y + dragon.height &&
             p.y + p.height > dragon.y
         ) {
-            dragon.takeDamage(10); // Dano do projétil do jogador
-            playerProjectiles.splice(i, 1); // Remove projétil
+            dragon.takeDamage(10);
+            playerProjectiles.splice(i, 1);
         }
     }
 
-    // Projéteis do Dragão vs Jogador
     for (let i = dragonProjectiles.length - 1; i >= 0; i--) {
         const p = dragonProjectiles[i];
         if (
@@ -277,19 +301,26 @@ function checkCollisions() {
             p.y < player.y + player.height &&
             p.y + p.height > player.y
         ) {
-            player.takeDamage(10); // Dano do projétil do dragão
-            dragonProjectiles.splice(i, 1); // Remove projétil
+            player.takeDamage(10);
+            dragonProjectiles.splice(i, 1);
         }
     }
 }
 
 function triggerGameOver() {
     gameOver = true;
-    finalScoreUI.textContent = score;
+    // Se o botão de restart já existe da tela de vitória, não precisa recriar, apenas mostrar.
+    // No entanto, o texto da tela de game over é diferente.
+    gameOverScreen.innerHTML = `
+        <h2>Fim de Jogo!</h2>
+        <p>Sua pontuação: <span id="finalScoreOver">${score}</span></p>
+        <button id="restartButtonOver">Jogar Novamente</button>
+    `;
+    document.getElementById('finalScoreOver').textContent = score; // Atualiza o score na tela de game over
     gameOverScreen.style.display = 'block';
+    document.getElementById('restartButtonOver').addEventListener('click', initGame);
 }
 
-// Game Loop
 function gameLoop() {
     if (gameOver || waveTransition) return;
 
@@ -300,20 +331,18 @@ function gameLoop() {
     player.update();
     if (dragon) dragon.update(currentWaveSettings);
 
-    // Atualizar e remover projéteis fora da tela
-    playerProjectiles = playerProjectiles.filter(p => p.y > 0);
+    playerProjectiles = playerProjectiles.filter(p => p.y + p.height > 0); // Corrigido para p.y + p.height > 0
     playerProjectiles.forEach(p => p.update());
 
     dragonProjectiles = dragonProjectiles.filter(p => p.y < canvas.height);
     dragonProjectiles.forEach(p => p.update());
 
     checkCollisions();
-    updateUI(); // Atualiza a UI a cada frame
+    updateUI();
 
     requestAnimationFrame(gameLoop);
 }
 
-// Event Listeners
 window.addEventListener('keydown', (e) => {
     keys[e.code] = true;
 });
@@ -322,7 +351,12 @@ window.addEventListener('keyup', (e) => {
     keys[e.code] = false;
 });
 
-restartButton.addEventListener('click', initGame);
+// O botão de restart principal é o da tela de Game Over padrão.
+// Os botões de restart das telas de vitória e game over específicas são adicionados dinamicamente.
+// O listener original no HTML `restartButton` pode ser removido se ele não existir mais estaticamente.
+// Se o `gameOverScreen` tiver sempre um botão com id `restartButton`, então `restartButton.addEventListener('click', initGame);` funciona.
+// Como estamos recriando o innerHTML, precisamos adicionar o listener aos novos botões.
+// O código em `triggerGameOver` e `triggerGameWin` já faz isso.
+// Vamos remover o listener do `restartButton` original que é buscado no início, pois ele será sobrescrito.
 
-// Iniciar o jogo
 initGame();
