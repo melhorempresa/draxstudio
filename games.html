@@ -6,16 +6,14 @@
     <title>Nossos Jogos - Drax Studio</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Adiciona um estilo para o card clicável */
-        .game-card-detailed-linkable {
-            text-decoration: none;
-            color: inherit;
-            display: block; /* Faz o link ocupar todo o card */
+        /* Estilo para feedback visual no hover dos cards */
+        .game-card-detailed {
             transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            /* cursor: help; /* Para um toque mais misterioso */
         }
-        .game-card-detailed-linkable:hover .game-card-detailed {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        .game-card-detailed:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.25);
         }
     </style>
 </head>
@@ -41,24 +39,21 @@
             <div class="container">
                 <h2>Nossos Jogos</h2>
                 <div class="games-grid-fullpage">
-                    <!-- Jogo 1 - Dragon Slayer Chronicles -->
-                    <a href="dragon-slayer.html" class="game-card-detailed-linkable">
-                        <div class="game-card-detailed">
-                            <img src="images/game_placeholder_1.jpg" alt="Capa do Jogo Dragon Slayer">
-                            <h3>Dragon Slayer Chronicles</h3>
-                            <p style="text-align: center; font-size: 0.9em; color: #aaa;">(Clique para Jogar!)</p>
-                            <div class="game-stats-detailed">
-                                <div class="stat-item-detailed">
-                                    <span>NEW!</span>
-                                    <p>Visitas</p>
-                                </div>
-                                <div class="stat-item-detailed">
-                                    <span>1</span>
-                                    <p>Jogando</p>
-                                </div>
+                    <!-- Jogo 1 -->
+                    <div class="game-card-detailed">
+                        <img src="images/game_placeholder_1.jpg" alt="Capa do Jogo 1">
+                        <h3>[*] Nome do Jogo Aventura</h3>
+                        <div class="game-stats-detailed">
+                            <div class="stat-item-detailed">
+                                <span>4.7B</span>
+                                <p>Visitas</p>
+                            </div>
+                            <div class="stat-item-detailed">
+                                <span>1.6M</span>
+                                <p>Jogando</p>
                             </div>
                         </div>
-                    </a>
+                    </div>
 
                     <!-- Jogo 2 -->
                     <div class="game-card-detailed">
@@ -178,5 +173,21 @@
              <p>© 2025 Drax Studio. Todos os direitos reservados.</p>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const gameCards = document.querySelectorAll('.game-card-detailed');
+            gameCards.forEach(card => {
+                // Adiciona um cursor sutil e um title para o "easter egg"
+                card.style.cursor = 'help'; // Ou 'pointer' se preferir
+                card.title = "Hmm, o que será que acontece aqui com dois cliques?";
+
+                card.addEventListener('dblclick', () => {
+                    window.location.href = 'dragon-slayer.html';
+                });
+            });
+        });
+    </script>
+
 </body>
 </html>
