@@ -1,28 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Drax Studio | Home</title>
-  <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drax Studio - Inovação em Games</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Adicione um link para uma biblioteca de ícones se desejar, como Font Awesome -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> -->
 </head>
 <body>
-  <header>
-    <h1>Drax Studio</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="games.html">Our Games</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-  </header>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <!-- Se tiver um logo em imagem: <img src="images/logo-drax.png" alt="Drax Studio Logo"> -->
+                <h1>Drax Studio</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="games.html">Nossos Jogos</a></li>
+                    <li><a href="about.html">Sobre Nós</a></li>
+                    <li><a href="contact.html">Contato</a></li>
+                    <!-- <li><a href="#">Aquisições de Jogos</a></li>  Adicione se relevante -->
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-  <section class="hero">
-    <h2>Creating Immersive Game Experiences</h2>
-    <p>Innovation. Passion. Performance.</p>
-  </section>
+    <main>
+        <section class="hero">
+            <div class="hero-overlay"></div>
+            <div class="hero-content container">
+                <h2>Drax Studio</h2>
+                <p>Criamos experiências memoráveis para jogadores ao redor do mundo.</p>
+                <div class="hero-buttons">
+                    <a href="games.html" class="btn btn-primary">Explore nossos jogos</a>
+                    <a href="contact.html" class="btn btn-secondary">Fale conosco </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <h3>1.8M+</h3>
+                        <p>Jogadores ativos</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>20M+</h3>
+                        <p>Sessões de jogo totais</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  <footer>
-    <p>&copy; 2025 Drax Studio. All rights reserved.</p>
-  </footer>
+        <section class="top-hits">
+            <div class="container">
+                <h2>Nossos Maiores Sucessos</h2>
+                <p>Confira alguns dos nossos jogos mais populares.</p>
+                <div class="games-grid">
+                    <div class="game-card">
+                        <img src="images/game_placeholder_1.jpg" alt="Jogo 1">
+                        <h3>Nome do Jogo 1</h3>
+                        <p>1M+ de Visitas</p>
+                    </div>
+                    <div class="game-card">
+                        <img src="images/game_placeholder_2.jpg" alt="Jogo 2">
+                        <h3>Nome do Jogo 2</h3>
+                        <p>800K+ de Visitas</p>
+                    </div>
+                    <div class="game-card">
+                        <img src="images/game_placeholder_3.jpg" alt="Jogo 3">
+                        <h3>Nome do Jogo 3</h3>
+                        <p>1.2M+ de Visitas</p>
+                    </div>
+                    <div class="game-card">
+                        <img src="images/game_placeholder_4.jpg" alt="Jogo 4">
+                        <h3>Nome do Jogo 4</h3>
+                        <p>500K+ de Visitas</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 Drax Studio. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
 </body>
 </html>
