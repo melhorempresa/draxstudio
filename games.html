@@ -25,7 +25,7 @@
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="games.html" class="active">Our Games</a></li>
-                    <li><a href="index.html#sobre-nos">About Us</a></li>
+                    <li><a href="index.html#about-us-section">About Us</a></li> <!-- Link para a seção correta no index -->
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
             </nav>
@@ -35,103 +35,25 @@
     <main>
         <section class="games-showcase">
             <div class="container">
-                <h2>Our Games</h2>
+                <h2>Our Game</h2> <!-- Singular, as there's only one now -->
                 <div class="games-grid-fullpage">
                    
+                    <!-- Only Kageborn Game Card -->
                     <div class="game-card-detailed">
-                        <img src="images/game_placeholder_1.jpg" alt="Game Cover 1">
+                        <img src="png/kageborn.png" alt="Kageborn Game Cover">
                         <h3>Kageborn</h3>
                         <div class="game-stats-detailed">
                             <div class="stat-item-detailed">
-                                <span></span>
-                                <p>Visits</p>
+                                <span>Alpha</span> <!-- Placeholder -->
+                                <p>Development Phase</p>
                             </div>
                             <div class="stat-item-detailed">
-                                <span></span>
-                                <p>Playing</p>
+                                <span>In Progress</span> <!-- Placeholder -->
+                                <p>Current Status</p>
                             </div>
                         </div>
                     </div>
-
-                   
-                    <div class="game-card-detailed">
-                        <img src="images/game_placeholder_2.jpg" alt="Game Cover 2">
-                        <h3>Coming Soon</h3>
-                        <div class="game-stats-detailed">
-                            <div class="stat-item-detailed">
-                                <span></span>
-                                <p>Visits</p>
-                            </div>
-                            <div class="stat-item-detailed">
-                                <span></span>
-                                <p>Playing</p>
-                            </div>
-                        </div>
-                    </div>
-
-                  
-                    <div class="game-card-detailed">
-                        <img src="images/game_placeholder_3.jpg" alt="Game Cover 3">
-                        <h3>Coming Soon</h3>
-                        <div class="game-stats-detailed">
-                            <div class="stat-item-detailed">
-                                <span></span>
-                                <p>Visits</p>
-                            </div>
-                            <div class="stat-item-detailed">
-                                <span></span>
-                                <p>Playing</p>
-                            </div>
-                        </div>
-                    </div>
-
-                   
-                    <div class="game-card-detailed">
-                        <img src="images/game_placeholder_4.jpg" alt="Game Cover 4">
-                        <h3>Coming Soon</h3>
-                        <div class="game-stats-detailed">
-                            <div class="stat-item-detailed">
-                                <span></span>
-                                <p>Visits</p>
-                            </div>
-                            <div class="stat-item-detailed">
-                                <span></span>
-                                <p>Playing</p>
-                            </div>
-                        </div>
-                    </div>
-
-                   
-                    <div class="game-card-detailed">
-                        <img src="images/game_placeholder_1.jpg" alt="Game Cover 5">
-                        <h3>Coming Soon</h3>
-                        <div class="game-stats-detailed">
-                            <div class="stat-item-detailed">
-                                <span></span>
-                                <p>Visits</p>
-                            </div>
-                            <div class="stat-item-detailed">
-                                <span></span>
-                                <p>Playing</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="game-card-detailed">
-                        <img src="images/game_placeholder_2.jpg" alt="Game Cover 6">
-                        <h3>Coming Soon</h3>
-                        <div class="game-stats-detailed">
-                            <div class="stat-item-detailed">
-                                <span></span>
-                                <p>Visits</p>
-                            </div>
-                            <div class="stat-item-detailed">
-                                <span></span>
-                                <p>Playing</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Add more games following the same pattern -->
+                    <!-- All other game-card-detailed elements removed -->
                 </div>
             </div>
         </section>
@@ -153,7 +75,7 @@
             <div class="footer-links">
                 <h4>Company</h4>
                 <ul>
-                    <li><a href="index.html#sobre-nos">About Us</a></li>
+                    <li><a href="index.html#about-us-section">About Us</a></li> <!-- Link para a seção correta no index -->
                     <li><a href="#">Careers</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
@@ -175,11 +97,11 @@
         document.addEventListener('DOMContentLoaded', () => {
             const gameCards = document.querySelectorAll('.game-card-detailed');
             gameCards.forEach(card => {
-                card.style.cursor = 'help';
-                card.title = "Hmm... what happens if you double-click here?";
+                // card.style.cursor = 'help'; // You can keep or remove this
+                // card.title = "Hmm... what happens if you double-click here?"; // You can keep or remove this
 
                 card.addEventListener('dblclick', () => {
-                    window.location.href = 'dragon-slayer.html';
+                    window.location.href = 'dragon-slayer.html'; // This correctly links Kageborn to its page
                 });
             });
         });
