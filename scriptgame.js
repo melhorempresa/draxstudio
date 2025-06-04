@@ -56,11 +56,11 @@ const STRATEGIC_POWERUP_MIN_INTERVAL = 600;
 const STRATEGIC_POWERUP_RANDOM_ADDITION = 600;
 
 // Configurações de Regeneração de Vida
-const PASSIVE_REGEN_AMOUNT = 5 / 60; // 5 de vida por segundo (dividido por 60 ticks)
+const PASSIVE_REGEN_AMOUNT_PER_SECOND = 5;
+const PASSIVE_REGEN_PER_TICK = PASSIVE_REGEN_AMOUNT_PER_SECOND / 60; // Regeneração por tick (assumindo 60 FPS)
 const FAST_REGEN_MULTIPLIER = 3;
 
 
-// --- Geração de Settings da Onda --- (sem mudanças diretas para regeneração aqui)
 function generateWaveSettings(waveNum) {
     const settings = {};
     settings.dragonHealth = 100 + Math.pow(waveNum, 1.8) * 10 + (waveNum > 10 ? (waveNum - 10) * 25 : 0);
@@ -114,7 +114,7 @@ class PowerUp extends GameObject {
             case POWERUP_TYPES.RAPID_FIRE: color = 'rgba(50, 205, 50, 0.9)'; symbol = "R"; break;
             case POWERUP_TYPES.HEALTH_PACK: color = 'rgba(255, 105, 180, 0.9)'; symbol = "H"; break;
             case POWERUP_TYPES.DAMAGE_BOOST: color = 'rgba(255, 69, 0, 0.9)'; symbol = "D"; break;
-            case POWERUP_TYPES.FAST_REGEN: color = 'rgba(144, 238, 144, 0.9)'; symbol = "R+"; break; // LightGreen
+            case POWERUP_TYPES.FAST_REGEN: color = 'rgba(144, 238, 144, 0.9)'; symbol = "R+"; break; // NOVO
         }
         super(x, y, width, height, color);
         this.type = type; this.symbol = symbol; this.fallSpeed = 1.5; this.lifeSpan = 720;
@@ -131,7 +131,7 @@ class PowerUp extends GameObject {
     }
 }
 
-class Particle extends GameObject { // Sem mudanças
+class Particle extends GameObject {
     constructor(x, y, size, color, velocity) {
         super(x, y, size, size, color);
         this.velocity = velocity; this.alpha = 1; this.friction = 0.98; this.gravity = 0.08;
@@ -146,6 +146,7 @@ class Particle extends GameObject { // Sem mudanças
         ctx.fillRect(this.x, this.y, this.width, this.height); ctx.restore();
     }
 }
+
 function createExplosion(x, y, color = 'orange', count = 30) {
     for (let i = 0; i < count; i++) {
         const size = Math.random() * 5 + 2; const angle = Math.random() * Math.PI * 2;
@@ -195,19 +196,20 @@ class Player extends GameObject {
 
     handleRegeneration() {
         if (this.health < this.maxHealth) {
-            let regenRate = PASSIVE_REGEN_AMOUNT;
+            let currentRegenPerTick = PASSIVE_REGEN_PER_TICK;
             if (this.fastRegenActive) {
-                regenRate *= FAST_REGEN_MULTIPLIER;
+                currentRegenPerTick *= FAST_REGEN_MULTIPLIER;
             }
-            this.health = Math.min(this.maxHealth, this.health + regenRate);
-            if(Math.floor(this.health) !== Math.floor(this.health - regenRate)) { // Atualiza UI só se mudar o valor inteiro
+            const oldHealthInt = Math.floor(this.health);
+            this.health = Math.min(this.maxHealth, this.health + currentRegenPerTick);
+            if (Math.floor(this.health) !== oldHealthInt) { // Atualiza UI só se o valor inteiro mudar
                 updateUI();
             }
         }
     }
 
     update(settings) {
-        this.handleRegeneration(); // Chama a regeneração a cada update
+        this.handleRegeneration(); // Regeneração de vida a cada tick
 
         this.currentSpeed = this.baseSpeed;
         this.actualProjectileSpeed = this.currentBaseProjectileSpeed + (currentWave * 0.05);
@@ -280,7 +282,7 @@ class Player extends GameObject {
     }
 }
 
-class Dragon extends GameObject { // Sem mudanças
+class Dragon extends GameObject {
     constructor(x, y, width, height, color, health, attackIntervalBase, moveSpeedBase) {
         super(x, y, width, height, color);
         this.health = health; this.maxHealth = health;
@@ -329,11 +331,11 @@ class Dragon extends GameObject { // Sem mudanças
         }
         this.draw(); return true;
     }
-    handleCirclingState(settings) { /* ... */ if (this.isCircling) { this.circlingTimer--; if (this.circlingTimer <= 0) { this.isCircling = false; this.circlingCheckTimer = this.circlingCheckInterval; } } else { this.circlingCheckTimer--; if (this.circlingCheckTimer <= 0) { this.circlingCheckTimer = this.circlingCheckInterval; if (Math.random() < settings.circlingChance) { this.isCircling = true; this.circlingTimer = settings.circlingDuration; } } } }
-    performAttack(settings, playerRef) { /* ... */ const roll = Math.random(); if (roll < settings.tripleAttackChance) this.tripleAttack(settings, playerRef); else this.standardAttack(settings, playerRef); }
-    fireProjectile(posX, posY, settings, isLaserOverride = false, targetPlayer = false, playerRef = null, fixedAngleDeg = null) { /* ... */ let pColor = 'orange', pWidth = 10, pHeight = 10, pBaseSpeed = 3, dx = 0, dy = 0; if (isLaserOverride || Math.random() < settings.laserChance) { pColor = 'red'; pWidth = 5; pHeight = 20; pBaseSpeed = 5; } const actualSpeed = pBaseSpeed * settings.projectileSpeedMultiplier; if (targetPlayer && playerRef) { const angleToPlayer = Math.atan2((playerRef.y + playerRef.height / 2) - (posY + pHeight / 2), (playerRef.x + playerRef.width / 2) - (posX + pWidth / 2)); dx = Math.cos(angleToPlayer) * actualSpeed; dy = Math.sin(angleToPlayer) * actualSpeed; } else if (fixedAngleDeg !== null) { const angleRad = fixedAngleDeg * (Math.PI / 180); dx = Math.cos(angleRad) * actualSpeed; dy = Math.sin(angleRad) * actualSpeed; } else { dy = actualSpeed; } dragonProjectiles.push(new Projectile(posX - pWidth / 2, posY, pWidth, pHeight, pColor, actualSpeed, 'dragon', dx, dy)); }
-    standardAttack(settings, playerRef) { /* ... */ const shouldTarget = this.isCircling || Math.random() < 0.4; for (let i = 0; i < settings.numProjectiles; i++) { setTimeout(() => { if (this.isDying) return; const projSpawnX = this.x + this.width / 2; const projSpawnY = this.y + this.height; this.fireProjectile(projSpawnX, projSpawnY, settings, false, shouldTarget, playerRef); }, i * 90); } }
-    tripleAttack(settings, playerRef) { /* ... */ if (this.isDying) return; const projSpawnX = this.x + this.width / 2; const projSpawnY = this.y + this.height; const spreadAngle = 18; this.fireProjectile(projSpawnX, projSpawnY, settings, false, this.isCircling, playerRef, this.isCircling ? null : 90); setTimeout(() => { if (!this.isDying) this.fireProjectile(projSpawnX, projSpawnY, settings, false, this.isCircling, playerRef, this.isCircling ? null : 90 - spreadAngle)}, 50); setTimeout(() => { if (!this.isDying) this.fireProjectile(projSpawnX, projSpawnY, settings, false, this.isCircling, playerRef, this.isCircling ? null : 90 + spreadAngle)}, 100); }
+    handleCirclingState(settings) { if (this.isCircling) { this.circlingTimer--; if (this.circlingTimer <= 0) { this.isCircling = false; this.circlingCheckTimer = this.circlingCheckInterval; } } else { this.circlingCheckTimer--; if (this.circlingCheckTimer <= 0) { this.circlingCheckTimer = this.circlingCheckInterval; if (Math.random() < settings.circlingChance) { this.isCircling = true; this.circlingTimer = settings.circlingDuration; } } } }
+    performAttack(settings, playerRef) { const roll = Math.random(); if (roll < settings.tripleAttackChance) this.tripleAttack(settings, playerRef); else this.standardAttack(settings, playerRef); }
+    fireProjectile(posX, posY, settings, isLaserOverride = false, targetPlayer = false, playerRef = null, fixedAngleDeg = null) { let pColor = 'orange', pWidth = 10, pHeight = 10, pBaseSpeed = 3, dx = 0, dy = 0; if (isLaserOverride || Math.random() < settings.laserChance) { pColor = 'red'; pWidth = 5; pHeight = 20; pBaseSpeed = 5; } const actualSpeed = pBaseSpeed * settings.projectileSpeedMultiplier; if (targetPlayer && playerRef) { const angleToPlayer = Math.atan2((playerRef.y + playerRef.height / 2) - (posY + pHeight / 2), (playerRef.x + playerRef.width / 2) - (posX + pWidth / 2)); dx = Math.cos(angleToPlayer) * actualSpeed; dy = Math.sin(angleToPlayer) * actualSpeed; } else if (fixedAngleDeg !== null) { const angleRad = fixedAngleDeg * (Math.PI / 180); dx = Math.cos(angleRad) * actualSpeed; dy = Math.sin(angleRad) * actualSpeed; } else { dy = actualSpeed; } dragonProjectiles.push(new Projectile(posX - pWidth / 2, posY, pWidth, pHeight, pColor, actualSpeed, 'dragon', dx, dy)); }
+    standardAttack(settings, playerRef) { const shouldTarget = this.isCircling || Math.random() < 0.4; for (let i = 0; i < settings.numProjectiles; i++) { setTimeout(() => { if (this.isDying) return; const projSpawnX = this.x + this.width / 2; const projSpawnY = this.y + this.height; this.fireProjectile(projSpawnX, projSpawnY, settings, false, shouldTarget, playerRef); }, i * 90); } }
+    tripleAttack(settings, playerRef) { if (this.isDying) return; const projSpawnX = this.x + this.width / 2; const projSpawnY = this.y + this.height; const spreadAngle = 18; this.fireProjectile(projSpawnX, projSpawnY, settings, false, this.isCircling, playerRef, this.isCircling ? null : 90); setTimeout(() => { if (!this.isDying) this.fireProjectile(projSpawnX, projSpawnY, settings, false, this.isCircling, playerRef, this.isCircling ? null : 90 - spreadAngle)}, 50); setTimeout(() => { if (!this.isDying) this.fireProjectile(projSpawnX, projSpawnY, settings, false, this.isCircling, playerRef, this.isCircling ? null : 90 + spreadAngle)}, 100); }
     takeDamage(amount) {
         if (this.isDying) return;
         this.health -= amount; score += amount; updateUI();
@@ -349,7 +351,7 @@ class Dragon extends GameObject { // Sem mudanças
     }
 }
 
-class Projectile extends GameObject { // Sem mudanças
+class Projectile extends GameObject {
     constructor(x, y, width, height, color, speed, owner, dx = 0, dy = 0, damage = 10) {
         super(x, y, width, height, color);
         this.speed = speed; this.owner = owner; this.dx = dx; this.dy = dy; this.damage = damage;
@@ -396,12 +398,11 @@ function handleStrategicPowerUpSpawns() {
 
         if (Math.random() < baseChance) {
             const spawnX = Math.random() * (canvas.width - 60) + 30;
-            // Prioriza Health e Shield, mas pode dar Fast Regen também
             const randType = Math.random();
             let typeToSpawn;
-            if (randType < 0.45) typeToSpawn = POWERUP_TYPES.HEALTH_PACK;
-            else if (randType < 0.85) typeToSpawn = POWERUP_TYPES.SHIELD;
-            else typeToSpawn = POWERUP_TYPES.FAST_REGEN;
+            if (randType < 0.45) typeToSpawn = POWERUP_TYPES.HEALTH_PACK; // 45% chance
+            else if (randType < 0.85) typeToSpawn = POWERUP_TYPES.SHIELD;   // 40% chance
+            else typeToSpawn = POWERUP_TYPES.FAST_REGEN;                  // 15% chance
             spawnPowerUp(spawnX, -30, typeToSpawn);
         }
     }
@@ -448,20 +449,20 @@ function triggerSmoothNextWaveSetup() {
 }
 
 function updateUI() {
-    playerHealthUI.textContent = `${Math.floor(player.health)}/${player.maxHealth}`; // Mostra vida como inteiro
+    playerHealthUI.textContent = `${Math.floor(player.health)}/${player.maxHealth}`;
     dragonHealthUI.textContent = dragon && !dragon.isDying ? dragon.health : '---';
     waveUI.textContent = currentWave;
     scoreUI.textContent = score;
     if (pauseButton) pauseButton.textContent = isPaused ? "Continuar" : "Pausar";
 }
 
-function checkCollisions() { // Sem mudanças
+function checkCollisions() {
     for (let i = playerProjectiles.length - 1; i >= 0; i--) { const p = playerProjectiles[i]; if (dragon && !dragon.isDying && p.x < dragon.x + dragon.width && p.x + p.width > dragon.x && p.y < dragon.y + dragon.height && p.y + p.height > dragon.y) { dragon.takeDamage(p.damage); playerProjectiles.splice(i, 1); } }
     for (let i = dragonProjectiles.length - 1; i >= 0; i--) { const p = dragonProjectiles[i]; if (player.x < p.x + p.width && player.x + player.width > p.x && player.y < p.y + p.height && player.y + player.height > p.y) { player.takeDamage(18); dragonProjectiles.splice(i, 1); } }
     for (let i = powerUps.length - 1; i >= 0; i--) { const pu = powerUps[i]; if (player.x < pu.x + pu.width && player.x + player.width > pu.x && player.y < pu.y + pu.height && player.y + player.height > pu.y) { player.activatePowerUp(pu.type); powerUps.splice(i, 1); } }
 }
 
-function triggerGameOver() { // Sem mudanças
+function triggerGameOver() {
     gameOver = true; isPaused = false;
     gameOverScreen.innerHTML = `<h2>Fim de Jogo!</h2><p>Você sobreviveu até a Onda ${currentWave}.</p><p>Sua pontuação: <span id="finalScoreOver">${score}</span></p><button id="restartButtonOver">Jogar Novamente</button>`;
     document.getElementById('finalScoreOver').textContent = score;
@@ -469,7 +470,7 @@ function triggerGameOver() { // Sem mudanças
     document.getElementById('restartButtonOver').addEventListener('click', initGame);
 }
 
-function drawWaveClearMessage() { // Sem mudanças
+function drawWaveClearMessage() {
     if (waveClearMessageTimer > 0) {
         ctx.save(); ctx.font = "bold 28px Arial"; ctx.textAlign = "center";
         const alpha = Math.min(1, waveClearMessageTimer / (WAVE_CLEAR_MESSAGE_DURATION / 2));
@@ -480,7 +481,7 @@ function drawWaveClearMessage() { // Sem mudanças
     }
 }
 
-function drawPauseScreen() { // Sem mudanças
+function drawPauseScreen() {
     ctx.save(); ctx.fillStyle = "rgba(0, 0, 0, 0.6)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.font = "bold 48px Arial"; ctx.fillStyle = "white"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
     ctx.fillText("JOGO PAUSADO", canvas.width / 2, canvas.height / 2);
