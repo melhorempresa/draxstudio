@@ -579,3 +579,70 @@ footer {
     font-size: 0.85em;
     color: #777;
 }
+/* --- Estilos para a Seção Sobre Nós na Home (index.html#sobre-nos) --- */
+.about-section-home {
+    padding: 60px 0;
+    background-color: #1f1f1f; /* Cor de fundo consistente com o header/footer */
+    border-top: 1px solid #333; /* Linha separadora opcional */
+}
+
+.about-section-home h2 {
+    text-align: center;
+    font-size: 2.8em;
+    margin-bottom: 40px;
+    color: #fff;
+}
+
+.about-content-home {
+    display: flex;
+    align-items: center; /* Alinha verticalmente os itens se tiverem alturas diferentes */
+    gap: 40px; /* Espaço entre o texto e a imagem */
+}
+
+.about-text {
+    flex: 1; /* Permite que o texto ocupe o espaço disponível */
+    color: #c0c0c0;
+}
+
+.about-text p {
+    margin-bottom: 1.5em;
+    line-height: 1.7;
+    font-size: 1.05em;
+}
+
+.about-text .btn { /* Estilo para o botão dentro da seção sobre */
+    margin-top: 20px;
+    display: inline-block; /* Para o botão não ocupar a largura toda */
+}
+
+.about-image {
+    flex: 1; /* Permite que a imagem ocupe o espaço disponível */
+    max-width: 450px; /* Limita o tamanho máximo da imagem */
+}
+
+.about-image img {
+    border-radius: 8px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+/* Responsividade para a seção Sobre Nós */
+@media (max-width: 768px) {
+    .about-content-home {
+        flex-direction: column; /* Empilha texto e imagem em telas menores */
+        text-align: center; /* Centraliza o texto quando empilhado */
+    }
+    .about-image {
+        margin-top: 30px;
+        max-width: 100%; /* Imagem ocupa a largura disponível */
+    }
+    .about-text .btn {
+        width: auto; /* Ajusta a largura do botão */
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+}
+
+/* Para melhorar a experiência de rolagem suave (opcional, mas recomendado) */
+html {
+  scroll-behavior: smooth;
+}
