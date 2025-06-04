@@ -1,0 +1,294 @@
+/* Reset básico e Estilos Globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #121212; /* Cor de fundo escura principal */
+    color: #f0f0f0; /* Cor de texto clara principal */
+    line-height: 1.6;
+}
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+h1, h2, h3 {
+    margin-bottom: 0.8em;
+    color: #ffffff;
+}
+
+/* Header */
+header {
+    background-color: #1f1f1f; /* Um pouco mais claro que o body */
+    padding: 1em 0;
+    border-bottom: 1px solid #333;
+    position: sticky; /* Para o header ficar fixo no topo ao rolar */
+    top: 0;
+    z-index: 1000;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo h1 {
+    font-size: 1.8em;
+    color: #00aaff; /* Um azul vibrante para o logo */
+    margin-bottom: 0;
+}
+/* Se usar imagem para logo:
+header .logo img {
+    height: 40px;
+}
+*/
+
+header nav ul {
+    display: flex;
+}
+
+header nav ul li {
+    margin-left: 25px;
+}
+
+header nav ul li a {
+    color: #cccccc;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+header nav ul li a:hover,
+header nav ul li a.active {
+    color: #00aaff; /* Cor de destaque ao passar o mouse ou ativo */
+}
+
+/* Hero Section */
+.hero {
+    background-image: url('images/hero_background.jpg'); /* Substitua pela sua imagem de fundo */
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    text-align: center;
+    padding: 100px 0;
+    position: relative;
+    min-height: 70vh; /* Altura mínima */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Sobreposição escura para legibilidade */
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-content h2 {
+    font-size: 3em;
+    margin-bottom: 0.5em;
+    color: #ffffff;
+}
+
+.hero-content p {
+    font-size: 1.2em;
+    margin-bottom: 1.5em;
+    color: #e0e0e0;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-buttons .btn {
+    padding: 12px 25px;
+    margin: 0 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: inline-block; /* Para que os botões fiquem na mesma linha */
+}
+
+.btn-primary {
+    background-color: #007bff; /* Azul primário */
+    color: #fff;
+    border: 2px solid #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: #fff;
+    border: 2px solid #fff;
+}
+
+.btn-secondary:hover {
+    background-color: #fff;
+    color: #333;
+    transform: translateY(-2px);
+}
+
+.hero-stats {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 40px; /* Espaço entre os itens de estatística */
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-item h3 {
+    font-size: 2em;
+    color: #fff;
+    margin-bottom: 0.1em;
+}
+
+.stat-item p {
+    font-size: 0.9em;
+    color: #ccc;
+    margin-bottom: 0;
+}
+
+/* Top Hits Section */
+.top-hits {
+    padding: 60px 0;
+    text-align: center;
+    background-color: #1a1a1a; /* Um pouco diferente do body para distinção */
+}
+
+.top-hits h2 {
+    font-size: 2.5em;
+    margin-bottom: 0.3em;
+}
+
+.top-hits > .container > p { /* Parágrafo diretamente filho do container */
+    font-size: 1.1em;
+    color: #b0b0b0;
+    margin-bottom: 40px;
+}
+
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Grid responsivo */
+    gap: 30px;
+}
+
+.game-card {
+    background-color: #252525; /* Cor de fundo do card */
+    border-radius: 8px;
+    overflow: hidden; /* Para o raio da borda cortar a imagem */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: left; /* Alinhamento do texto dentro do card */
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+}
+
+.game-card img {
+    width: 100%;
+    height: 180px; /* Altura fixa para as imagens dos jogos */
+    object-fit: cover; /* Para a imagem preencher sem distorcer */
+}
+
+.game-card h3 {
+    font-size: 1.3em;
+    margin: 15px 15px 5px 15px;
+    color: #00aaff; /* Azul para o título do jogo */
+}
+
+.game-card p {
+    font-size: 0.9em;
+    color: #a0a0a0;
+    margin: 0 15px 15px 15px;
+}
+
+/* Footer */
+footer {
+    background-color: #1f1f1f;
+    text-align: center;
+    padding: 20px 0;
+    border-top: 1px solid #333;
+    font-size: 0.9em;
+    color: #888;
+}
+
+/* Responsividade Básica (para o menu hamburguer, por exemplo) */
+@media (max-width: 768px) {
+    header .container {
+        flex-direction: column;
+    }
+    header nav {
+        margin-top: 10px;
+    }
+    header nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+    header nav ul li {
+        margin: 5px 0;
+    }
+
+    .hero-content h2 {
+        font-size: 2.2em;
+    }
+    .hero-content p {
+        font-size: 1em;
+    }
+    .hero-buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .hero-buttons .btn {
+        margin: 10px 0;
+        width: 80%; /* Botões ocupam mais largura em telas menores */
+    }
+    .hero-stats {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .games-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+}
