@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Drax Studio - Inovação em Games</title>
     <link rel="stylesheet" href="style.css">
@@ -19,7 +19,7 @@
                 <ul>
                     <li><a href="index.html" class="active">Home</a></li>
                     <li><a href="games.html">Nossos Jogos</a></li>
-                    <li><a href="about.html">Sobre Nós</a></li>
+                    <li><a href="index.html#sobre-nos">Sobre Nós</a></li> <!-- MODIFICADO AQUI -->
                     <li><a href="contact.html">Contato</a></li>
                     <!-- <li><a href="#">Aquisições de Jogos</a></li>  Adicione se relevante -->
                 </ul>
@@ -35,7 +35,7 @@
                 <p>Criamos experiências memoráveis para jogadores ao redor do mundo.</p>
                 <div class="hero-buttons">
                     <a href="games.html" class="btn btn-primary">Explore nossos jogos</a>
-                    <a href="contact.html" class="btn btn-secondary">Fale conosco </a>
+                    <a href="contact.html" class="btn btn-secondary">Fale conosco </a> <!-- Ícone de balão de fala -->
                 </div>
                 <div class="hero-stats">
                     <div class="stat-item">
@@ -75,16 +75,69 @@
                         <h3>Nome do Jogo 4</h3>
                         <p>500K+ de Visitas</p>
                     </div>
+                    <!-- Adicione mais game-cards conforme necessário -->
                 </div>
             </div>
         </section>
+
+        <!-- NOVA SEÇÃO "SOBRE NÓS" ADICIONADA AQUI -->
+        <section id="sobre-nos" class="about-section-home">
+            <div class="container">
+                <h2>Sobre o Drax Studio</h2>
+                <div class="about-content-home">
+                    <div class="about-text">
+                        <p>O Drax Studio é uma equipe criativa e apaixonada, focada em inovação no desenvolvimento de jogos. Nossa missão é construir experiências memoráveis e imersivas que cativem jogadores de todas as idades ao redor do mundo.</p>
+                        <p>Acreditamos no poder transformador dos jogos para conectar pessoas, contar histórias envolventes e desafiar a criatividade. Estamos constantemente explorando novas tecnologias, mecânicas de jogo vanguardistas e narrativas cativantes para entregar entretenimento de alta qualidade.</p>
+                        <p>Com um olhar no futuro do metaverso e das interações digitais, buscamos sempre superar limites e definir novos padrões na indústria de games.</p>
+                        <a href="contact.html" class="btn btn-secondary">Fale Conosco & Parcerias</a>
+                    </div>
+                    <div class="about-image">
+                        <img src="images/about_us_placeholder.jpg" alt="Equipe Drax Studio ou Conceito de Inovação">
+                        <!-- Sugestão: imagem da equipe, um conceito de arte abstrato, ou algo que represente inovação -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- FIM DA NOVA SEÇÃO "SOBRE NÓS" -->
+
     </main>
 
-    <footer>
-        <div class="container">
-            <p>© 2025 Drax Studio. Todos os direitos reservados.</p>
+    <!-- RODAPÉ DETALHADO ADICIONADO AQUI -->
+    <footer class="site-footer-detailed">
+        <div class="container footer-grid">
+            <div class="footer-logo-bio">
+                <h3>Drax Studio</h3>
+                <!-- <p>Criando experiências inovadoras no metaverso.</p> -->
+            </div>
+            <div class="footer-links">
+                <h4>Serviços</h4>
+                <ul>
+                    <li><a href="contact.html">Aquisição de Jogos</a></li>
+                    <li><a href="contact.html#sobre-nos">Consultoria (Exemplo)</a></li> <!-- Exemplo de link para seção -->
+                    <li><a href="#">Marketing (Exemplo)</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Empresa</h4>
+                <ul>
+                    <li><a href="index.html#sobre-nos">Sobre Nós</a></li>
+                    <li><a href="#">Carreiras (Exemplo)</a></li>
+                    <li><a href="contact.html">Contato</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Política de Privacidade</a></li>
+                    <li><a href="#">Termos de Serviço</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container footer-copyright">
+             <p>© 2025 Drax Studio. Todos os direitos reservados.</p>
         </div>
     </footer>
+    <!-- FIM DO RODAPÉ DETALHADO -->
 
 </body>
 </html>
