@@ -5,10 +5,14 @@
     box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth; /* Rolagem suave para âncoras */
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #121212; /* Cor de fundo escura principal */
-    color: #f0f0f0; /* Cor de texto clara principal */
+    background-color: #181A1B; /* Novo: Cinza bem escuro, quase preto */
+    color: #E0E0E0; /* Novo: Cinza claro para texto */
     line-height: 1.6;
 }
 
@@ -33,17 +37,30 @@ img {
     display: block;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
     margin-bottom: 0.8em;
-    color: #ffffff;
+    color: #FFFFFF; /* Títulos em branco */
+    font-weight: 600;
+}
+
+/* --- Nova Paleta de Cores --- */
+:root {
+    --primary-color: #2EFF8A; /* Novo: Verde Neon Vibrante */
+    --primary-hover-color: #22CC6F; /* Novo: Verde Neon mais escuro para hover */
+    --dark-bg: #181A1B;
+    --section-bg: #1F2122; /* Novo: Cinza escuro para seções */
+    --card-bg: #2A2D2F;    /* Novo: Cinza para cards */
+    --text-light: #E0E0E0;
+    --text-medium: #A0A0A0;
+    --border-color: #3A3D3F;
 }
 
 /* Header */
 header {
-    background-color: #1f1f1f; /* Um pouco mais claro que o body */
+    background-color: var(--section-bg);
     padding: 1em 0;
-    border-bottom: 1px solid #333;
-    position: sticky; /* Para o header ficar fixo no topo ao rolar */
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
     top: 0;
     z-index: 1000;
 }
@@ -55,45 +72,45 @@ header .container {
 }
 
 header .logo h1 {
-    font-size: 1.8em;
-    color: #00aaff; /* Um azul vibrante para o logo */
+    font-size: 1.9em;
+    color: var(--primary-color); /* Novo: Cor do logo */
     margin-bottom: 0;
+    font-weight: 700;
+    letter-spacing: 1px;
 }
-/* Se usar imagem para logo:
-header .logo img {
-    height: 40px;
-}
-*/
 
 header nav ul {
     display: flex;
 }
 
 header nav ul li {
-    margin-left: 25px;
+    margin-left: 28px; /* Leve ajuste */
 }
 
 header nav ul li a {
-    color: #cccccc;
+    color: var(--text-light);
     font-weight: 500;
-    transition: color 0.3s ease;
+    transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
+    padding-bottom: 5px; /* Espaço para a borda no hover */
+    border-bottom: 2px solid transparent; /* Borda invisível para manter o layout */
 }
 
 header nav ul li a:hover,
 header nav ul li a.active {
-    color: #00aaff; /* Cor de destaque ao passar o mouse ou ativo */
+    color: var(--primary-color); /* Novo: Cor de destaque */
+    border-bottom-color: var(--primary-color); /* Borda aparece no hover/ativo */
 }
 
 /* Hero Section */
 .hero {
-    background-image: url('images/hero_background.jpg'); /* Substitua pela sua imagem de fundo */
+    background-image: url('images/hero_background.jpg'); /* Mantenha sua imagem ou use uma nova */
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
     text-align: center;
-    padding: 100px 0;
+    padding: 120px 0; /* Leve ajuste */
     position: relative;
-    min-height: 70vh; /* Altura mínima */
+    min-height: 70vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -105,7 +122,8 @@ header nav ul li a.active {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* Sobreposição escura para legibilidade */
+    /* Novo: Gradiente sutil para o overlay */
+    background: linear-gradient(to bottom, rgba(24, 26, 27, 0.5), rgba(24, 26, 27, 0.85));
     z-index: 1;
 }
 
@@ -115,60 +133,65 @@ header nav ul li a.active {
 }
 
 .hero-content h2 {
-    font-size: 3em;
-    margin-bottom: 0.5em;
-    color: #ffffff;
+    font-size: 3.2em; /* Leve ajuste */
+    margin-bottom: 0.4em;
+    color: #FFFFFF;
+    text-shadow: 0 0 10px rgba(0,0,0,0.5); /* Sombra sutil no texto */
 }
 
 .hero-content p {
-    font-size: 1.2em;
-    margin-bottom: 1.5em;
-    color: #e0e0e0;
-    max-width: 600px;
+    font-size: 1.25em; /* Leve ajuste */
+    margin-bottom: 1.8em;
+    color: var(--text-light);
+    max-width: 650px;
     margin-left: auto;
     margin-right: auto;
 }
 
 .hero-buttons .btn {
-    padding: 12px 25px;
-    margin: 0 10px;
-    border-radius: 5px;
+    padding: 14px 30px; /* Leve ajuste */
+    margin: 0 12px;
+    border-radius: 30px; /* Novo: Botões mais arredondados */
     font-weight: bold;
     text-transform: uppercase;
-    font-size: 0.9em;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    display: inline-block; /* Para que os botões fiquem na mesma linha */
+    font-size: 0.95em;
+    transition: all 0.3s ease;
+    display: inline-block;
+    border-width: 2px;
+    border-style: solid;
 }
 
 .btn-primary {
-    background-color: #007bff; /* Azul primário */
-    color: #fff;
-    border: 2px solid #007bff;
+    background-color: var(--primary-color);
+    color: var(--dark-bg); /* Texto escuro para contraste com fundo verde */
+    border-color: var(--primary-color);
 }
 
 .btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
-    transform: translateY(-2px);
+    background-color: var(--primary-hover-color);
+    border-color: var(--primary-hover-color);
+    transform: translateY(-3px) scale(1.02); /* Efeito de elevação */
+    box-shadow: 0 5px 15px rgba(46, 255, 138, 0.3); /* Sombra verde */
 }
 
 .btn-secondary {
     background-color: transparent;
-    color: #fff;
-    border: 2px solid #fff;
+    color: var(--primary-color);
+    border-color: var(--primary-color);
 }
 
 .btn-secondary:hover {
-    background-color: #fff;
-    color: #333;
-    transform: translateY(-2px);
+    background-color: var(--primary-color);
+    color: var(--dark-bg);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 5px 15px rgba(46, 255, 138, 0.2);
 }
 
 .hero-stats {
-    margin-top: 40px;
+    margin-top: 50px;
     display: flex;
     justify-content: center;
-    gap: 40px; /* Espaço entre os itens de estatística */
+    gap: 50px;
 }
 
 .stat-item {
@@ -176,218 +199,199 @@ header nav ul li a.active {
 }
 
 .stat-item h3 {
-    font-size: 2em;
-    color: #fff;
+    font-size: 2.2em;
+    color: #FFFFFF;
     margin-bottom: 0.1em;
 }
 
 .stat-item p {
     font-size: 0.9em;
-    color: #ccc;
+    color: var(--text-medium);
     margin-bottom: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-/* Top Hits Section */
-.top-hits {
-    padding: 60px 0;
+/* Top Hits Section & Games Showcase Section (Estilos unificados onde possível) */
+.top-hits, .games-showcase, .about-section-home {
+    padding: 70px 0;
+    background-color: var(--section-bg);
+    border-top: 1px solid var(--border-color); /* Linha separadora entre seções */
+}
+.top-hits:first-of-type, .games-showcase:first-of-type { /* Remove borda do topo da primeira seção após hero */
+    border-top: none;
+}
+
+
+.top-hits h2, .games-showcase h2, .about-section-home h2 {
+    font-size: 2.6em; /* Tamanho unificado para títulos de seção */
+    margin-bottom: 1em;
     text-align: center;
-    background-color: #1a1a1a; /* Um pouco diferente do body para distinção */
+    color: #FFFFFF;
 }
-
-.top-hits h2 {
-    font-size: 2.5em;
-    margin-bottom: 0.3em;
-}
-
-.top-hits > .container > p { /* Parágrafo diretamente filho do container */
+.top-hits > .container > p { /* Parágrafo de introdução da seção Top Hits */
     font-size: 1.1em;
-    color: #b0b0b0;
-    margin-bottom: 40px;
+    color: var(--text-medium);
+    margin-bottom: 50px;
+    text-align: center;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.games-grid {
+/* Game Cards (para Home e Página de Jogos) */
+.games-grid, .games-grid-fullpage {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Grid responsivo */
     gap: 30px;
 }
-
-.game-card {
-    background-color: #252525; /* Cor de fundo do card */
-    border-radius: 8px;
-    overflow: hidden; /* Para o raio da borda cortar a imagem */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    text-align: left; /* Alinhamento do texto dentro do card */
+.games-grid { /* Home */
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+.games-grid-fullpage { /* Página de Jogos */
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
 }
 
-.game-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
-}
-
-.game-card img {
-    width: 100%;
-    height: 180px; /* Altura fixa para as imagens dos jogos */
-    object-fit: cover; /* Para a imagem preencher sem distorcer */
-}
-
-.game-card h3 {
-    font-size: 1.3em;
-    margin: 15px 15px 5px 15px;
-    color: #00aaff; /* Azul para o título do jogo */
-}
-
-.game-card p {
-    font-size: 0.9em;
-    color: #a0a0a0;
-    margin: 0 15px 15px 15px;
-}
-
-/* Footer */
-footer {
-    background-color: #1f1f1f;
-    text-align: center;
-    padding: 20px 0;
-    border-top: 1px solid #333;
-    font-size: 0.9em;
-    color: #888;
-}
-
-/* Responsividade Básica (para o menu hamburguer, por exemplo) */
-@media (max-width: 768px) {
-    header .container {
-        flex-direction: column;
-    }
-    header nav {
-        margin-top: 10px;
-    }
-    header nav ul {
-        flex-direction: column;
-        align-items: center;
-    }
-    header nav ul li {
-        margin: 5px 0;
-    }
-
-    .hero-content h2 {
-        font-size: 2.2em;
-    }
-    .hero-content p {
-        font-size: 1em;
-    }
-    .hero-buttons {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    .hero-buttons .btn {
-        margin: 10px 0;
-        width: 80%; /* Botões ocupam mais largura em telas menores */
-    }
-    .hero-stats {
-        flex-direction: column;
-        gap: 20px;
-    }
-    .games-grid {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    }
-}
-/* --- Estilos para a Página Nossos Jogos (games.html) --- */
-.games-showcase {
-    padding: 40px 0;
-    background-color: #181818; /* Fundo ligeiramente diferente para a seção de jogos */
-}
-
-.games-showcase h2 {
-    text-align: center;
-    font-size: 2.8em;
-    margin-bottom: 40px;
-    color: #fff;
-}
-
-.games-grid-fullpage {
-    display: grid;
-    /* Ajuste minmax para o tamanho desejado dos cards. 220px é um bom ponto de partida para 4-5 colunas em telas largas */
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 25px;
-}
-
-.game-card-detailed {
-    background-color: #222; /* Um pouco mais escuro que os cards da home */
-    border-radius: 8px;
+.game-card, .game-card-detailed {
+    background-color: var(--card-bg);
+    border-radius: 10px; /* Bordas mais suaves */
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3); /* Sombra mais sutil */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
-    flex-direction: column; /* Para alinhar a imagem e o conteúdo abaixo dela */
+    flex-direction: column;
 }
 
-.game-card-detailed:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+.game-card:hover, .game-card-detailed:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4), 0 0 15px rgba(46, 255, 138, 0.2); /* Sombra normal + brilho verde */
 }
 
-.game-card-detailed img {
+.game-card img, .game-card-detailed img {
     width: 100%;
-    height: 150px; /* Altura para a imagem do jogo */
     object-fit: cover;
 }
+.game-card img { height: 190px; }
+.game-card-detailed img { height: 160px; }
 
+
+.game-card h3, .game-card-detailed h3 {
+    margin: 15px 15px 8px 15px;
+    color: var(--primary-color); /* Título do jogo na cor de destaque */
+    font-size: 1.25em;
+}
 .game-card-detailed h3 {
-    font-size: 1.1em; /* Título um pouco menor que os da home */
-    color: #e0e0e0;
-    margin: 12px 15px 8px 15px;
-    min-height: 40px; /* Para alinhar títulos de tamanhos diferentes */
+    font-size: 1.15em;
+    min-height: 44px; /* Para alinhar */
+}
+
+.game-card p { /* Descrição/Visitas na home */
+    font-size: 0.9em;
+    color: var(--text-medium);
+    margin: 0 15px 15px 15px;
+    flex-grow: 1; /* Para empurrar o conteúdo para baixo se os títulos forem de tamanhos diferentes */
 }
 
 .game-stats-detailed {
     display: flex;
-    justify-content: space-around; /* Distribui espaço entre os itens */
-    padding: 0px 10px 15px 10px; /* Espaçamento interno */
-    margin-top: auto; /* Empurra as estatísticas para baixo se o título for curto */
+    justify-content: space-around;
+    padding: 5px 10px 15px 10px;
+    margin-top: auto;
+    border-top: 1px solid var(--border-color); /* Separador sutil */
 }
 
 .stat-item-detailed {
     text-align: center;
+    padding-top: 10px;
 }
 
 .stat-item-detailed span {
     display: block;
     font-size: 1.1em;
     font-weight: bold;
-    color: #ffffff; /* Números em branco */
+    color: #FFFFFF;
     margin-bottom: 2px;
 }
 
 .stat-item-detailed p {
-    font-size: 0.75em;
-    color: #a0a0a0; /* Texto "Visitas", "Jogando" mais sutil */
+    font-size: 0.7em;
+    color: var(--text-medium);
     text-transform: uppercase;
     margin: 0;
+    letter-spacing: 0.5px;
 }
 
-/* Ajuste para telas menores se necessário, para que não fiquem muitos cards por linha */
-@media (max-width: 500px) {
-    .games-grid-fullpage {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Cards menores */
-    }
-     .game-card-detailed img {
-        height: 100px;
-    }
-    .game-card-detailed h3 {
-        font-size: 1em;
-    }
-    .stat-item-detailed span {
-        font-size: 1em;
-    }
-     .stat-item-detailed p {
-        font-size: 0.7em;
-    }
+
+/* Footer Detalhado */
+.site-footer-detailed {
+    background-color: #101213; /* Novo: Footer ainda mais escuro */
+    padding: 50px 0 0 0;
+    color: var(--text-medium);
+    font-size: 0.9em;
+    border-top: 1px solid var(--border-color);
 }
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 35px;
+    margin-bottom: 40px;
+}
+
+.footer-logo-bio h3 {
+    font-size: 1.6em;
+    color: var(--primary-color);
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.footer-links h4 {
+    font-size: 1.15em;
+    color: var(--text-light);
+    margin-bottom: 18px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    position: relative; /* Para o pseudo-elemento ::after */
+    padding-bottom: 8px;
+}
+/* Linha sutil abaixo dos títulos do footer */
+.footer-links h4::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 30px;
+    height: 2px;
+    background-color: var(--primary-color);
+}
+
+
+.footer-links ul li {
+    margin-bottom: 10px;
+}
+
+.footer-links ul li a {
+    color: var(--text-medium);
+    transition: color 0.2s ease, padding-left 0.2s ease;
+}
+
+.footer-links ul li a:hover {
+    color: var(--primary-color);
+    padding-left: 5px; /* Efeito sutil de deslocamento */
+}
+
+.footer-copyright {
+    text-align: center;
+    padding: 25px 0;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.85em;
+    color: #777;
+}
+
 /* --- Estilos para a Página Contato / Aquisições (contact.html) --- */
 .page-header-contact {
     text-align: center;
-    padding: 40px 20px;
+    padding: 50px 20px;
 }
 .page-header-contact h2 {
     font-size: 2.5em;
@@ -395,254 +399,258 @@ footer {
 }
 .page-header-contact p {
     font-size: 1.1em;
-    color: #c0c0c0;
+    color: var(--text-medium);
     max-width: 700px;
     margin: 0 auto;
 }
 
 .acquisitions-info {
-    padding: 20px 0 40px 0;
+    padding: 20px 0 50px 0;
 }
 
 .acquisitions-info .info-block {
-    background-color: #222;
-    padding: 20px;
-    margin-bottom: 20px;
+    background-color: var(--card-bg); /* Usa a cor de card */
+    padding: 25px;
+    margin-bottom: 25px;
     border-radius: 8px;
-    border-left: 4px solid #007bff; /* Destaque azul */
+    border-left: 5px solid var(--primary-color); /* Destaque verde */
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
 }
 
 .acquisitions-info .info-block h3 {
-    font-size: 1.8em;
-    color: #00aaff;
+    font-size: 1.7em;
+    color: var(--primary-color);
     margin-bottom: 10px;
 }
 .acquisitions-info .info-block h4 {
-    font-size: 1.3em;
-    color: #e0e0e0;
+    font-size: 1.25em;
+    color: var(--text-light);
     margin-bottom: 8px;
 }
 .acquisitions-info .info-block p {
-    color: #b0b0b0;
+    color: var(--text-medium);
     line-height: 1.7;
 }
 
 .contact-form-wrapper {
-    background-color: #1c1c1c; /* Fundo para a seção do formulário */
-    padding: 60px 0;
+    background-color: var(--section-bg); /* Fundo da seção */
+    padding: 70px 0;
 }
 
 .contact-box {
-    background: linear-gradient(135deg, #0052D4 0%, #4364F7 50%, #6FB1FC 100%); /* Gradiente azul */
-    padding: 30px 40px;
+    /* Novo: Fundo escuro para o box, destaque nos elementos internos */
+    background-color: var(--card-bg);
+    padding: 40px 50px;
     border-radius: 12px;
     max-width: 700px;
     margin: 0 auto;
-    color: #fff;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    color: var(--text-light);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    border-top: 4px solid var(--primary-color); /* Destaque no topo */
 }
 
 .contact-box-header {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 35px;
 }
 
 .contact-icon {
-    font-size: 2.5em; /* Ajuste o tamanho do ícone */
+    font-size: 3em;
     display: block;
     margin-bottom: 10px;
+    color: var(--primary-color); /* Ícone na cor de destaque */
 }
 
 .contact-box-header h2 {
-    font-size: 2.2em;
+    font-size: 2.3em;
     margin-bottom: 0.3em;
-    color: #fff;
+    color: #FFFFFF;
 }
 
 .contact-box-header p {
     font-size: 1em;
-    opacity: 0.9;
+    color: var(--text-medium);
 }
 
 .contact-form-main .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 22px;
 }
 
 .contact-form-main input[type="email"],
 .contact-form-main textarea {
     width: 100%;
-    padding: 15px;
+    padding: 16px;
     border-radius: 6px;
-    border: 1px solid #ddd; /* Borda sutil para os campos */
-    background-color: #fff; /* Fundo branco para campos */
-    color: #333; /* Texto escuro nos campos */
+    border: 1px solid var(--border-color);
+    background-color: #252728; /* Fundo dos inputs um pouco mais escuro */
+    color: var(--text-light);
     font-size: 1em;
-    transition: border-color 0.3s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 .contact-form-main input[type="email"]::placeholder,
 .contact-form-main textarea::placeholder {
-    color: #888;
+    color: #777;
 }
 
 .contact-form-main input[type="email"]:focus,
 .contact-form-main textarea:focus {
     outline: none;
-    border-color: #007bff; /* Borda azul no foco */
-    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(46, 255, 138, 0.25); /* Brilho verde no foco */
 }
 
 .contact-form-main .checkbox-group {
     display: flex;
     align-items: center;
     font-size: 0.9em;
+    color: var(--text-medium);
 }
 
 .contact-form-main .checkbox-group input[type="checkbox"] {
     margin-right: 10px;
-    width: 18px; /* Aumenta um pouco o checkbox */
+    width: 18px;
     height: 18px;
-    accent-color: #007bff; /* Cor do check no checkbox */
+    accent-color: var(--primary-color); /* Cor do check */
+    background-color: #252728;
+    border: 1px solid var(--border-color);
 }
 .contact-form-main .checkbox-group label {
-    opacity: 0.9;
+    cursor: pointer;
 }
 
-.btn-form-submit { /* Botão do formulário pode ter estilo ligeiramente diferente */
-    background-color: #ffffff; /* Botão branco */
-    color: #007bff; /* Texto azul */
-    border: 2px solid #ffffff;
-    width: 100%; /* Botão de largura total */
-    padding: 15px;
+.btn-form-submit { /* Botão do formulário */
+    background-color: var(--primary-color);
+    color: var(--dark-bg);
+    border: 2px solid var(--primary-color);
+    width: 100%;
+    padding: 16px;
     font-size: 1.1em;
-    text-transform: none; /* Sem uppercase se preferir */
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 6px; /* Bordas mais retas para o botão de submit */
+    transition: all 0.3s ease;
 }
 
 .btn-form-submit:hover {
-    background-color: rgba(255, 255, 255, 0.9);
-    border-color: rgba(255, 255, 255, 0.9);
-    color: #0056b3;
+    background-color: var(--primary-hover-color);
+    border-color: var(--primary-hover-color);
+    box-shadow: 0 4px 12px rgba(46, 255, 138, 0.3);
 }
 
 .form-disclaimer {
     text-align: center;
     font-size: 0.8em;
-    opacity: 0.8;
-    margin-top: 25px;
+    color: var(--text-medium);
+    margin-top: 30px;
 }
 
-/* Footer Detalhado */
-.site-footer-detailed {
-    background-color: #0a0a0a; /* Mais escuro para o footer */
-    padding: 40px 0 0 0; /* Espaçamento no topo, sem padding inferior aqui */
-    color: #a0a0a0;
-    font-size: 0.9em;
-}
 
-.footer-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 30px;
-    margin-bottom: 30px;
-}
-
-.footer-logo-bio h3 {
-    font-size: 1.5em;
-    color: #00aaff; /* Mesmo azul do logo */
-    margin-bottom: 10px;
-}
-
-.footer-links h4 {
-    font-size: 1.1em;
-    color: #e0e0e0;
-    margin-bottom: 15px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.footer-links ul li {
-    margin-bottom: 8px;
-}
-
-.footer-links ul li a {
-    color: #a0a0a0;
-    transition: color 0.3s ease;
-}
-
-.footer-links ul li a:hover {
-    color: #00aaff;
-}
-
-.footer-copyright {
-    text-align: center;
-    padding: 20px 0;
-    border-top: 1px solid #222;
-    font-size: 0.85em;
-    color: #777;
-}
 /* --- Estilos para a Seção Sobre Nós na Home (index.html#sobre-nos) --- */
-.about-section-home {
-    padding: 60px 0;
-    background-color: #1f1f1f; /* Cor de fundo consistente com o header/footer */
-    border-top: 1px solid #333; /* Linha separadora opcional */
-}
-
-.about-section-home h2 {
-    text-align: center;
-    font-size: 2.8em;
-    margin-bottom: 40px;
-    color: #fff;
-}
+/* .about-section-home já estilizada com .top-hits, .games-showcase */
 
 .about-content-home {
     display: flex;
-    align-items: center; /* Alinha verticalmente os itens se tiverem alturas diferentes */
-    gap: 40px; /* Espaço entre o texto e a imagem */
+    align-items: flex-start; /* Alinha no topo */
+    gap: 50px;
 }
 
 .about-text {
-    flex: 1; /* Permite que o texto ocupe o espaço disponível */
-    color: #c0c0c0;
+    flex: 1.2; /* Dá um pouco mais de espaço para o texto */
+    color: var(--text-light);
 }
 
 .about-text p {
     margin-bottom: 1.5em;
-    line-height: 1.7;
+    line-height: 1.75; /* Aumenta um pouco o espaçamento entre linhas */
     font-size: 1.05em;
+    color: var(--text-medium); /* Texto do parágrafo um pouco mais suave */
+}
+.about-text p:first-of-type {
+    color: var(--text-light); /* Primeiro parágrafo mais destacado */
+    font-size: 1.1em;
 }
 
-.about-text .btn { /* Estilo para o botão dentro da seção sobre */
-    margin-top: 20px;
-    display: inline-block; /* Para o botão não ocupar a largura toda */
+.about-text .btn {
+    margin-top: 25px;
+    display: inline-block;
+    /* Usa os estilos globais de .btn e .btn-secondary */
 }
 
 .about-image {
-    flex: 1; /* Permite que a imagem ocupe o espaço disponível */
-    max-width: 450px; /* Limita o tamanho máximo da imagem */
+    flex: 0.8;
+    max-width: 400px;
 }
 
 .about-image img {
-    border-radius: 8px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3), 0 0 20px rgba(46, 255, 138, 0.1); /* Sombra + brilho verde */
 }
 
-/* Responsividade para a seção Sobre Nós */
+
+/* Responsividade */
 @media (max-width: 768px) {
+    header .container {
+        flex-direction: column;
+        gap: 15px; /* Espaço entre logo e nav */
+    }
+    header nav {
+        margin-top: 0; /* Reset margin-top */
+        width: 100%; /* Faz o nav ocupar toda a largura */
+    }
+    header nav ul {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+    header nav ul li {
+        margin: 8px 0;
+        margin-left: 0; /* Reset margin-left */
+        width: 100%;
+        text-align: center;
+    }
+    header nav ul li a {
+        display: block; /* Faz o link ocupar toda a largura do li */
+        padding: 10px 0;
+    }
+
+    .hero-content h2 { font-size: 2.5em; }
+    .hero-content p { font-size: 1.1em; }
+    .hero-buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px; /* Espaço entre botões */
+    }
+    .hero-buttons .btn {
+        margin: 0; /* Reset margin */
+        width: 85%;
+    }
+    .hero-stats { flex-direction: column; gap: 25px; }
+
+    .games-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .games-grid-fullpage { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+
     .about-content-home {
-        flex-direction: column; /* Empilha texto e imagem em telas menores */
-        text-align: center; /* Centraliza o texto quando empilhado */
+        flex-direction: column;
+        text-align: center;
     }
     .about-image {
-        margin-top: 30px;
-        max-width: 100%; /* Imagem ocupa a largura disponível */
+        margin-top: 35px;
+        max-width: 80%;
+        margin-left: auto;
+        margin-right: auto;
     }
-    .about-text .btn {
-        width: auto; /* Ajusta a largura do botão */
-        padding-left: 30px;
-        padding-right: 30px;
-    }
+    .about-text .btn { width: auto; padding-left: 35px; padding-right: 35px; }
+
+    .contact-box { padding: 30px 25px; }
+    .footer-grid { grid-template-columns: 1fr; text-align: center; } /* Uma coluna no mobile para o footer */
+    .footer-links h4::after { left: 50%; transform: translateX(-50%); } /* Centraliza a linha */
 }
 
-/* Para melhorar a experiência de rolagem suave (opcional, mas recomendado) */
-html {
-  scroll-behavior: smooth;
+@media (max-width: 500px) {
+    .games-grid-fullpage { grid-template-columns: 1fr; } /* Uma coluna para cards de jogos */
+    .game-card-detailed img { height: 180px; } /* Imagem maior no layout de uma coluna */
+    .hero-content h2 { font-size: 2em; }
+    .hero-content p { font-size: 1em; }
+    .hero-buttons .btn { width: 90%; }
 }
