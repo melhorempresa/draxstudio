@@ -1,29 +1,114 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Drax Studio | Contact</title>
-  <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato & Aquisições - Drax Studio</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Drax Studio</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="games.html">Our Games</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-  </header>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Drax Studio</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="games.html">Nossos Jogos</a></li>
+                    <li><a href="about.html">Sobre Nós</a></li>
+                    <li><a href="contact.html" class="active">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-  <section class="content">
-    <h2>Contact</h2>
-    <p>Email: contact@draxstudio.com</p>
-    <p>Follow us on social media for updates and news.</p>
-  </section>
+    <main>
+        <section class="page-header-contact container">
+            <h2>Aquisições de Jogos & Parcerias</h2>
+            <p>Tem um jogo incrível e procura um parceiro para levá-lo ao próximo nível? <br>O Drax Studio está sempre em busca de novos talentos e jogos promissores!</p>
+        </section>
 
-  <footer>
-    <p>&copy; 2025 Drax Studio. All rights reserved.</p>
-  </footer>
+        <section class="acquisitions-info container">
+            <div class="info-block">
+                <h3>Por que se juntar ao Drax Studio?</h3>
+                <p>Compramos seu jogo Roblox adiantado, oferecendo um pagamento inicial competitivo.</p>
+            </div>
+            <div class="info-block">
+                <h4>Desenvolvimento e Marketing Especializados</h4>
+                <p>Nossa equipe experiente assume o desenvolvimento, marketing e otimização contínua, garantindo que seus jogos prosperem a longo prazo.</p>
+            </div>
+            <div class="info-block">
+                <h4>Compartilhamento de Receita</h4>
+                <p>Você se beneficiará da receita contínua gerada pelo seu jogo através de um modelo transparente de compartilhamento de receita.</p>
+            </div>
+            <div class="info-block">
+                <h4>Transição sem Complicações</h4>
+                <p>Relaxe! Cuidamos de tudo, desde a venda até o gerenciamento futuro, permitindo que você se concentre em sua próxima grande ideia.</p>
+            </div>
+        </section>
+
+        <section class="contact-form-wrapper">
+            <div class="contact-box">
+                <div class="contact-box-header">
+                    <span class="contact-icon">🤝</span> <!-- Ou use um ícone de imagem/SVG -->
+                    <h2>Vamos começar!</h2>
+                    <p>Envie-nos uma mensagem com o link do seu jogo e métricas.</p>
+                </div>
+                <form action="#" method="POST" class="contact-form-main">
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="Seu Endereço de Email..." required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" name="message" rows="6" placeholder="Sua mensagem, link do jogo, métricas..." required></textarea>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="confirmAge" name="confirmAge" required>
+                        <label for="confirmAge">Confirmo que tenho mais de 13 anos.</label>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-form-submit">Enviar Mensagem</button>
+                    </div>
+                </form>
+                <p class="form-disclaimer">Ao preencher este formulário e enviá-lo, você concorda com nossa política de privacidade.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer-detailed">
+        <div class="container footer-grid">
+            <div class="footer-logo-bio">
+                <h3>Drax Studio</h3>
+                <!-- <p>Criando experiências inovadoras no metaverso.</p> -->
+            </div>
+            <div class="footer-links">
+                <h4>Serviços</h4>
+                <ul>
+                    <li><a href="contact.html">Aquisição de Jogos</a></li>
+                    <li><a href="#">Consultoria</a></li>
+                    <li><a href="#">Marketing</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Empresa</h4>
+                <ul>
+                    <li><a href="about.html">Sobre Nós</a></li>
+                    <li><a href="#">Carreiras</a></li>
+                    <li><a href="contact.html">Contato</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Política de Privacidade</a></li>
+                    <li><a href="#">Termos de Serviço</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container footer-copyright">
+             <p>© 2025 Drax Studio. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
 </body>
 </html>
