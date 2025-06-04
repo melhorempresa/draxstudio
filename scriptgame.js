@@ -133,10 +133,13 @@ class Player extends GameObject {
         this.projectileDamage = this.damageBoostActive ? 22 : 10;
 
         // Auto-disparo
-        if (this.shootTimer > 0) this.shootTimer--;
-        if (this.shootTimer === 0) {
+        if (this.shootTimer > 0) {
+            this.shootTimer--;
+        }
+        // Verifique se o timer é menor ou igual a zero para disparar
+        if (this.shootTimer <= 0) { // <--- CORREÇÃO APLICADA AQUI
             this.shoot(settings);
-            this.shootTimer = this.currentShootCooldown;
+            this.shootTimer = this.currentShootCooldown; // Reset o timer
         }
         this.draw();
         if (this.isShielded) this.drawShield();
