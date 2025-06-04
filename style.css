@@ -108,7 +108,8 @@ header nav ul li a.active {
 
 /* Hero Section */
 .hero {
-    background-image: url('images/hero_background.jpg');
+    /* MODIFICADO AQUI: Caminho da imagem de fundo */
+    background-image: url('png/hero_background.jpg'); 
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -274,7 +275,7 @@ header nav ul li a.active {
     object-fit: cover;
 }
 .game-card img { height: 190px; }
-.game-card-detailed img { height: 160px; }
+.game-card-detailed img { height: 160px; } /* A imagem do kageborn.png usará esta altura se estiver em .game-card-detailed */
 
 .game-card h3, .game-card-detailed h3 {
     margin: 15px 15px 8px 15px;
