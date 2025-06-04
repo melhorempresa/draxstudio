@@ -37,10 +37,10 @@ const POWERUP_TYPES = {
     RAPID_FIRE: 'rapid_fire',
     HEALTH_PACK: 'health_pack',
     DAMAGE_BOOST: 'damage_boost',
-    FAST_REGEN: 'fast_regen' // NOVO POWER-UP
+    FAST_REGEN: 'fast_regen'
 };
-const POWERUP_BASE_DURATION = 300; // 5 segundos para Shield, Rapid Fire, Damage Boost
-const FAST_REGEN_DURATION = 600; // 10 segundos para Fast Regen
+const POWERUP_BASE_DURATION = 300;
+const FAST_REGEN_DURATION = 600;
 
 // Controle de Spawn de Power-ups
 let gameTickCounter = 0;
@@ -57,7 +57,7 @@ const STRATEGIC_POWERUP_RANDOM_ADDITION = 600;
 
 // Configurações de Regeneração de Vida
 const PASSIVE_REGEN_AMOUNT_PER_SECOND = 5;
-const PASSIVE_REGEN_PER_TICK = PASSIVE_REGEN_AMOUNT_PER_SECOND / 60; // Regeneração por tick (assumindo 60 FPS)
+const PASSIVE_REGEN_PER_TICK = PASSIVE_REGEN_AMOUNT_PER_SECOND / 60;
 const FAST_REGEN_MULTIPLIER = 3;
 
 
@@ -75,11 +75,9 @@ function generateWaveSettings(waveNum) {
     settings.circlingChance = Math.min(0.55, 0.1 + waveNum * 0.012);
     settings.circlingDuration = 240 + waveNum * 6;
 
-    settings.playerBaseProjectileSpeed = 7;
-    settings.playerBaseShootCooldown = 18;
-    settings.playerProjectileSpeed = (player ? player.currentBaseProjectileSpeed : settings.playerBaseProjectileSpeed) + waveNum * 0.09;
-    settings.playerShootCooldown = Math.max(2, (player ? player.currentBaseShootCooldown : settings.playerBaseShootCooldown) - waveNum * 0.25);
-
+    // Player settings são mais gerenciadas dentro da classe Player agora devido às evoluções
+    // mas podemos ainda ter alguns ajustes baseados em onda se necessário,
+    // ou para projéteis (tamanho, cor).
     settings.playerProjectileBaseWidth = 5;
     settings.playerProjectileBaseHeight = 10;
     settings.playerProjectileWidth = settings.playerProjectileBaseWidth + Math.floor(waveNum / 4.5);
@@ -114,7 +112,7 @@ class PowerUp extends GameObject {
             case POWERUP_TYPES.RAPID_FIRE: color = 'rgba(50, 205, 50, 0.9)'; symbol = "R"; break;
             case POWERUP_TYPES.HEALTH_PACK: color = 'rgba(255, 105, 180, 0.9)'; symbol = "H"; break;
             case POWERUP_TYPES.DAMAGE_BOOST: color = 'rgba(255, 69, 0, 0.9)'; symbol = "D"; break;
-            case POWERUP_TYPES.FAST_REGEN: color = 'rgba(144, 238, 144, 0.9)'; symbol = "R+"; break; // NOVO
+            case POWERUP_TYPES.FAST_REGEN: color = 'rgba(144, 238, 144, 0.9)'; symbol = "R+"; break;
         }
         super(x, y, width, height, color);
         this.type = type; this.symbol = symbol; this.fallSpeed = 1.5; this.lifeSpan = 720;
@@ -167,19 +165,20 @@ class Player extends GameObject {
         this.evolutionLevel = 0;
         this.evolutionColors = ['lime', 'deepskyblue', 'gold', 'fuchsia', 'white'];
 
-        this.currentBaseProjectileSpeed = 7;
-        this.currentBaseShootCooldown = 18;
-        this.currentBaseProjectileDamage = 10;
+        this.currentBaseProjectileSpeed = 7;  // Velocidade base inicial do projétil
+        this.currentBaseShootCooldown = 18; // Cooldown base inicial
+        this.currentBaseProjectileDamage = 10;// Dano base inicial do projétil
 
-        this.actualShootCooldown = 20;
-        this.actualProjectileSpeed = 7;
-        this.actualProjectileDamage = 10;
+        // Atributos efetivos que serão usados, calculados a partir dos base + bônus de onda/powerups
+        this.actualShootCooldown = this.currentBaseShootCooldown;
+        this.actualProjectileSpeed = this.currentBaseProjectileSpeed;
+        this.actualProjectileDamage = this.currentBaseProjectileDamage;
 
         this.shootTimer = 0;
         this.isShielded = false; this.shieldTimer = 0;
         this.rapidFireActive = false; this.rapidFireTimer = 0;
         this.damageBoostActive = false; this.damageBoostTimer = 0;
-        this.fastRegenActive = false; this.fastRegenTimer = 0; // NOVO
+        this.fastRegenActive = false; this.fastRegenTimer = 0;
     }
 
     evolve() {
@@ -187,10 +186,11 @@ class Player extends GameObject {
         this.baseSpeed += 0.25;
         this.currentBaseProjectileSpeed += 0.3;
         this.currentBaseShootCooldown = Math.max(2, this.currentBaseShootCooldown * 0.92);
-        this.currentBaseProjectileDamage += 2;
+        this.currentBaseProjectileDamage += 1; // AUMENTO DE DANO BASE NA EVOLUÇÃO
         this.maxHealth += 15;
         this.health = this.maxHealth;
         this.color = this.evolutionColors[Math.min(this.evolutionLevel, this.evolutionColors.length - 1)];
+        console.log(`Player Evolved! Level: ${this.evolutionLevel}, Base Damage: ${this.currentBaseProjectileDamage}`);
         updateUI();
     }
 
@@ -202,19 +202,25 @@ class Player extends GameObject {
             }
             const oldHealthInt = Math.floor(this.health);
             this.health = Math.min(this.maxHealth, this.health + currentRegenPerTick);
-            if (Math.floor(this.health) !== oldHealthInt) { // Atualiza UI só se o valor inteiro mudar
+            if (Math.floor(this.health) !== oldHealthInt) {
                 updateUI();
             }
         }
     }
 
-    update(settings) {
-        this.handleRegeneration(); // Regeneração de vida a cada tick
+    update(settings) { // settings aqui são as da onda atual (para tamanho/cor do projétil, etc)
+        this.handleRegeneration();
 
+        // 1. Atualizar atributos 'atuais' com base nos 'base' (que são afetados pela evolução)
         this.currentSpeed = this.baseSpeed;
-        this.actualProjectileSpeed = this.currentBaseProjectileSpeed + (currentWave * 0.05);
-        this.actualShootCooldown = Math.max(2, this.currentBaseShootCooldown - (currentWave * 0.15));
-        this.actualProjectileDamage = this.currentBaseProjectileDamage;
+        this.actualProjectileSpeed = this.currentBaseProjectileSpeed; // Evolução já cuidou disso
+        this.actualProjectileDamage = this.currentBaseProjectileDamage; // Evolução já cuidou disso
+        this.actualShootCooldown = this.currentBaseShootCooldown; // Evolução já cuidou disso
+
+        // 2. Pequenos ajustes por onda (opcional, pode ser removido se a evolução for suficiente)
+        this.actualProjectileSpeed += (currentWave * 0.02); // Mínimo ajuste por onda
+        this.actualShootCooldown = Math.max(2, this.actualShootCooldown - (currentWave * 0.05));
+
 
         if ((keys['ArrowLeft'] || keys['KeyA']) && this.x > 0) this.x -= this.currentSpeed;
         if ((keys['ArrowRight'] || keys['KeyD']) && this.x < canvas.width - this.width) this.x += this.currentSpeed;
@@ -223,14 +229,17 @@ class Player extends GameObject {
 
         this.updatePowerUpTimers();
 
+        // 3. Aplicar efeitos de power-ups aos atributos 'atuais'
         let finalShootCooldown = this.actualShootCooldown;
         if (this.rapidFireActive) finalShootCooldown = Math.max(2, finalShootCooldown / 2.2);
 
         let finalProjectileDamage = this.actualProjectileDamage;
         if (this.damageBoostActive) finalProjectileDamage = Math.round(finalProjectileDamage * 1.8);
 
+
         if (this.shootTimer > 0) this.shootTimer--;
         if (keys['Space'] && this.shootTimer <= 0) {
+            // Passa os valores finais para o método shoot
             this.shoot(settings, this.actualProjectileSpeed, finalProjectileDamage);
             this.shootTimer = finalShootCooldown;
         }
@@ -241,7 +250,7 @@ class Player extends GameObject {
         if (this.shieldTimer > 0) { this.shieldTimer--; if (this.shieldTimer === 0) this.isShielded = false; }
         if (this.rapidFireTimer > 0) { this.rapidFireTimer--; if (this.rapidFireTimer === 0) this.rapidFireActive = false; }
         if (this.damageBoostTimer > 0) { this.damageBoostTimer--; if (this.damageBoostTimer === 0) this.damageBoostActive = false; }
-        if (this.fastRegenTimer > 0) { this.fastRegenTimer--; if (this.fastRegenTimer === 0) this.fastRegenActive = false; } // NOVO
+        if (this.fastRegenTimer > 0) { this.fastRegenTimer--; if (this.fastRegenTimer === 0) this.fastRegenActive = false; }
     }
     drawShield() {
         ctx.strokeStyle = 'rgba(0, 220, 255, 0.7)'; ctx.lineWidth = 4; ctx.beginPath();
@@ -259,14 +268,16 @@ class Player extends GameObject {
                 this.health = this.maxHealth; updateUI(); break;
             case POWERUP_TYPES.DAMAGE_BOOST:
                 this.damageBoostActive = true; this.damageBoostTimer = POWERUP_BASE_DURATION; break;
-            case POWERUP_TYPES.FAST_REGEN: // NOVO
+            case POWERUP_TYPES.FAST_REGEN:
                 this.fastRegenActive = true; this.fastRegenTimer = FAST_REGEN_DURATION; break;
         }
     }
-    shoot(settings, projectileSpeed, projectileDamage) {
+    shoot(settings, projectileSpeed, projectileDamage) { // Recebe velocidade e dano finais
         let projWidth = settings.playerProjectileWidth;
         let projHeight = settings.playerProjectileHeight;
-        let projColor = this.damageBoostActive ? 'orangered' : (this.color === 'lime' ? settings.playerProjectileColor : this.color);
+        // Usa a cor do player (que muda com a evolução) ou a cor padrão do projétil da wave
+        let projColor = this.damageBoostActive ? 'orangered' : (this.evolutionLevel > 0 ? this.color : settings.playerProjectileColor);
+
 
         if (Math.random() < settings.playerEmpoweredShotChance) {
             projWidth *= settings.playerEmpoweredShotSizeMultiplier;
@@ -379,7 +390,6 @@ function handleRandomGenericPowerUpSpawns(settings) {
         randomPowerUpSpawnTimer = RANDOM_POWERUP_SPAWN_INTERVAL_CHECK;
         if (Math.random() < settings.randomPowerUpSpawnChancePerSecond) {
             const spawnX = Math.random() * (canvas.width - 60) + 30;
-            // Adicionado FAST_REGEN aqui com chance igual aos outros não-defensivos
             let availableTypes = [POWERUP_TYPES.RAPID_FIRE, POWERUP_TYPES.DAMAGE_BOOST, POWERUP_TYPES.FAST_REGEN];
             const typeToSpawn = availableTypes[Math.floor(Math.random() * availableTypes.length)];
             if (typeToSpawn) spawnPowerUp(spawnX, -30, typeToSpawn);
@@ -400,9 +410,9 @@ function handleStrategicPowerUpSpawns() {
             const spawnX = Math.random() * (canvas.width - 60) + 30;
             const randType = Math.random();
             let typeToSpawn;
-            if (randType < 0.45) typeToSpawn = POWERUP_TYPES.HEALTH_PACK; // 45% chance
-            else if (randType < 0.85) typeToSpawn = POWERUP_TYPES.SHIELD;   // 40% chance
-            else typeToSpawn = POWERUP_TYPES.FAST_REGEN;                  // 15% chance
+            if (randType < 0.45) typeToSpawn = POWERUP_TYPES.HEALTH_PACK;
+            else if (randType < 0.85) typeToSpawn = POWERUP_TYPES.SHIELD;
+            else typeToSpawn = POWERUP_TYPES.FAST_REGEN;
             spawnPowerUp(spawnX, -30, typeToSpawn);
         }
     }
@@ -425,7 +435,9 @@ function initGame() {
 
 function setupNewDragonForWave(waveNum) {
     waveDurationTicks = 0;
-    const settings = generateWaveSettings(waveNum);
+    const settings = generateWaveSettings(waveNum); // Gera settings para a onda
+    // (A classe Player usa seus próprios 'base' stats que são modificados pela evolução,
+    // e o método player.update() pode aplicar ajustes adicionais baseados na onda se necessário)
     dragon = new Dragon( canvas.width / 2 - 50, -100, 100, 80,
         `hsl(${Math.random() * 360}, 70%, 50%)`,
         settings.dragonHealth, settings.dragonAttackInterval, settings.dragonMoveSpeedBase
@@ -495,9 +507,9 @@ function gameLoop() {
 
     gameTickCounter++; waveDurationTicks++;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    const currentWaveSettings = generateWaveSettings(currentWave);
+    const currentWaveSettings = generateWaveSettings(currentWave); // Gera settings para a onda atual
 
-    player.update(currentWaveSettings);
+    player.update(currentWaveSettings); // Passa as settings da onda para o player (para tamanho/cor do projétil, etc.)
     if (dragon) {
         if (dragon.targetY && dragon.y < dragon.targetY) {
             dragon.y += 3; if (dragon.y >= dragon.targetY) { dragon.y = dragon.targetY; dragon.targetY = null; }
