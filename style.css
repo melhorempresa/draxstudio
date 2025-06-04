@@ -292,3 +292,95 @@ footer {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
 }
+/* --- Estilos para a Página Nossos Jogos (games.html) --- */
+.games-showcase {
+    padding: 40px 0;
+    background-color: #181818; /* Fundo ligeiramente diferente para a seção de jogos */
+}
+
+.games-showcase h2 {
+    text-align: center;
+    font-size: 2.8em;
+    margin-bottom: 40px;
+    color: #fff;
+}
+
+.games-grid-fullpage {
+    display: grid;
+    /* Ajuste minmax para o tamanho desejado dos cards. 220px é um bom ponto de partida para 4-5 colunas em telas largas */
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+}
+
+.game-card-detailed {
+    background-color: #222; /* Um pouco mais escuro que os cards da home */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column; /* Para alinhar a imagem e o conteúdo abaixo dela */
+}
+
+.game-card-detailed:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+}
+
+.game-card-detailed img {
+    width: 100%;
+    height: 150px; /* Altura para a imagem do jogo */
+    object-fit: cover;
+}
+
+.game-card-detailed h3 {
+    font-size: 1.1em; /* Título um pouco menor que os da home */
+    color: #e0e0e0;
+    margin: 12px 15px 8px 15px;
+    min-height: 40px; /* Para alinhar títulos de tamanhos diferentes */
+}
+
+.game-stats-detailed {
+    display: flex;
+    justify-content: space-around; /* Distribui espaço entre os itens */
+    padding: 0px 10px 15px 10px; /* Espaçamento interno */
+    margin-top: auto; /* Empurra as estatísticas para baixo se o título for curto */
+}
+
+.stat-item-detailed {
+    text-align: center;
+}
+
+.stat-item-detailed span {
+    display: block;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #ffffff; /* Números em branco */
+    margin-bottom: 2px;
+}
+
+.stat-item-detailed p {
+    font-size: 0.75em;
+    color: #a0a0a0; /* Texto "Visitas", "Jogando" mais sutil */
+    text-transform: uppercase;
+    margin: 0;
+}
+
+/* Ajuste para telas menores se necessário, para que não fiquem muitos cards por linha */
+@media (max-width: 500px) {
+    .games-grid-fullpage {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Cards menores */
+    }
+     .game-card-detailed img {
+        height: 100px;
+    }
+    .game-card-detailed h3 {
+        font-size: 1em;
+    }
+    .stat-item-detailed span {
+        font-size: 1em;
+    }
+     .stat-item-detailed p {
+        font-size: 0.7em;
+    }
+}
