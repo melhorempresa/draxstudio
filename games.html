@@ -5,6 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nossos Jogos - Drax Studio</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Adiciona um estilo para o card clicável */
+        .game-card-detailed-linkable {
+            text-decoration: none;
+            color: inherit;
+            display: block; /* Faz o link ocupar todo o card */
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .game-card-detailed-linkable:hover .game-card-detailed {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -16,7 +29,7 @@
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="games.html" class="active">Nossos Jogos</a></li>
-                    <li><a href="index.html#sobre-nos">Sobre Nós</a></li> <!-- CORRIGIDO AQUI -->
+                    <li><a href="index.html#sobre-nos">Sobre Nós</a></li>
                     <li><a href="contact.html">Contato</a></li>
                 </ul>
             </nav>
@@ -28,21 +41,24 @@
             <div class="container">
                 <h2>Nossos Jogos</h2>
                 <div class="games-grid-fullpage">
-                    <!-- Jogo 1 -->
-                    <div class="game-card-detailed">
-                        <img src="images/game_placeholder_1.jpg" alt="Capa do Jogo 1">
-                        <h3>[*] Nome do Jogo Aventura</h3>
-                        <div class="game-stats-detailed">
-                            <div class="stat-item-detailed">
-                                <span>4.7B</span>
-                                <p>Visitas</p>
-                            </div>
-                            <div class="stat-item-detailed">
-                                <span>1.6M</span>
-                                <p>Jogando</p>
+                    <!-- Jogo 1 - Dragon Slayer Chronicles -->
+                    <a href="dragon-slayer.html" class="game-card-detailed-linkable">
+                        <div class="game-card-detailed">
+                            <img src="images/game_placeholder_1.jpg" alt="Capa do Jogo Dragon Slayer">
+                            <h3>Dragon Slayer Chronicles</h3>
+                            <p style="text-align: center; font-size: 0.9em; color: #aaa;">(Clique para Jogar!)</p>
+                            <div class="game-stats-detailed">
+                                <div class="stat-item-detailed">
+                                    <span>NEW!</span>
+                                    <p>Visitas</p>
+                                </div>
+                                <div class="stat-item-detailed">
+                                    <span>1</span>
+                                    <p>Jogando</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
 
                     <!-- Jogo 2 -->
                     <div class="game-card-detailed">
@@ -123,20 +139,16 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- Adicione mais jogos aqui seguindo o mesmo padrão -->
-
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- RODAPÉ DETALHADO ADICIONADO AQUI -->
     <footer class="site-footer-detailed">
         <div class="container footer-grid">
             <div class="footer-logo-bio">
                 <h3>Drax Studio</h3>
-                <!-- <p>Criando experiências inovadoras no metaverso.</p> -->
             </div>
             <div class="footer-links">
                 <h4>Serviços</h4>
@@ -149,7 +161,7 @@
             <div class="footer-links">
                 <h4>Empresa</h4>
                 <ul>
-                    <li><a href="index.html#sobre-nos">Sobre Nós</a></li> <!-- CORRIGIDO AQUI -->
+                    <li><a href="index.html#sobre-nos">Sobre Nós</a></li>
                     <li><a href="#">Carreiras</a></li>
                     <li><a href="contact.html">Contato</a></li>
                 </ul>
@@ -166,6 +178,5 @@
              <p>© 2025 Drax Studio. Todos os direitos reservados.</p>
         </div>
     </footer>
-
 </body>
 </html>
