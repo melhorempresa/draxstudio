@@ -13,7 +13,7 @@ const victoryScreen = document.getElementById('victoryScreen');
 canvas.width = 800;
 canvas.height = 600;
 const MAP_CENTER_X = canvas.width / 2;
-const MAP_CENTER_Y = canvas.height * 0.3; // Centro da órbita do dragão, um pouco acima do meio
+const MAP_CENTER_Y = canvas.height * 0.3;
 
 let player;
 let dragon;
@@ -27,20 +27,30 @@ let waveTransition = false;
 
 // Power-ups
 let powerUps = [];
-let randomPowerUpSpawnTimer = 0;
-const RANDOM_POWERUP_SPAWN_INTERVAL = 60; // Checar a cada segundo (60 ticks)
 const POWERUP_TYPES = { SHIELD: 'shield', RAPID_FIRE: 'rapid_fire', HEALTH_PACK: 'health_pack', DAMAGE_BOOST: 'damage_boost' };
-const POWERUP_DURATION = 300; // 5 segundos de duração para power-ups temporários (60fps * 5s)
+const POWERUP_BASE_DURATION = 300; // 5 segundos (60fps * 5s)
+
+// Controle de Spawn de Power-ups
+let gameTickCounter = 0; // Contador de ticks global do jogo
+let waveDurationTicks = 0; // Contador de ticks para a duração da onda atual
+let lastPowerUpSpawnGameTick = -Infinity; // Para o intervalo global de power-ups
+const MIN_POWERUP_SPAWN_INTERVAL_TICKS = 300; // 5 segundos entre qualquer power-up
+
+let randomPowerUpSpawnTimer = 0; // Timer para o spawn aleatório genérico
+const RANDOM_POWERUP_SPAWN_INTERVAL_CHECK = 60; // Checar a cada segundo (60 ticks)
+
+let strategicPowerUpCheckTimer = 0; // Timer para o spawn estratégico de Health/Shield
+const STRATEGIC_POWERUP_MIN_INTERVAL = 600; // Mínimo 10 segundos
+const STRATEGIC_POWERUP_RANDOM_ADDITION = 600; // Máximo +10 segundos (total 10-20s)
 
 
 function generateWaveSettings(waveNum) {
     const settings = {};
-
-    // Configurações do Dragão
+    // ... (configs do dragão e jogador como antes) ...
     settings.dragonHealth = 100 + Math.pow(waveNum, 1.8) * 10 + (waveNum > 10 ? (waveNum - 10) * 25 : 0);
     settings.dragonAttackInterval = Math.max(25, 100 - waveNum * 2.7 - (waveNum > 15 ? (waveNum - 15) * 1.2 : 0) );
     settings.dragonMoveSpeedBase = Math.min(3.0, 0.7 + waveNum * 0.06 + (waveNum > 10 ? (waveNum-10) * 0.025 : 0) );
-    settings.projectileSpeedMultiplier = 1 + waveNum * 0.045 + (waveNum > 10 ? (waveNum - 10) * 0.012 : 0); // Afeta projéteis do dragão
+    settings.projectileSpeedMultiplier = 1 + waveNum * 0.045 + (waveNum > 10 ? (waveNum - 10) * 0.012 : 0);
     settings.numProjectiles = 1 + Math.floor(waveNum / 3.5);
     if (waveNum > 18) settings.numProjectiles += Math.floor((waveNum - 18) / 4.5);
     settings.numProjectiles = Math.min(6, settings.numProjectiles);
@@ -49,9 +59,8 @@ function generateWaveSettings(waveNum) {
     settings.circlingChance = Math.min(0.55, 0.1 + waveNum * 0.012);
     settings.circlingDuration = 240 + waveNum * 6;
 
-    // Configurações do Jogador (projéteis e cadência)
     settings.playerProjectileSpeed = 7 + waveNum * 0.18;
-    settings.playerShootCooldown = Math.max(2, 18 - waveNum * 0.55); // Cooldown mínimo 2
+    settings.playerShootCooldown = Math.max(2, 18 - waveNum * 0.55);
 
     settings.playerProjectileBaseWidth = 5;
     settings.playerProjectileBaseHeight = 10;
@@ -66,15 +75,13 @@ function generateWaveSettings(waveNum) {
     settings.playerEmpoweredShotChance = Math.min(0.35, 0.02 + waveNum * 0.008);
     settings.playerEmpoweredShotSizeMultiplier = 1.6;
 
-    // Configurações de Power-up
-    settings.powerUpDropChanceOnDefeat = Math.min(0.80, 0.12 + waveNum * 0.022);
-    settings.randomPowerUpSpawnChancePerSecond = Math.min(0.06, 0.006 + waveNum * 0.0012);
+    // Configurações de Power-up (genéricas)
+    settings.powerUpDropChanceOnDefeat = Math.min(0.80, 0.12 + waveNum * 0.022); // Chance de dropar um power-up aleatório ao derrotar dragão
+    settings.randomPowerUpSpawnChancePerSecond = Math.min(0.06, 0.006 + waveNum * 0.0012); // Chance de spawn aleatório por segundo
 
     return settings;
 }
 
-
-// Entidades do Jogo
 class GameObject {
     constructor(x, y, width, height, color) {
         this.x = x; this.y = y; this.width = width; this.height = height; this.color = color;
@@ -92,13 +99,12 @@ class PowerUp extends GameObject {
             case POWERUP_TYPES.DAMAGE_BOOST: color = 'rgba(255, 69, 0, 0.9)'; symbol = "D"; break;
         }
         super(x, y, width, height, color);
-        this.type = type; this.symbol = symbol; this.fallSpeed = 1.5; this.lifeSpan = 720; // Dura 12s
+        this.type = type; this.symbol = symbol; this.fallSpeed = 1.5; this.lifeSpan = 720; // Dura 12s na tela
     }
     update() {
         this.y += this.fallSpeed; this.lifeSpan--;
-        if (this.lifeSpan <= 0 || this.y > canvas.height + this.height) return false;
+        if (this.lifeSpan <= 0 || this.y > canvas.height + this.height) return false; // Remove se sair da tela ou expirar
         this.draw();
-        // Desenha o símbolo com uma pequena sombra para destaque
         ctx.fillStyle = 'black'; ctx.font = 'bold 18px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
         ctx.fillText(this.symbol, this.x + this.width / 2, this.y + this.height / 2 + 1);
         ctx.fillStyle = 'white';
@@ -110,9 +116,9 @@ class PowerUp extends GameObject {
 class Player extends GameObject {
     constructor(x, y, width, height, color, speed, health) {
         super(x, y, width, height, color);
-        this.speed = speed; this.health = health; this.maxHealth = 100;
-        this.currentShootCooldown = 20; // Será atualizado pelas settings da onda
-        this.currentProjectileSpeed = 7; // Será atualizado pelas settings da onda
+        this.speed = speed; this.health = health; this.maxHealth = health; // Usar o 'health' inicial como maxHealth
+        this.currentShootCooldown = 20;
+        this.currentProjectileSpeed = 7;
         this.projectileDamage = 10;
         this.shootTimer = 0;
         this.isShielded = false; this.shieldTimer = 0;
@@ -128,23 +134,16 @@ class Player extends GameObject {
 
         this.updatePowerUpTimers();
 
-        // Ajustar stats com base na onda e power-ups
         this.currentShootCooldown = settings.playerShootCooldown;
-        if (this.rapidFireActive) this.currentShootCooldown = Math.max(2, this.currentShootCooldown / 2.2); // Rapid fire afeta o cooldown
+        if (this.rapidFireActive) this.currentShootCooldown = Math.max(2, this.currentShootCooldown / 2.2);
         this.currentProjectileSpeed = settings.playerProjectileSpeed;
         this.projectileDamage = this.damageBoostActive ? 22 : 10;
 
-        // Lógica de Cooldown do Tiro (para o disparo manual)
-        if (this.shootTimer > 0) {
-            this.shootTimer--;
-        }
-
-        // Disparo Manual com a Tecla Espaço
-        if (keys['Space'] && this.shootTimer <= 0) { // Verifica se a tecla Espaço está pressionada e o cooldown terminou
+        if (this.shootTimer > 0) this.shootTimer--;
+        if (keys['Space'] && this.shootTimer <= 0) {
             this.shoot(settings);
-            this.shootTimer = this.currentShootCooldown; // Reseta o timer com o cooldown atual
+            this.shootTimer = this.currentShootCooldown;
         }
-
         this.draw();
         if (this.isShielded) this.drawShield();
     }
@@ -155,16 +154,28 @@ class Player extends GameObject {
     }
     drawShield() {
         ctx.strokeStyle = 'rgba(0, 220, 255, 0.7)'; ctx.lineWidth = 4; ctx.beginPath();
-        const pulse = Math.sin(Date.now() / 180) * 2.5; // Leve pulsação
+        const pulse = Math.sin(Date.now() / 180) * 2.5;
         ctx.arc(this.x + this.width / 2, this.y + this.height / 2, this.width * 0.75 + pulse, 0, Math.PI * 2);
         ctx.stroke(); ctx.lineWidth = 1;
     }
     activatePowerUp(type) {
         switch (type) {
-            case POWERUP_TYPES.SHIELD: this.isShielded = true; this.shieldTimer = POWERUP_DURATION * 1.3; break;
-            case POWERUP_TYPES.RAPID_FIRE: this.rapidFireActive = true; this.rapidFireTimer = POWERUP_DURATION; break;
-            case POWERUP_TYPES.HEALTH_PACK: this.health = Math.min(this.maxHealth, this.health + 35); updateUI(); break;
-            case POWERUP_TYPES.DAMAGE_BOOST: this.damageBoostActive = true; this.damageBoostTimer = POWERUP_DURATION; break;
+            case POWERUP_TYPES.SHIELD:
+                this.isShielded = true;
+                this.shieldTimer = POWERUP_BASE_DURATION; // Exatamente 5 segundos
+                break;
+            case POWERUP_TYPES.RAPID_FIRE:
+                this.rapidFireActive = true;
+                this.rapidFireTimer = POWERUP_BASE_DURATION;
+                break;
+            case POWERUP_TYPES.HEALTH_PACK:
+                this.health = this.maxHealth; // Recupera vida toda
+                updateUI();
+                break;
+            case POWERUP_TYPES.DAMAGE_BOOST:
+                this.damageBoostActive = true;
+                this.damageBoostTimer = POWERUP_BASE_DURATION;
+                break;
         }
     }
     shoot(settings) {
@@ -175,7 +186,7 @@ class Player extends GameObject {
         if (Math.random() < settings.playerEmpoweredShotChance) {
             projWidth *= settings.playerEmpoweredShotSizeMultiplier;
             projHeight *= settings.playerEmpoweredShotSizeMultiplier;
-            if (!this.damageBoostActive) projColor = 'gold'; // Cor especial para tiro potente
+            if (!this.damageBoostActive) projColor = 'gold';
         }
         playerProjectiles.push(new Projectile(this.x + this.width / 2 - projWidth / 2, this.y, projWidth, projHeight, projColor, this.currentProjectileSpeed, 'player'));
     }
@@ -186,7 +197,7 @@ class Player extends GameObject {
     }
 }
 
-class Dragon extends GameObject {
+class Dragon extends GameObject { // Sem mudanças significativas no Dragão para esta request
     constructor(x, y, width, height, color, health, attackIntervalBase, moveSpeedBase) {
         super(x, y, width, height, color);
         this.health = health; this.maxHealth = health;
@@ -197,40 +208,33 @@ class Dragon extends GameObject {
         this.circlingCheckInterval = 270;
         this.circlingCheckTimer = Math.random() * this.circlingCheckInterval;
         this.orbitAngle = Math.random() * Math.PI * 2;
-        this.orbitRadius = canvas.width * 0.3; // Raio da órbita em relação à largura do mapa
+        this.orbitRadius = canvas.width * 0.3;
         this.orbitSpeed = 0.012;
-        this.targetYDuringCircling = MAP_CENTER_Y; // Y fixo para órbita ao redor do centro
+        this.targetYDuringCircling = MAP_CENTER_Y;
     }
-
-    update(settings, playerRef) { // playerRef ainda é útil para mirar os projéteis
+    update(settings, playerRef) {
         this.handleCirclingState(settings);
-
         if (!this.isCircling) {
-            // Movimento horizontal padrão
             const currentMoveSpeed = this.moveSpeedBase * settings.projectileSpeedMultiplier;
             this.x += currentMoveSpeed * this.moveDirection;
             if (this.x <= this.moveRange.minX && this.moveDirection === -1) { this.moveDirection = 1; this.x = this.moveRange.minX; }
             else if (this.x >= this.moveRange.maxX && this.moveDirection === 1) { this.moveDirection = -1; this.x = this.moveRange.maxX; }
-            if (Math.abs(this.y - 30) > 1) { this.y += (30 - this.y) * 0.08; } // Suavemente volta para Y=30
+            if (Math.abs(this.y - 30) > 1) { this.y += (30 - this.y) * 0.08; }
         } else {
-            // Órbita ao redor do centro do mapa (MAP_CENTER_X, MAP_CENTER_Y)
             this.orbitAngle += this.orbitSpeed * settings.projectileSpeedMultiplier;
             const targetX = MAP_CENTER_X + this.orbitRadius * Math.cos(this.orbitAngle) - this.width / 2;
             const targetY = this.targetYDuringCircling + (this.orbitRadius * 0.2) * Math.sin(this.orbitAngle * 2.5) - this.height / 2;
-
             this.x += (targetX - this.x) * 0.06;
             this.y += (targetY - this.y) * 0.06;
             this.y = Math.max(10, Math.min(this.y, canvas.height * 0.5 - this.height));
         }
-
         this.attackTimer--;
         if (this.attackTimer <= 0) {
-            this.performAttack(settings, playerRef); // playerRef usado para mira
+            this.performAttack(settings, playerRef);
             this.attackTimer = settings.dragonAttackInterval / (this.isCircling ? 1.3 : 1);
         }
         this.draw();
     }
-
     handleCirclingState(settings) {
         if (this.isCircling) {
             this.circlingTimer--;
@@ -249,13 +253,11 @@ class Dragon extends GameObject {
             }
         }
     }
-
     performAttack(settings, playerRef) {
         const roll = Math.random();
         if (roll < settings.tripleAttackChance) this.tripleAttack(settings, playerRef);
         else this.standardAttack(settings, playerRef);
     }
-
     fireProjectile(posX, posY, settings, isLaserOverride = false, targetPlayer = false, playerRef = null, fixedAngleDeg = null) {
         let pColor = 'orange', pWidth = 10, pHeight = 10, pBaseSpeed = 3, dx = 0, dy = 0;
         if (isLaserOverride || Math.random() < settings.laserChance) {
@@ -271,7 +273,6 @@ class Dragon extends GameObject {
         } else { dy = actualSpeed; }
         dragonProjectiles.push(new Projectile(posX - pWidth / 2, posY, pWidth, pHeight, pColor, actualSpeed, 'dragon', dx, dy));
     }
-
     standardAttack(settings, playerRef) {
         const shouldTarget = this.isCircling || Math.random() < 0.4;
         for (let i = 0; i < settings.numProjectiles; i++) {
@@ -281,7 +282,6 @@ class Dragon extends GameObject {
             }, i * 90);
         }
     }
-
     tripleAttack(settings, playerRef) {
         const projSpawnX = this.x + this.width / 2; const projSpawnY = this.y + this.height;
         const spreadAngle = 18;
@@ -289,13 +289,12 @@ class Dragon extends GameObject {
         setTimeout(() => this.fireProjectile(projSpawnX, projSpawnY, settings, false, this.isCircling, playerRef, this.isCircling ? null : 90 - spreadAngle), 50);
         setTimeout(() => this.fireProjectile(projSpawnX, projSpawnY, settings, false, this.isCircling, playerRef, this.isCircling ? null : 90 + spreadAngle), 100);
     }
-
     takeDamage(amount) {
         this.health -= amount; score += amount; updateUI();
         if (this.health <= 0) {
             this.health = 0; score += 100 * currentWave;
             const waveDefeatSettings = generateWaveSettings(currentWave);
-            if (Math.random() < waveDefeatSettings.powerUpDropChanceOnDefeat) {
+            if (Math.random() < waveDefeatSettings.powerUpDropChanceOnDefeat) { // Drop aleatório ao derrotar
                 spawnPowerUp(this.x + this.width / 2, this.y + this.height / 2);
             }
             nextWave();
@@ -314,45 +313,116 @@ class Projectile extends GameObject {
 }
 
 function spawnPowerUp(x, y, specificType = null) {
+    // Verifica o intervalo global antes de spawnar QUALQUER power-up
+    if (gameTickCounter - lastPowerUpSpawnGameTick < MIN_POWERUP_SPAWN_INTERVAL_TICKS) {
+        // console.log("Power-up spawn blocked by global interval.");
+        return; // Muito cedo para outro power-up
+    }
+
     let type;
-    if (specificType) type = specificType;
-    else { const typeKeys = Object.values(POWERUP_TYPES); type = typeKeys[Math.floor(Math.random() * typeKeys.length)]; }
+    if (specificType) {
+        type = specificType;
+    } else {
+        const typeKeys = Object.values(POWERUP_TYPES);
+        type = typeKeys[Math.floor(Math.random() * typeKeys.length)];
+    }
     powerUps.push(new PowerUp(x, y, type));
+    lastPowerUpSpawnGameTick = gameTickCounter; // Atualiza o tick do último spawn
 }
-function handleRandomPowerUpSpawns(settings) {
+
+// Spawn aleatório genérico (menos Health/Shield, que são controlados estrategicamente)
+function handleRandomGenericPowerUpSpawns(settings) {
     randomPowerUpSpawnTimer--;
     if (randomPowerUpSpawnTimer <= 0) {
-        randomPowerUpSpawnTimer = RANDOM_POWERUP_SPAWN_INTERVAL;
+        randomPowerUpSpawnTimer = RANDOM_POWERUP_SPAWN_INTERVAL_CHECK;
         if (Math.random() < settings.randomPowerUpSpawnChancePerSecond) {
-            const spawnX = Math.random() * (canvas.width - 60) + 30; // Evita spawn muito nas bordas
-            spawnPowerUp(spawnX, -30); // Começa um pouco acima da tela
+            const spawnX = Math.random() * (canvas.width - 60) + 30;
+            // Filtra para não spawnar Health ou Shield aqui, ou dá chance muito baixa
+            let availableTypes = [POWERUP_TYPES.RAPID_FIRE, POWERUP_TYPES.DAMAGE_BOOST];
+            // Poderia adicionar Health/Shield com chance mínima se quisesse:
+            // if (Math.random() < 0.1) availableTypes.push(POWERUP_TYPES.HEALTH_PACK);
+            // if (Math.random() < 0.1) availableTypes.push(POWERUP_TYPES.SHIELD);
+            const typeToSpawn = availableTypes[Math.floor(Math.random() * availableTypes.length)];
+            if (typeToSpawn) { // Garante que haja um tipo selecionado
+                 spawnPowerUp(spawnX, -30, typeToSpawn);
+            }
         }
     }
 }
 
+// Spawn estratégico de Health Packs e Shields
+function handleStrategicPowerUpSpawns() {
+    strategicPowerUpCheckTimer--;
+    if (strategicPowerUpCheckTimer <= 0) {
+        // Resetar o timer para o próximo check (ex: 10 a 20 segundos)
+        strategicPowerUpCheckTimer = STRATEGIC_POWERUP_MIN_INTERVAL + Math.random() * STRATEGIC_POWERUP_RANDOM_ADDITION;
+
+        let baseChance = 0.01; // Chance base bem pequena
+        baseChance += (currentWave -1) * 0.015; // Aumenta 1.5% por onda
+
+        if (currentWave >= 5) {
+            baseChance += 0.05; // Bônus a partir da onda 5
+        }
+        if (currentWave >= 9 && waveDurationTicks > 3600) { // Onda 9+ e mais de 1 minuto na onda
+            baseChance += 0.10; // Bônus significativo por demorar em ondas altas
+        }
+         if (currentWave >= 12 && waveDurationTicks > 4800) { // Onda 12+ e mais de 1m20s na onda
+            baseChance += 0.05; // Bônus adicional
+        }
+
+        baseChance = Math.min(baseChance, 0.35); // Limita a chance máxima para este check (ex: 35%)
+
+        // console.log(`Strategic PowerUp Check: Wave ${currentWave}, Duration ${Math.round(waveDurationTicks/60)}s, Chance ${baseChance.toFixed(3)}`);
+
+        if (Math.random() < baseChance) {
+            const spawnX = Math.random() * (canvas.width - 60) + 30;
+            const typeToSpawn = (Math.random() < 0.55) ? POWERUP_TYPES.HEALTH_PACK : POWERUP_TYPES.SHIELD; // Pequeno viés para Health
+            // console.log(`Attempting to spawn strategic: ${typeToSpawn}`);
+            spawnPowerUp(spawnX, -30, typeToSpawn);
+        }
+    }
+}
+
+
 function initGame() {
     gameOver = false; waveTransition = false; score = 0; currentWave = 1;
     playerProjectiles = []; dragonProjectiles = []; powerUps = []; keys = {};
-    randomPowerUpSpawnTimer = Math.floor(Math.random() * RANDOM_POWERUP_SPAWN_INTERVAL); // Início aleatório do timer de spawn
+
+    gameTickCounter = 0;
+    waveDurationTicks = 0;
+    lastPowerUpSpawnGameTick = -Infinity; // Permite o primeiro spawn
+    randomPowerUpSpawnTimer = Math.floor(Math.random() * RANDOM_POWERUP_SPAWN_INTERVAL_CHECK);
+    strategicPowerUpCheckTimer = STRATEGIC_POWERUP_MIN_INTERVAL + Math.random() * STRATEGIC_POWERUP_RANDOM_ADDITION;
+
+
     gameOverScreen.style.display = 'none'; victoryScreen.style.display = 'none';
     const initialSettings = generateWaveSettings(currentWave);
-    player = new Player(canvas.width / 2 - 25, canvas.height - 70, 50, 30, 'lime', 7, 100);
+    player = new Player(canvas.width / 2 - 25, canvas.height - 70, 50, 30, 'lime', 7, 100); // Max health é 100
     player.currentShootCooldown = initialSettings.playerShootCooldown;
     player.currentProjectileSpeed = initialSettings.playerProjectileSpeed;
-    player.maxHealth = 100; player.health = player.maxHealth; player.shootTimer = 0;
-    // Resetar estados de power-up do jogador
+    // player.maxHealth já é setado no construtor do Player
+    player.health = player.maxHealth;
+    player.shootTimer = 0;
+
     player.isShielded = false; player.shieldTimer = 0;
     player.rapidFireActive = false; player.rapidFireTimer = 0;
     player.damageBoostActive = false; player.damageBoostTimer = 0;
-    setupWave(currentWave); updateUI(); gameLoop();
+
+    setupWave(currentWave);
+    updateUI();
+    gameLoop();
 }
 
 function setupWave(waveNum) {
+    waveDurationTicks = 0; // Reseta o contador de tempo da onda
     const settings = generateWaveSettings(waveNum);
     dragon = new Dragon(canvas.width / 2 - 50, 30, 100, 80, 'purple', settings.dragonHealth, settings.dragonAttackInterval, settings.dragonMoveSpeedBase);
     dragon.attackTimer = settings.dragonAttackInterval;
-    if (waveNum > 1) { player.health = Math.min(player.maxHealth, player.health + Math.floor(player.maxHealth * 0.22)); updateUI(); } // Recupera 22% da vida
-    playerProjectiles = []; dragonProjectiles = [];
+    if (waveNum > 1) {
+        player.health = Math.min(player.maxHealth, player.health + Math.floor(player.maxHealth * 0.22));
+        updateUI();
+    }
+    playerProjectiles = []; dragonProjectiles = []; // Limpa projéteis, mas não power-ups (podem estar caindo)
     updateUI();
 }
 
@@ -361,8 +431,11 @@ function nextWave() {
     victoryScreen.innerHTML = `<h2>Onda ${currentWave - 1} Concluída!</h2><p>Preparando Onda ${currentWave}...</p>`;
     victoryScreen.style.display = 'block';
     setTimeout(() => {
-        victoryScreen.style.display = 'none'; setupWave(currentWave); waveTransition = false; if (!gameOver) gameLoop();
-    }, 2200); // Transição entre ondas um pouco mais rápida
+        victoryScreen.style.display = 'none';
+        setupWave(currentWave);
+        waveTransition = false;
+        if (!gameOver) gameLoop();
+    }, 2200);
 }
 
 function updateUI() {
@@ -373,68 +446,73 @@ function updateUI() {
 }
 
 function checkCollisions() {
-    // Projéteis do jogador vs Dragão
     for (let i = playerProjectiles.length - 1; i >= 0; i--) {
         const p = playerProjectiles[i];
         if (dragon && p.x < dragon.x + dragon.width && p.x + p.width > dragon.x && p.y < dragon.y + dragon.height && p.y + p.height > dragon.y) {
             dragon.takeDamage(player.projectileDamage); playerProjectiles.splice(i, 1);
         }
     }
-    // Projéteis do Dragão vs Jogador
     for (let i = dragonProjectiles.length - 1; i >= 0; i--) {
         const p = dragonProjectiles[i];
         if (player.x < p.x + p.width && player.x + player.width > p.x && player.y < p.y + p.height && player.y + player.height > p.y) {
-            player.takeDamage(18); dragonProjectiles.splice(i, 1); // Dano do projétil do dragão
+            player.takeDamage(18); dragonProjectiles.splice(i, 1);
         }
     }
-    // Jogador vs Power-ups
     for (let i = powerUps.length - 1; i >= 0; i--) {
         const pu = powerUps[i];
         if (player.x < pu.x + pu.width && player.x + player.width > pu.x && player.y < pu.y + pu.height && player.y + player.height > pu.y) {
-            player.activatePowerUp(pu.type); powerUps.splice(i, 1);
+            player.activatePowerUp(pu.type);
+            powerUps.splice(i, 1);
         }
     }
 }
 
 function triggerGameOver() {
     gameOver = true;
-    // Cria dinamicamente o conteúdo da tela de game over
     gameOverScreen.innerHTML = `
         <h2>Fim de Jogo!</h2>
         <p>Você sobreviveu até a Onda ${currentWave}.</p>
         <p>Sua pontuação: <span id="finalScoreOver">${score}</span></p>
         <button id="restartButtonOver">Jogar Novamente</button>
     `;
-    document.getElementById('finalScoreOver').textContent = score; // Garante que o score seja atualizado
+    document.getElementById('finalScoreOver').textContent = score;
     gameOverScreen.style.display = 'block';
-    document.getElementById('restartButtonOver').addEventListener('click', initGame); // Adiciona listener ao novo botão
+    document.getElementById('restartButtonOver').addEventListener('click', initGame);
 }
 
 function gameLoop() {
     if (gameOver || waveTransition) return;
+
+    gameTickCounter++;    // Incrementa o contador global de ticks
+    waveDurationTicks++;  // Incrementa o contador de ticks da onda atual
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     const currentWaveSettings = generateWaveSettings(currentWave);
+
     player.update(currentWaveSettings);
-    if (dragon) dragon.update(currentWaveSettings, player); // Passa player para mira dos projéteis do dragão
+    if (dragon) dragon.update(currentWaveSettings, player);
+
     powerUps = powerUps.filter(p => p.update()); // Atualiza e remove power-ups se necessário
-    handleRandomPowerUpSpawns(currentWaveSettings); // Tenta spawnar power-ups aleatórios
-    // Filtra e atualiza projéteis
+
+    handleRandomGenericPowerUpSpawns(currentWaveSettings); // Tenta spawnar power-ups aleatórios genéricos
+    handleStrategicPowerUpSpawns(); // Tenta spawnar Health/Shield estrategicamente
+
     playerProjectiles = playerProjectiles.filter(p => p.y + p.height > 0 && p.y < canvas.height && p.x + p.width > 0 && p.x < canvas.width);
     playerProjectiles.forEach(p => p.update());
     dragonProjectiles = dragonProjectiles.filter(p => p.y + p.height > 0 && p.y < canvas.height && p.x + p.width > 0 && p.x < canvas.width);
     dragonProjectiles.forEach(p => p.update());
-    checkCollisions(); updateUI(); requestAnimationFrame(gameLoop);
+
+    checkCollisions();
+    updateUI();
+    requestAnimationFrame(gameLoop);
 }
 
-// Event Listeners
 window.addEventListener('keydown', (e) => {
     keys[e.code] = true;
-    // Prevenir scroll da página com Espaço, Setas e WASD se o jogo estiver ativo
     if (!gameOver && (e.code === 'Space' || e.code.startsWith('Arrow') || ['KeyW', 'KeyA', 'KeyS', 'KeyD'].includes(e.code))) {
         e.preventDefault();
     }
 });
 window.addEventListener('keyup', (e) => { keys[e.code] = false; });
 
-// Iniciar o jogo
 initGame();
