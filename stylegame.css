@@ -92,11 +92,13 @@ body {
     box-shadow: 0 5px 15px rgba(0,0,0,0.7);
     z-index: 10;
     border: 1px solid #c0392b;
+    min-width: 300px; /* Para garantir que o conteúdo caiba bem */
 }
 
 #gameOverScreen h2, #victoryScreen h2 {
     color: #e74c3c; /* Vermelho para Game Over */
     margin-top: 0;
+    font-size: 1.8em;
 }
 #victoryScreen h2 {
     color: #2ecc71; /* Verde para Vitória */
@@ -107,7 +109,8 @@ body {
     margin-bottom: 20px;
 }
 
-#restartButton {
+/* Estilos para os botões criados dinamicamente */
+#gameOverScreen button, #victoryScreen button {
     padding: 12px 25px;
     font-size: 1em;
     color: #fff;
@@ -118,9 +121,10 @@ body {
     transition: background-color 0.3s ease;
 }
 
-#restartButton:hover {
+#gameOverScreen button:hover, #victoryScreen button:hover {
     background-color: #2ecc71;
 }
+
 
 /* Responsividade básica */
 @media (max-width: 768px) {
@@ -140,5 +144,12 @@ body {
      #ui-container {
         width: 90%;
         max-width: 580px; /* Para alinhar com o canvas */
+    }
+    #gameOverScreen, #victoryScreen {
+        width: 80%;
+        padding: 20px;
+    }
+    #gameOverScreen h2, #victoryScreen h2 {
+        font-size: 1.5em;
     }
 }
