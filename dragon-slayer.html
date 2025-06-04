@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dragon Slayer Chronicles - Drax Studio</title>
+    <link rel="stylesheet" href="stylegame.css">
+</head>
+<body>
+    <header class="game-header">
+        <a href="games.html" class="back-button">← Voltar para Nossos Jogos</a>
+        <h1>Dragon Slayer Chronicles</h1>
+    </header>
+
+    <div class="game-container">
+        <canvas id="gameCanvas"></canvas>
+        <div id="ui-container">
+            <p>Vida do Herói: <span id="playerHealth">100</span></p>
+            <p>Vida do Dragão: <span id="dragonHealth">100</span></p>
+            <p>Onda: <span id="wave">1</span></p>
+            <p>Pontos: <span id="score">0</span></p>
+        </div>
+        <div id="gameOverScreen" style="display:none;">
+            <h2>Fim de Jogo!</h2>
+            <p>Sua pontuação: <span id="finalScore">0</span></p>
+            <button id="restartButton">Jogar Novamente</button>
+        </div>
+         <div id="victoryScreen" style="display:none;">
+            <h2>Você Venceu a Onda!</h2>
+            <p>Próxima onda em breve...</p>
+        </div>
+    </div>
+
+    <script src="scriptgame.js"></script>
+</body>
+</html>
