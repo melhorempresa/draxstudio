@@ -384,3 +384,198 @@ footer {
         font-size: 0.7em;
     }
 }
+/* --- Estilos para a Página Contato / Aquisições (contact.html) --- */
+.page-header-contact {
+    text-align: center;
+    padding: 40px 20px;
+}
+.page-header-contact h2 {
+    font-size: 2.5em;
+    margin-bottom: 0.5em;
+}
+.page-header-contact p {
+    font-size: 1.1em;
+    color: #c0c0c0;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.acquisitions-info {
+    padding: 20px 0 40px 0;
+}
+
+.acquisitions-info .info-block {
+    background-color: #222;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border-left: 4px solid #007bff; /* Destaque azul */
+}
+
+.acquisitions-info .info-block h3 {
+    font-size: 1.8em;
+    color: #00aaff;
+    margin-bottom: 10px;
+}
+.acquisitions-info .info-block h4 {
+    font-size: 1.3em;
+    color: #e0e0e0;
+    margin-bottom: 8px;
+}
+.acquisitions-info .info-block p {
+    color: #b0b0b0;
+    line-height: 1.7;
+}
+
+.contact-form-wrapper {
+    background-color: #1c1c1c; /* Fundo para a seção do formulário */
+    padding: 60px 0;
+}
+
+.contact-box {
+    background: linear-gradient(135deg, #0052D4 0%, #4364F7 50%, #6FB1FC 100%); /* Gradiente azul */
+    padding: 30px 40px;
+    border-radius: 12px;
+    max-width: 700px;
+    margin: 0 auto;
+    color: #fff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.contact-box-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.contact-icon {
+    font-size: 2.5em; /* Ajuste o tamanho do ícone */
+    display: block;
+    margin-bottom: 10px;
+}
+
+.contact-box-header h2 {
+    font-size: 2.2em;
+    margin-bottom: 0.3em;
+    color: #fff;
+}
+
+.contact-box-header p {
+    font-size: 1em;
+    opacity: 0.9;
+}
+
+.contact-form-main .form-group {
+    margin-bottom: 20px;
+}
+
+.contact-form-main input[type="email"],
+.contact-form-main textarea {
+    width: 100%;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #ddd; /* Borda sutil para os campos */
+    background-color: #fff; /* Fundo branco para campos */
+    color: #333; /* Texto escuro nos campos */
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+}
+.contact-form-main input[type="email"]::placeholder,
+.contact-form-main textarea::placeholder {
+    color: #888;
+}
+
+.contact-form-main input[type="email"]:focus,
+.contact-form-main textarea:focus {
+    outline: none;
+    border-color: #007bff; /* Borda azul no foco */
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.contact-form-main .checkbox-group {
+    display: flex;
+    align-items: center;
+    font-size: 0.9em;
+}
+
+.contact-form-main .checkbox-group input[type="checkbox"] {
+    margin-right: 10px;
+    width: 18px; /* Aumenta um pouco o checkbox */
+    height: 18px;
+    accent-color: #007bff; /* Cor do check no checkbox */
+}
+.contact-form-main .checkbox-group label {
+    opacity: 0.9;
+}
+
+.btn-form-submit { /* Botão do formulário pode ter estilo ligeiramente diferente */
+    background-color: #ffffff; /* Botão branco */
+    color: #007bff; /* Texto azul */
+    border: 2px solid #ffffff;
+    width: 100%; /* Botão de largura total */
+    padding: 15px;
+    font-size: 1.1em;
+    text-transform: none; /* Sem uppercase se preferir */
+}
+
+.btn-form-submit:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-color: rgba(255, 255, 255, 0.9);
+    color: #0056b3;
+}
+
+.form-disclaimer {
+    text-align: center;
+    font-size: 0.8em;
+    opacity: 0.8;
+    margin-top: 25px;
+}
+
+/* Footer Detalhado */
+.site-footer-detailed {
+    background-color: #0a0a0a; /* Mais escuro para o footer */
+    padding: 40px 0 0 0; /* Espaçamento no topo, sem padding inferior aqui */
+    color: #a0a0a0;
+    font-size: 0.9em;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.footer-logo-bio h3 {
+    font-size: 1.5em;
+    color: #00aaff; /* Mesmo azul do logo */
+    margin-bottom: 10px;
+}
+
+.footer-links h4 {
+    font-size: 1.1em;
+    color: #e0e0e0;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.footer-links ul li {
+    margin-bottom: 8px;
+}
+
+.footer-links ul li a {
+    color: #a0a0a0;
+    transition: color 0.3s ease;
+}
+
+.footer-links ul li a:hover {
+    color: #00aaff;
+}
+
+.footer-copyright {
+    text-align: center;
+    padding: 20px 0;
+    border-top: 1px solid #222;
+    font-size: 0.85em;
+    color: #777;
+}
