@@ -113,7 +113,7 @@ class Player extends GameObject {
         this.speed = speed; this.health = health; this.maxHealth = 100;
         this.currentShootCooldown = 20; // Será atualizado pelas settings da onda
         this.currentProjectileSpeed = 7; // Será atualizado pelas settings da onda
-        this.projectileDamage = 10; // Poderia ser dinâmico também
+        this.projectileDamage = 10;
         this.shootTimer = 0;
         this.isShielded = false; this.shieldTimer = 0;
         this.rapidFireActive = false; this.rapidFireTimer = 0;
@@ -130,17 +130,17 @@ class Player extends GameObject {
 
         // Ajustar stats com base na onda e power-ups
         this.currentShootCooldown = settings.playerShootCooldown;
-        if (this.rapidFireActive) this.currentShootCooldown = Math.max(2, this.currentShootCooldown / 2.2);
+        if (this.rapidFireActive) this.currentShootCooldown = Math.max(2, this.currentShootCooldown / 2.2); // Rapid fire afeta o cooldown
         this.currentProjectileSpeed = settings.playerProjectileSpeed;
         this.projectileDamage = this.damageBoostActive ? 22 : 10;
 
-        // Lógica de Cooldown do Tiro
+        // Lógica de Cooldown do Tiro (para o disparo manual)
         if (this.shootTimer > 0) {
             this.shootTimer--;
         }
 
         // Disparo Manual com a Tecla Espaço
-        if (keys['Space'] && this.shootTimer <= 0) { // <--- MUDANÇA PRINCIPAL AQUI
+        if (keys['Space'] && this.shootTimer <= 0) { // Verifica se a tecla Espaço está pressionada e o cooldown terminou
             this.shoot(settings);
             this.shootTimer = this.currentShootCooldown; // Reseta o timer com o cooldown atual
         }
