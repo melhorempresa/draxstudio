@@ -1,4 +1,4 @@
-/* Reset básico e Estilos Globais */
+ /* Reset básico e Estilos Globais */
 * {
     margin: 0;
     padding: 0;
@@ -212,16 +212,38 @@ header nav ul li a.active {
     letter-spacing: 0.5px;
 }
 
-/* Cards de Jogos */
+.top-hits, .games-showcase, .about-section-home {
+    padding: 70px 0;
+    background-color: var(--section-bg);
+    border-top: 1px solid var(--border-color);
+}
+.top-hits:first-of-type, .games-showcase:first-of-type {
+    border-top: none;
+}
+
+.top-hits h2, .games-showcase h2, .about-section-home h2 {
+    font-size: 2.6em;
+    margin-bottom: 1em;
+    text-align: center;
+    color: #FFFFFF;
+}
+.top-hits > .container > p {
+    font-size: 1.1em;
+    color: var(--text-secondary);
+    margin-bottom: 50px;
+    text-align: center;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .games-grid, .games-grid-fullpage {
     display: grid;
     gap: 30px;
 }
-
 .games-grid {
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
-
 .games-grid-fullpage {
     grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
 }
@@ -241,14 +263,24 @@ header nav ul li a.active {
     box-shadow: 0 6px 20px rgba(0,0,0,0.4), 0 0 15px var(--accent-shadow-color);
 }
 
-/* Ajuste de Imagens com Aspect Ratio */
+/* MODIFICAÇÕES PRINCIPAIS AQUI ABAIXO */
 .game-card img, .game-card-detailed img {
-    width: 100%;
-    object-fit: cover;
-    aspect-ratio: 1 / 1;
+    width: 100%; /* Faz a imagem ocupar a largura total do card */
+    object-fit: cover; /* Cobre a área, mantendo a proporção. Pode cortar se a proporção não for 1:1 */
+    aspect-ratio: 1 / 1; /* FORÇA A ÁREA DA IMAGEM A SER QUADRADA */
+    /* As alturas fixas foram removidas para permitir que aspect-ratio funcione corretamente */
 }
+/* As regras individuais de altura foram removidas. A regra acima se aplica a ambas.
+.game-card img {
+    /* height: 190px; FOI REMOVIDO */
+/* }
+.game-card-detailed img {
+    /* height: 160px; FOI REMOVIDO */
+/* }
+*/
+/* FIM DAS MODIFICAÇÕES PRINCIPAIS */
 
-/* Conteúdo dos Cards */
+
 .game-card h3, .game-card-detailed h3 {
     margin: 15px 15px 8px 15px;
     color: var(--primary-color);
@@ -256,7 +288,7 @@ header nav ul li a.active {
 }
 .game-card-detailed h3 {
     font-size: 1.15em;
-    min-height: 44px;
+    min-height: 44px; /* Para alinhar títulos se alguns tiverem 1 linha e outros 2 */
 }
 
 .game-card p {
@@ -270,7 +302,7 @@ header nav ul li a.active {
     display: flex;
     justify-content: space-around;
     padding: 5px 10px 15px 10px;
-    margin-top: auto;
+    margin-top: auto; /* Empurra para baixo se o conteúdo acima for variável */
     border-top: 1px solid var(--border-color);
 }
 
@@ -295,7 +327,6 @@ header nav ul li a.active {
     letter-spacing: 0.5px;
 }
 
-/* Rodapé */
 .site-footer-detailed {
     background-color: #0A0A14;
     padding: 50px 0 0 0;
@@ -328,7 +359,6 @@ header nav ul li a.active {
     position: relative;
     padding-bottom: 8px;
 }
-
 .footer-links h4::after {
     content: '';
     position: absolute;
@@ -361,86 +391,122 @@ header nav ul li a.active {
     color: #6A6A7A;
 }
 
-/* Responsivo */
+/* Estilos para a Página Contato (contact.html) */
+.page-header-contact {
+    text-align: center;
+    padding: 50px 20px;
+}
+.page-header-contact h2 {
+    font-size: 2.5em;
+    margin-bottom: 0.5em;
+}
+.page-header-contact p {
+    font-size: 1.1em;
+    color: var(--text-secondary);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.acquisitions-info {
+    padding: 20px 0 50px 0;
+}
+.acquisitions-info .info-block {
+    background-color: var(--card-bg);
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+    border-left: 5px solid var(--primary-color);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+.acquisitions-info .info-block h3 { font-size: 1.7em; color: var(--primary-color); margin-bottom: 10px; }
+.acquisitions-info .info-block h4 { font-size: 1.25em; color: var(--text-default); margin-bottom: 8px; }
+.acquisitions-info .info-block p { color: var(--text-secondary); line-height: 1.7; }
+
+.contact-form-wrapper { background-color: var(--section-bg); padding: 70px 0; }
+.contact-box {
+    background-color: var(--card-bg);
+    padding: 40px 50px;
+    border-radius: 12px;
+    max-width: 700px;
+    margin: 0 auto;
+    color: var(--text-default);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    border-top: 4px solid var(--primary-color);
+}
+.contact-box-header { text-align: center; margin-bottom: 35px; }
+.contact-icon { font-size: 3em; display: block; margin-bottom: 10px; color: var(--primary-color); }
+.contact-box-header h2 { font-size: 2.3em; margin-bottom: 0.3em; color: #FFFFFF; }
+.contact-box-header p { font-size: 1em; color: var(--text-secondary); }
+.contact-form-main .form-group { margin-bottom: 22px; }
+.contact-form-main input[type="email"],
+.contact-form-main textarea {
+    width: 100%; padding: 16px; border-radius: 6px; border: 1px solid var(--border-color);
+    background-color: #1F1F33; color: var(--text-default); font-size: 1em;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.contact-form-main input[type="email"]::placeholder,
+.contact-form-main textarea::placeholder { color: #7A7A8A; }
+.contact-form-main input[type="email"]:focus,
+.contact-form-main textarea:focus {
+    outline: none; border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--accent-shadow-color);
+}
+.contact-form-main .checkbox-group { display: flex; align-items: center; font-size: 0.9em; color: var(--text-secondary); }
+.contact-form-main .checkbox-group input[type="checkbox"] {
+    margin-right: 10px; width: 18px; height: 18px; accent-color: var(--primary-color);
+    background-color: #1F1F33; border: 1px solid var(--border-color);
+}
+.contact-form-main .checkbox-group label { cursor: pointer; }
+.btn-form-submit {
+    background-color: var(--primary-color); color: #FFFFFF; border: 2px solid var(--primary-color);
+    width: 100%; padding: 16px; font-size: 1.1em; font-weight: bold;
+    text-transform: uppercase; border-radius: 6px; transition: all 0.3s ease;
+}
+.btn-form-submit:hover {
+    background-color: var(--primary-hover-color); border-color: var(--primary-hover-color);
+    box-shadow: 0 4px 12px var(--accent-shadow-color);
+}
+.form-disclaimer { text-align: center; font-size: 0.8em; color: var(--text-secondary); margin-top: 30px; }
+
+/* Estilos para a Seção Sobre Nós na Home (index.html#sobre-nos) */
+.about-content-home { display: flex; align-items: flex-start; gap: 50px; }
+.about-text { flex: 1.2; color: var(--text-default); }
+.about-text p { margin-bottom: 1.5em; line-height: 1.75; font-size: 1.05em; color: var(--text-secondary); }
+.about-text p:first-of-type { color: var(--text-default); font-size: 1.1em; }
+.about-text .btn { margin-top: 25px; display: inline-block; }
+.about-image { flex: 0.8; max-width: 400px; }
+.about-image img { border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.3), 0 0 20px var(--accent-shadow-color); }
+
+/* Responsividade */
 @media (max-width: 768px) {
-    header .container {
-        flex-direction: column;
-        gap: 15px;
-    }
+    header .container { flex-direction: column; gap: 15px; }
+    header nav { margin-top: 0; width: 100%; }
+    header nav ul { flex-direction: column; align-items: center; width: 100%; }
+    header nav ul li { margin: 8px 0; margin-left: 0; width: 100%; text-align: center; }
+    header nav ul li a { display: block; padding: 10px 0; }
 
-    header nav ul {
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-    }
+    .hero-content h2 { font-size: 2.5em; }
+    .hero-content p { font-size: 1.1em; }
+    .hero-buttons { display: flex; flex-direction: column; align-items: center; gap: 15px; }
+    .hero-buttons .btn { margin: 0; width: 85%; }
+    .hero-stats { flex-direction: column; gap: 25px; }
 
-    header nav ul li {
-        margin: 8px 0;
-        margin-left: 0;
-        width: 100%;
-        text-align: center;
-    }
+    .games-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .games-grid-fullpage { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
 
-    header nav ul li a {
-        display: block;
-        padding: 10px 0;
-    }
+    .about-content-home { flex-direction: column; text-align: center; }
+    .about-image { margin-top: 35px; max-width: 80%; margin-left: auto; margin-right: auto; }
+    .about-text .btn { width: auto; padding-left: 35px; padding-right: 35px; }
 
-    .hero-content h2 {
-        font-size: 2.5em;
-    }
-
-    .hero-content p {
-        font-size: 1.1em;
-    }
-
-    .hero-buttons {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .hero-buttons .btn {
-        width: 85%;
-    }
-
-    .hero-stats {
-        flex-direction: column;
-        gap: 25px;
-    }
-
-    .games-grid {
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    }
-
-    .games-grid-fullpage {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    }
-
-    .footer-grid {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-
-    .footer-links h4::after {
-        left: 50%;
-        transform: translateX(-50%);
-    }
+    .contact-box { padding: 30px 25px; }
+    .footer-grid { grid-template-columns: 1fr; text-align: center; }
+    .footer-links h4::after { left: 50%; transform: translateX(-50%); }
 }
 
 @media (max-width: 500px) {
-    .games-grid-fullpage {
-        grid-template-columns: 1fr;
-    }
-
-    .hero-content h2 {
-        font-size: 2em;
-    }
-
-    .hero-content p {
-        font-size: 1em;
-    }
-
-    .hero-buttons .btn {
-        width: 90%;
-    }
+    .games-grid-fullpage { grid-template-columns: 1fr; }
+    /* .game-card-detailed img { height: 180px; } */ /* Comentado pois aspect-ratio cuidará disso */
+    .hero-content h2 { font-size: 2em; }
+    .hero-content p { font-size: 1em; }
+    .hero-buttons .btn { width: 90%; }
 }
