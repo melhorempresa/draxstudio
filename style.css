@@ -1,4 +1,4 @@
- /* Reset básico e Estilos Globais */
+/* Reset básico e Estilos Globais */
 * {
     margin: 0;
     padding: 0;
@@ -11,7 +11,7 @@ html {
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--dark-bg);
+    background-color: var(--dark-bg); /* Garante que o fundo da página seja escuro */
     color: var(--text-default);
     line-height: 1.6;
 }
@@ -44,13 +44,13 @@ h1, h2, h3, h4 {
 }
 
 :root {
-    --dark-bg: #0D0D1A;
-    --primary-color: #7F3FBF;
+    --dark-bg: #0D0D1A; /* Mesmo fundo da imagem 3 */
+    --primary-color: #7F3FBF; /* Roxo principal, um pouco mais vibrante como na imagem 3 */
     --primary-hover-color: #6A34A2;
-    --secondary-highlight-color: #B185DB;
+    --secondary-highlight-color: #B185DB; /* Roxo mais claro para hover ou detalhes */
     --text-default: #EAEAEA;
-    --text-secondary: #A0A0A0;
-    --section-bg: #121223;
+    --text-secondary: #A0A0A0; /* Cinza claro para parágrafos */
+    --section-bg: #121223; /* Fundo de outras seções */
     --card-bg: #1A1A2E;
     --border-color: #2A2A3D;
     --accent-shadow-color: rgba(127, 63, 191, 0.3);
@@ -58,7 +58,7 @@ h1, h2, h3, h4 {
 
 /* Header */
 header {
-    background-color: var(--section-bg);
+    background-color: var(--section-bg); /* Pode ser igual ao --dark-bg se preferir o header fundido */
     padding: 1em 0;
     border-bottom: 1px solid var(--border-color);
     position: sticky;
@@ -102,71 +102,120 @@ header nav ul li a.active {
     border-bottom-color: var(--secondary-highlight-color);
 }
 
-/* Hero Section */
+/* ======== NOVA HERO SECTION ESTILOS ======== */
 .hero {
-    background-image: url('png/hero_background.jpg'); 
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    text-align: center;
-    padding: 120px 0;
-    position: relative;
-    min-height: 70vh;
+    background-color: var(--dark-bg); /* Fundo principal da hero section */
+    padding: 80px 0; /* Espaçamento vertical */
+    min-height: calc(80vh - 70px); /* 70px é uma altura aproximada do header, ajuste se necessário */
+    display: flex;
+    align-items: center; /* Centraliza verticalmente o conteúdo */
+    background-image: none; /* Remove background-image do estilo antigo */
+}
+
+.hero-overlay { /* Remove o overlay antigo se existir */
+    display: none;
+}
+
+.hero-layout-new {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    gap: 40px; /* Espaço entre texto e imagem */
 }
 
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom, rgba(13, 13, 26, 0.5), rgba(13, 13, 26, 0.85));
-    z-index: 1;
+.hero-text-content-new {
+    flex: 1.2; /* Dá um pouco mais de espaço para o texto */
+    max-width: 580px; /* Limita a largura do texto */
 }
 
-.hero-content {
-    position: relative;
-    z-index: 2;
-}
-
-.hero-content h2 {
-    font-size: 3.2em;
-    margin-bottom: 0.4em;
+.hero-text-content-new h1 {
+    font-size: 3.8em; /* Tamanho grande para o título */
     color: #FFFFFF;
-    text-shadow: 0 0 10px rgba(0,0,0,0.5);
+    line-height: 1.15;
+    margin-bottom: 0.5em;
+    font-weight: 700;
 }
 
-.hero-content p {
-    font-size: 1.25em;
-    margin-bottom: 1.8em;
-    color: var(--text-default);
-    max-width: 650px;
-    margin-left: auto;
-    margin-right: auto;
+.hero-text-content-new p {
+    font-size: 1.15em;
+    color: var(--text-secondary); /* Um cinza mais claro */
+    margin-bottom: 2em;
+    line-height: 1.7;
 }
 
-.hero-buttons .btn {
+.hero-buttons-new {
+    display: flex;
+    gap: 15px; /* Espaço entre os botões */
+    margin-top: 30px;
+}
+
+.hero-buttons-new .btn { /* Estilo base para os botões na nova hero */
     padding: 14px 30px;
-    margin: 0 12px;
-    border-radius: 30px;
+    border-radius: 8px; /* Bordas um pouco menos arredondadas */
     font-weight: bold;
     text-transform: uppercase;
-    font-size: 0.95em;
+    font-size: 0.9em;
     transition: all 0.3s ease;
-    display: inline-block;
     border-width: 2px;
     border-style: solid;
+    text-align: center;
 }
 
-.btn-primary {
+.btn-primary-new {
     background-color: var(--primary-color);
     color: #FFFFFF;
     border-color: var(--primary-color);
 }
 
+.btn-primary-new:hover {
+    background-color: var(--primary-hover-color);
+    border-color: var(--primary-hover-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px var(--accent-shadow-color);
+}
+
+.btn-secondary-new {
+    background-color: transparent;
+    color: var(--primary-color); /* Texto do botão secundário roxo */
+    border-color: var(--primary-color);
+}
+
+.btn-secondary-new:hover {
+    background-color: var(--primary-color);
+    color: var(--dark-bg); /* Texto fica escuro quando o fundo é roxo */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(127, 63, 191, 0.2); /* Sombra mais sutil */
+}
+
+.hero-image-content-new {
+    flex: 0.8; /* Imagem ocupa um pouco menos de espaço */
+    display: flex;
+    justify-content: center; /* Centraliza a imagem se ela for menor que o container */
+    align-items: center;
+}
+
+.hero-image-content-new img {
+    max-width: 100%;
+    max-height: 450px; /* Limita a altura da imagem, ajuste conforme necessário */
+    height: auto;
+    border-radius: 12px; /* Bordas arredondadas para a imagem */
+    /* box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), 0 0 15px var(--accent-shadow-color);  Opcional: Sombra na imagem */
+}
+
+/* Removemos estilos antigos da hero que não são mais necessários ou foram sobrescritos */
+.hero-content h2,
+.hero-content p {
+    /* Estes eram para o layout antigo, suas novas versões estão em .hero-text-content-new */
+}
+/* Se houver .hero-stats, ele não foi incluído no novo design, então pode ser ocultado */
+.hero-stats { display: none; }
+
+/* Botões genéricos que podem ser usados em outras seções, mantendo os antigos */
+.btn-primary { /* Estilo antigo do botão primário, mantido para outras seções se usado */
+    background-color: var(--primary-color);
+    color: #FFFFFF;
+    border-color: var(--primary-color);
+}
 .btn-primary:hover {
     background-color: var(--primary-hover-color);
     border-color: var(--primary-hover-color);
@@ -174,43 +223,24 @@ header nav ul li a.active {
     box-shadow: 0 5px 15px var(--accent-shadow-color);
 }
 
-.btn-secondary {
+.btn-secondary { /* Estilo antigo do botão secundário, mantido para outras seções */
     background-color: transparent;
     color: var(--secondary-highlight-color);
     border-color: var(--secondary-highlight-color);
 }
-
 .btn-secondary:hover {
     background-color: var(--secondary-highlight-color);
     color: var(--dark-bg);
     transform: translateY(-3px) scale(1.02);
     box-shadow: 0 5px 15px rgba(177, 133, 219, 0.3);
 }
+/* Se os botões antigos .btn-primary e .btn-secondary tiverem propriedades comuns com .hero-buttons-new .btn,
+   poderia haver uma classe base .btn e depois as variações .btn-primary, .btn-secondary, .btn-primary-new etc.
+   Mas para manter simples, estamos apenas adicionando os novos. */
 
-.hero-stats {
-    margin-top: 50px;
-    display: flex;
-    justify-content: center;
-    gap: 50px;
-}
 
-.stat-item {
-    text-align: center;
-}
+/* ======== FIM NOVA HERO SECTION ESTILOS ======== */
 
-.stat-item h3 {
-    font-size: 2.2em;
-    color: #FFFFFF;
-    margin-bottom: 0.1em;
-}
-
-.stat-item p {
-    font-size: 0.9em;
-    color: var(--text-secondary);
-    margin-bottom: 0;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
 
 .top-hits, .games-showcase, .about-section-home {
     padding: 70px 0;
@@ -218,7 +248,7 @@ header nav ul li a.active {
     border-top: 1px solid var(--border-color);
 }
 .top-hits:first-of-type, .games-showcase:first-of-type {
-    border-top: none;
+    border-top: none; /* Isso é importante se a hero section não tiver borda superior */
 }
 
 .top-hits h2, .games-showcase h2, .about-section-home h2 {
@@ -263,21 +293,12 @@ header nav ul li a.active {
     box-shadow: 0 6px 20px rgba(0,0,0,0.4), 0 0 15px var(--accent-shadow-color);
 }
 
-/* MODIFICAÇÕES PRINCIPAIS AQUI ABAIXO */
+/* MODIFICAÇÕES PRINCIPAIS AQUI ABAIXO (MANTIDO DO ORIGINAL) */
 .game-card img, .game-card-detailed img {
     width: 100%; /* Faz a imagem ocupar a largura total do card */
     object-fit: cover; /* Cobre a área, mantendo a proporção. Pode cortar se a proporção não for 1:1 */
     aspect-ratio: 1 / 1; /* FORÇA A ÁREA DA IMAGEM A SER QUADRADA */
-    /* As alturas fixas foram removidas para permitir que aspect-ratio funcione corretamente */
 }
-/* As regras individuais de altura foram removidas. A regra acima se aplica a ambas.
-.game-card img {
-    /* height: 190px; FOI REMOVIDO */
-/* }
-.game-card-detailed img {
-    /* height: 160px; FOI REMOVIDO */
-/* }
-*/
 /* FIM DAS MODIFICAÇÕES PRINCIPAIS */
 
 
@@ -473,11 +494,34 @@ header nav ul li a.active {
 .about-text { flex: 1.2; color: var(--text-default); }
 .about-text p { margin-bottom: 1.5em; line-height: 1.75; font-size: 1.05em; color: var(--text-secondary); }
 .about-text p:first-of-type { color: var(--text-default); font-size: 1.1em; }
-.about-text .btn { margin-top: 25px; display: inline-block; }
+.about-text .btn { /* Para o botão de contato da seção sobre, usa o estilo .btn-secondary antigo */
+    margin-top: 25px;
+    display: inline-block;
+    padding: 14px 30px;
+    border-radius: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.95em;
+    transition: all 0.3s ease;
+    border-width: 2px;
+    border-style: solid;
+}
 .about-image { flex: 0.8; max-width: 400px; }
 .about-image img { border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.3), 0 0 20px var(--accent-shadow-color); }
 
 /* Responsividade */
+@media (max-width: 992px) { /* Ajuste breakpoint se necessário */
+    .hero-text-content-new h1 {
+        font-size: 3em;
+    }
+    .hero-text-content-new p {
+        font-size: 1.05em;
+    }
+    .hero-layout-new {
+        gap: 30px;
+    }
+}
+
 @media (max-width: 768px) {
     header .container { flex-direction: column; gap: 15px; }
     header nav { margin-top: 0; width: 100%; }
@@ -485,18 +529,62 @@ header nav ul li a.active {
     header nav ul li { margin: 8px 0; margin-left: 0; width: 100%; text-align: center; }
     header nav ul li a { display: block; padding: 10px 0; }
 
-    .hero-content h2 { font-size: 2.5em; }
-    .hero-content p { font-size: 1.1em; }
-    .hero-buttons { display: flex; flex-direction: column; align-items: center; gap: 15px; }
-    .hero-buttons .btn { margin: 0; width: 85%; }
-    .hero-stats { flex-direction: column; gap: 25px; }
+    /* Ajustes para a nova hero section em telas menores */
+    .hero {
+        padding: 60px 0;
+        min-height: auto; /* Altura automática em mobile */
+        text-align: center; /* Centraliza texto caso empilhe */
+    }
+    .hero-layout-new {
+        flex-direction: column; /* Empilha texto e imagem */
+        gap: 40px;
+    }
+    .hero-text-content-new {
+        max-width: 100%; /* Ocupa toda a largura */
+        order: 2; /* Texto abaixo da imagem */
+    }
+    .hero-image-content-new {
+        order: 1; /* Imagem acima do texto */
+        margin-bottom: 20px; /* Espaço se a imagem vier antes */
+    }
+    .hero-image-content-new img {
+        max-height: 300px; /* Reduz altura da imagem em mobile */
+    }
+    .hero-buttons-new {
+        justify-content: center; /* Centraliza os botões */
+        flex-direction: column; /* Empilha botões em telas muito pequenas */
+        align-items: center;
+    }
+    .hero-buttons-new .btn {
+        width: 80%; /* Botões ocupam mais largura */
+        max-width: 300px;
+    }
+    .hero-text-content-new h1 {
+        font-size: 2.6em; /* Ajusta tamanho da fonte */
+    }
+     .hero-text-content-new p {
+        font-size: 1em;
+    }
 
     .games-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
     .games-grid-fullpage { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
 
     .about-content-home { flex-direction: column; text-align: center; }
     .about-image { margin-top: 35px; max-width: 80%; margin-left: auto; margin-right: auto; }
-    .about-text .btn { width: auto; padding-left: 35px; padding-right: 35px; }
+    .about-text .btn {
+        width: auto;
+        padding-left: 35px;
+        padding-right: 35px;
+        /* Assegura que o botão na seção 'about' use o estilo .btn-secondary antigo */
+        background-color: transparent;
+        color: var(--secondary-highlight-color);
+        border-color: var(--secondary-highlight-color);
+    }
+    .about-text .btn:hover {
+        background-color: var(--secondary-highlight-color);
+        color: var(--dark-bg);
+    }
+
 
     .contact-box { padding: 30px 25px; }
     .footer-grid { grid-template-columns: 1fr; text-align: center; }
@@ -505,8 +593,12 @@ header nav ul li a.active {
 
 @media (max-width: 500px) {
     .games-grid-fullpage { grid-template-columns: 1fr; }
-    /* .game-card-detailed img { height: 180px; } */ /* Comentado pois aspect-ratio cuidará disso */
-    .hero-content h2 { font-size: 2em; }
-    .hero-content p { font-size: 1em; }
-    .hero-buttons .btn { width: 90%; }
+    .hero-text-content-new h1 { font-size: 2.2em; }
+    .hero-text-content-new p { font-size: 0.95em; }
+
+    .hero-buttons-new .btn {
+        width: 90%;
+        padding: 12px 20px;
+        font-size: 0.85em;
+    }
 }
