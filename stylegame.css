@@ -1,188 +1,41 @@
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #1a1a2e; /* Um azul escuro, tema espacial/noturno */
-    color: #e0e0e0; /* Texto claro */
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    box-sizing: border-box;
-}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Modo de Jogo</title>
+  <link rel="stylesheet" href="stylegame.css" />
+</head>
+<body>
+  <div class="game-header">
+    <a href="index.html" class="back-button">← Voltar</a>
+    <h1>Modo de Sobrevivência</h1>
+  </div>
 
-.game-header {
-    width: 100%;
-    background-color: #121220; /* Um pouco mais escuro que o body */
-    padding: 15px 0;
-    text-align: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-    position: relative;
-    margin-bottom: 20px;
-}
+  <div class="game-container">
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
 
-.game-header h1 {
-    margin: 0;
-    color: #c0392b; /* Cor de destaque para o título */
-    font-size: 2em;
-    text-shadow: 1px 1px 2px #000;
-}
+    <div id="ui-container">
+      <p>Vida: <span id="health">100</span></p>
+      <p>Pontuação: <span id="score">0</span></p>
+      <p>Wave: <span id="wave">1</span></p>
+    </div>
 
-.back-button {
-    position: absolute;
-    left: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #e0e0e0;
-    text-decoration: none;
-    font-size: 0.9em;
-    padding: 8px 12px;
-    background-color: #2c3e50;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
+    <button id="pauseButton">Pausar</button>
 
-.back-button:hover {
-    background-color: #34495e;
-}
+    <div id="gameOverScreen" style="display: none;">
+      <h2>Game Over</h2>
+      <p>Sua pontuação: <span id="finalScore">0</span></p>
+      <button onclick="location.reload()">Tentar Novamente</button>
+    </div>
 
-.game-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-    position: relative; /* Para posicionar telas de game over/victory */
-}
+    <div id="victoryScreen" style="display: none;">
+      <h2>Wave Concluída!</h2>
+      <p>Prepare-se para a próxima...</p>
+      <button onclick="nextWave()">Continuar</button>
+    </div>
+  </div>
 
-#gameCanvas {
-    border: 2px solid #c0392b; /* Borda vermelha para combinar com o título */
-    background-color: #0f0f1a; /* Fundo do canvas ainda mais escuro */
-    box-shadow: 0 0 15px rgba(192, 57, 43, 0.5); /* Sombra sutil da cor da borda */
-    display: block; /* Para remover qualquer espaço extra abaixo se for inline */
-    margin: 0 auto; /* Centralizar se game-container não fizer */
-}
-
-#ui-container {
-    margin-top: 15px;
-    padding: 10px 15px;
-    background-color: #121220;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-    min-width: 250px; /* Aumentado um pouco */
-    text-align: left;
-    border: 1px solid #2c3e50;
-}
-
-#ui-container p {
-    margin: 8px 0; /* Mais espaçamento */
-    font-size: 0.95em; /* Um pouco maior */
-}
-
-#ui-container span {
-    font-weight: bold;
-    color: #f1c40f; /* Amarelo para os valores */
-}
-
-#gameOverScreen, #victoryScreen { /* VictoryScreen pode ser reutilizado para "Wave Cleared" */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(18, 18, 32, 0.97); /* Mais opaco */
-    padding: 30px 40px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.8);
-    z-index: 100; /* Alto z-index */
-    border: 1px solid #c0392b;
-    min-width: 320px;
-}
-
-#gameOverScreen h2, #victoryScreen h2 {
-    color: #e74c3c;
-    margin-top: 0;
-    font-size: 1.8em;
-    margin-bottom: 15px;
-}
-#victoryScreen h2 { /* Se usar victoryScreen para "Wave Cleared" */
-    color: #2ecc71;
-}
-
-#gameOverScreen p, #victoryScreen p {
-    font-size: 1.1em;
-    margin-bottom: 25px;
-}
-
-#gameOverScreen button, #victoryScreen button {
-    padding: 12px 25px;
-    font-size: 1em;
-    color: #fff;
-    background-color: #27ae60;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-#gameOverScreen button:hover, #victoryScreen button:hover {
-    background-color: #2ecc71;
-}
-
-#pauseButton {
-    position: absolute;
-    top: 20px; /* Ajustado para não sobrepor o header se o canvas estiver logo abaixo */
-    right: 20px;
-    z-index: 50; /* Abaixo das telas de game over, mas acima de outros elementos */
-    padding: 10px 15px;
-    font-size: 0.9em;
-    color: #e0e0e0;
-    background-color: #2c3e50; /* Azul escuro consistente */
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-}
-
-#pauseButton:hover {
-    background-color: #34495e;
-}
-
-
-/* Responsividade básica */
-@media (max-width: 768px) {
-    .game-header h1 {
-        font-size: 1.5em;
-    }
-    .back-button {
-        font-size: 0.8em;
-        padding: 6px 10px;
-        left: 10px;
-    }
-    #gameCanvas {
-        width: 95vw; /* Ocupar quase toda a largura da viewport */
-        max-width: 800px; /* Mas não maior que o design original */
-        height: auto;
-        border-width: 1px; /* Borda mais fina */
-    }
-     #ui-container {
-        width: 90vw;
-        max-width: 780px; /* Para alinhar com o canvas */
-        font-size: 0.85em;
-    }
-    #gameOverScreen, #victoryScreen {
-        width: 85vw;
-        padding: 20px;
-    }
-    #gameOverScreen h2, #victoryScreen h2 {
-        font-size: 1.5em;
-    }
-    #pauseButton {
-        top: 10px;
-        right: 10px;
-        padding: 8px 12px;
-        font-size: 0.8em;
-    }
-}
+  <script src="game.js"></script>
+</body>
+</html>
