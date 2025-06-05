@@ -510,3 +510,68 @@ header nav ul li a.active {
     .hero-content p { font-size: 1em; }
     .hero-buttons .btn { width: 90%; }
 }
+/* Seção Crie. Explore. Domine. */
+.explore-dominate-section {
+    background-color: var(--dark-bg);
+    padding: 80px 20px;
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.explore-dominate-section h2 {
+    font-size: 3em;
+    color: #FFFFFF;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.explore-dominate-section p {
+    font-size: 1.2em;
+    color: var(--text-secondary);
+    max-width: 700px;
+    margin: 0 auto 40px auto;
+}
+
+.explore-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.explore-buttons .btn {
+    padding: 14px 32px;
+    font-size: 1em;
+    border-radius: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: 2px solid;
+    transition: all 0.3s ease;
+}
+
+.explore-buttons .btn-primary {
+    background-color: var(--primary-color);
+    color: #FFFFFF;
+    border-color: var(--primary-color);
+}
+
+.explore-buttons .btn-primary:hover {
+    background-color: var(--primary-hover-color);
+    border-color: var(--primary-hover-color);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 5px 15px var(--accent-shadow-color);
+}
+
+.explore-buttons .btn-secondary {
+    background-color: transparent;
+    color: var(--secondary-highlight-color);
+    border-color: var(--secondary-highlight-color);
+}
+
+.explore-buttons .btn-secondary:hover {
+    background-color: var(--secondary-highlight-color);
+    color: var(--dark-bg);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 5px 15px rgba(177, 133, 219, 0.3);
+}
