@@ -1,52 +1,154 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Nossos Jogos - Drax Studio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Games - Drax Studio</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Os estilos inline para .game-card-detailed foram removidos
+         pois as transições e hovers já estão no style.css principal
+         ou podem ser adicionados lá se precisar de algo específico apenas para esta página.
+         Se houver algum estilo inline que você queira manter especificamente aqui,
+         você pode adicioná-lo de volta ou, idealmente, movê-lo para o style.css com uma classe mais específica.
+    -->
 </head>
 <body>
-  <header>
-    <div class="container">
-      <h1 class="logo">Drax Studio</h1>
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="games.html" class="active">Our Games</a>
-        <a href="about.html">About Us</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-    </div>
-  </header>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Drax Studio</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="games.html" class="active">Our Games</a></li>
+                    <li><a href="index.html#about-us-section">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-  <section class="hero games-hero">
-    <div class="hero-content">
-      <div class="hero-text">
-        <h2>Nossos Jogos</h2>
-        <p>Descubra os mundos criados por nós. Cada jogo é feito com paixão, criatividade e atenção aos detalhes.</p>
-      </div>
-    </div>
-  </section>
+    <main>
+        <section class="games-showcase">
+            <div class="container">
+                <h2>Our Game & What's Next</h2> <!-- Título ajustado para refletir o conteúdo -->
+                <div class="games-grid-fullpage">
+                   
+                    <!-- Kageborn Game Card -->
+                    <div class="game-card-detailed">
+                        <img src="png/kageborn.png" alt="Kageborn Game Cover">
+                        <h3>Kageborn</h3>
+                        <div class="game-stats-detailed">
+                            <div class="stat-item-detailed">
+                                <span>Alpha</span>
+                                <p>Development Phase</p>
+                            </div>
+                            <div class="stat-item-detailed">
+                                <span>In Progress</span>
+                                <p>Current Status</p>
+                            </div>
+                        </div>
+                    </div>
 
-  <section class="games-list container">
-    <div class="game-card">
-      <img src="https://via.placeholder.com/300x200.png?text=Jogo+1" alt="Jogo 1">
-      <h3>Jogo 1</h3>
-      <p>Um RPG de ação em mundo aberto com combates intensos e uma história envolvente.</p>
-    </div>
+                    <!-- ADDED: Coming Soon Game Card 1 -->
+                    <div class="game-card-detailed"> <!-- Usando a mesma classe para consistência de estilo -->
+                        <a href="#" style="text-decoration: none; color: inherit; cursor: default;">
+                            <img src="png/iscoming.png" alt="Coming Soon Game Cover">
+                            <h3>Coming Soon</h3>
+                            <div class="game-stats-detailed">
+                                <div class="stat-item-detailed">
+                                    <span>??</span>
+                                    <p>Anticipated</p>
+                                </div>
+                                <div class="stat-item-detailed">
+                                    <span>??</span>
+                                    <p>Keep an Eye Out!</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
 
-    <div class="game-card">
-      <img src="https://via.placeholder.com/300x200.png?text=Jogo+2" alt="Jogo 2">
-      <h3>Jogo 2</h3>
-      <p>Um jogo multiplayer competitivo onde estratégia e trabalho em equipe são essenciais.</p>
-    </div>
+                    <!-- ADDED: Coming Soon Game Card 2 -->
+                    <div class="game-card-detailed"> <!-- Usando a mesma classe para consistência de estilo -->
+                        <a href="#" style="text-decoration: none; color: inherit; cursor: default;">
+                            <img src="png/iscoming.png" alt="Coming Soon Game Cover">
+                            <h3>Coming Soon</h3>
+                            <div class="game-stats-detailed">
+                                <div class="stat-item-detailed">
+                                    <span>TBA</span>
+                                    <p>Excitement Builds</p>
+                                </div>
+                                <div class="stat-item-detailed">
+                                    <span>Soon™</span>
+                                    <p>Patience is Key</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-    <div class="game-card">
-      <img src="https://via.placeholder.com/300x200.png?text=Jogo+3" alt="Jogo 3">
-      <h3>Jogo 3</h3>
-      <p>Explore paisagens fantásticas e resolva puzzles em um jogo de aventura único.</p>
-    </div>
-  </section>
+    <footer class="site-footer-detailed">
+        <div class="container footer-grid">
+            <div class="footer-logo-bio">
+                <h3>Drax Studio</h3>
+            </div>
+            <div class="footer-links">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="contact.html">Game Acquisition</a></li>
+                    <li><a href="#">Consulting</a></li>
+                    <li><a href="#">Marketing</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="index.html#about-us-section">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container footer-copyright">
+             <p>© 2025 Drax Studio. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Ajuste para que o dblclick só se aplique ao card do Kageborn
+            const kagebornCard = document.querySelector('.game-card-detailed img[src="png/kageborn.png"]');
+            if (kagebornCard) {
+                const parentCard = kagebornCard.closest('.game-card-detailed');
+                if (parentCard) {
+                    parentCard.style.cursor = 'pointer'; // Adiciona cursor de ponteiro para o Kageborn
+                    parentCard.addEventListener('dblclick', () => {
+                        window.location.href = 'dragon-slayer.html';
+                    });
+                }
+            }
+
+            // Opcional: Adicionar um cursor diferente para os cards "Coming Soon" se não forem clicáveis
+            const comingSoonCards = document.querySelectorAll('.game-card-detailed img[src="png/iscoming.png"]');
+            comingSoonCards.forEach(img => {
+                const parentCard = img.closest('.game-card-detailed');
+                if (parentCard) {
+                    parentCard.style.cursor = 'default';
+                }
+            });
+        });
+    </script>
+
 </body>
 </html>
