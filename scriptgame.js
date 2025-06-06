@@ -1,13 +1,14 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
-// Elementos da UI
+// Elementos da UI (ajustados para o seu HTML)
 const playerHealthUI = document.getElementById('playerHealth');
-const bossHealthUI = document.getElementById('bossHealth'); // Adicionado para a vida do boss
+const dragonHealthUI = document.getElementById('dragonHealth'); // Alterado de bossHealthUI
 const waveUI = document.getElementById('wave');
 const scoreUI = document.getElementById('score');
 const gameOverScreen = document.getElementById('gameOverScreen');
-const pauseButton = document.getElementById('pauseButton');
+const victoryScreen = document.getElementById('victoryScreen'); // Se for usar no futuro
+const pauseButton = document.getElementById('pauseButton'); // Será null, pois não está no seu HTML
 
 // Configurações do Jogo
 canvas.width = 800;
@@ -16,7 +17,7 @@ const MAP_CENTER_X = canvas.width / 2;
 const MAP_CENTER_Y = canvas.height * 0.3;
 
 let player;
-let boss = null;
+let boss = null; // Internamente ainda chamado de 'boss' para consistência do código
 let enemies = [];
 let playerProjectiles = [];
 let enemyProjectiles = [];
@@ -59,33 +60,29 @@ const ENEMY_TYPES = {
     GRUNT: 'grunt', DART: 'dart', SHOOTER: 'shooter'
 };
 
-// --- Função CRUCIAL que estava faltando ---
+// --- Função CRUCIAL ---
 function generateWaveSettings(waveNum) {
     const settings = {
-        // Player projectile settings (pode variar por wave se quiser, mas aqui é fixo)
         playerProjectileWidth: 5,
         playerProjectileHeight: 10,
         playerProjectileColor: 'lime',
-        playerEmpoweredShotChance: 0.1, // 10% chance de tiro fortalecido
+        playerEmpoweredShotChance: 0.1,
         playerEmpoweredShotSizeMultiplier: 1.8,
 
-        // Dragon/Boss settings (escalam com a onda)
         dragonHealth: 1000 + (waveNum * 150),
         dragonMoveSpeedBase: 1 + (waveNum * 0.05),
-        dragonAttackInterval: Math.max(40, 100 - waveNum * 3), // mais rápido com ondas
+        dragonAttackInterval: Math.max(40, 100 - waveNum * 3),
         projectileSpeedMultiplier: 1 + (waveNum * 0.03),
-        numProjectiles: Math.min(5, 2 + Math.floor(waveNum / 5)), // mais projéteis em ondas de boss mais altas
+        numProjectiles: Math.min(5, 2 + Math.floor(waveNum / 5)),
         laserChance: 0.15 + Math.min(0.35, waveNum * 0.02),
         tripleAttackChance: 0.2 + Math.min(0.4, waveNum * 0.025),
         circlingChance: 0.1 + Math.min(0.3, waveNum * 0.015),
-        circlingDuration: 300 + waveNum * 5, // mais tempo circulando
+        circlingDuration: 300 + waveNum * 5,
 
-        // Power-up spawn settings
-        randomPowerUpSpawnChancePerSecond: 0.03 + Math.min(0.1, waveNum * 0.005) // Pequena chance de spawn aleatório
+        randomPowerUpSpawnChancePerSecond: 0.03 + Math.min(0.1, waveNum * 0.005)
     };
     return settings;
 }
-
 
 // --- Funções Auxiliares ---
 function getRandomColor() {
@@ -108,7 +105,6 @@ class GameObject {
         this.isDying = true;
         this.deathAnimationTimer = 0;
         createExplosion(this.x + this.width / 2, this.y + this.height / 2, this.color, Math.max(5,Math.floor(this.width / 3)));
-        // if (playSound) console.log("Death sound placeholder"); // deathSound.play();
     }
 
     updateDeathAnimation() {
@@ -126,7 +122,7 @@ class GameObject {
         ctx.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
         ctx.restore();
 
-        if (this.deathAnimationTimer % (Math.floor(this.TIME_TO_FADE_OUT / 5)) === 0) { // Explosões mais frequentes para animações longas
+        if (this.deathAnimationTimer % (Math.floor(this.TIME_TO_FADE_OUT / 5)) === 0) {
             createExplosion(this.x + this.width * Math.random(), this.y + this.height * Math.random(), this.color, 2);
         }
         return false;
@@ -145,17 +141,17 @@ class PowerUp extends GameObject {
             case POWERUP_TYPES.FAST_REGEN: color = 'rgba(144, 238, 144, 0.9)'; symbol = "R+"; break;
         }
         super(x, y, width, height, color);
-        this.type = type; this.symbol = symbol; this.fallSpeed = 1.5; this.lifeSpan = 720; // 12 segundos
+        this.type = type; this.symbol = symbol; this.fallSpeed = 1.5; this.lifeSpan = 720;
     }
     update() {
         this.y += this.fallSpeed; this.lifeSpan--;
-        if (this.lifeSpan <= 0 || this.y > canvas.height + this.height) return false; // Retorna false para ser removido
+        if (this.lifeSpan <= 0 || this.y > canvas.height + this.height) return false;
         this.draw();
         ctx.fillStyle = 'black'; ctx.font = 'bold 18px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
         ctx.fillText(this.symbol, this.x + this.width / 2, this.y + this.height / 2 + 1);
         ctx.fillStyle = 'white';
         ctx.fillText(this.symbol, this.x + this.width / 2, this.y + this.height / 2);
-        return true; // Retorna true para manter
+        return true;
     }
 }
 
@@ -165,7 +161,7 @@ class Particle extends GameObject {
         this.velocity = velocity; this.alpha = 1; this.friction = 0.98; this.gravity = 0.08;
     }
     update() {
-        this.drawCustom(); // Renomeado para evitar conflito com GameObject.draw
+        this.drawCustom();
         this.velocity.x *= this.friction; this.velocity.y *= this.friction;
         this.velocity.y += this.gravity; this.x += this.velocity.x; this.y += this.velocity.y;
         this.alpha -= 0.02; return this.alpha > 0;
@@ -197,7 +193,7 @@ class Player extends GameObject {
 
         this.baseProjectileDamage = 10;
         this.currentBaseProjectileSpeed = 7;
-        this.currentBaseShootCooldown = 18; // ~3 tiros por segundo
+        this.currentBaseShootCooldown = 18;
 
         this.currentSpeed = this.baseSpeed;
         this.actualProjectileDamage = this.baseProjectileDamage;
@@ -213,7 +209,6 @@ class Player extends GameObject {
 
     updateStatsForWave(waveNum) {
         this.actualProjectileDamage = this.baseProjectileDamage + ((waveNum -1) * 10);
-        // console.log(`Wave ${waveNum}, Player Damage: ${this.actualProjectileDamage}`);
     }
 
     evolve() {
@@ -222,9 +217,8 @@ class Player extends GameObject {
         this.currentBaseProjectileSpeed += 0.4;
         this.currentBaseShootCooldown = Math.max(2, this.currentBaseShootCooldown * 0.90);
         this.maxHealth += 20;
-        this.health = this.maxHealth; // Cura total na evolução
+        this.health = this.maxHealth;
         this.color = this.evolutionColors[Math.min(this.evolutionLevel, this.evolutionColors.length - 1)];
-        // console.log(`Player Evolved! Level: ${this.evolutionLevel}`);
         this.updateStatsForWave(currentWave);
         updateUI();
     }
@@ -249,7 +243,7 @@ class Player extends GameObject {
 
         if ((keys['ArrowLeft'] || keys['KeyA']) && this.x > 0) this.x -= this.currentSpeed;
         if ((keys['ArrowRight'] || keys['KeyD']) && this.x < canvas.width - this.width) this.x += this.currentSpeed;
-        if ((keys['ArrowUp'] || keys['KeyW']) && this.y > canvas.height * 0.55) this.y -= this.currentSpeed; // Não ir muito para cima
+        if ((keys['ArrowUp'] || keys['KeyW']) && this.y > canvas.height * 0.55) this.y -= this.currentSpeed;
         if ((keys['ArrowDown'] || keys['KeyS']) && this.y < canvas.height - this.height - 5) this.y += this.currentSpeed;
 
         this.updatePowerUpTimers();
@@ -281,7 +275,7 @@ class Player extends GameObject {
         switch (type) {
             case POWERUP_TYPES.SHIELD: this.isShielded = true; this.shieldTimer = POWERUP_BASE_DURATION; break;
             case POWERUP_TYPES.RAPID_FIRE: this.rapidFireActive = true; this.rapidFireTimer = POWERUP_BASE_DURATION; break;
-            case POWERUP_TYPES.HEALTH_PACK: this.health = Math.min(this.maxHealth, this.health + 50); updateUI(); break; // Cura 50 ou até max
+            case POWERUP_TYPES.HEALTH_PACK: this.health = Math.min(this.maxHealth, this.health + 50); updateUI(); break;
             case POWERUP_TYPES.DAMAGE_BOOST: this.damageBoostActive = true; this.damageBoostTimer = POWERUP_BASE_DURATION; break;
             case POWERUP_TYPES.FAST_REGEN: this.fastRegenActive = true; this.fastRegenTimer = FAST_REGEN_DURATION; break;
         }
@@ -294,8 +288,8 @@ class Player extends GameObject {
         if (Math.random() < waveSettings.playerEmpoweredShotChance) {
             projWidth *= waveSettings.playerEmpoweredShotSizeMultiplier;
             projHeight *= waveSettings.playerEmpoweredShotSizeMultiplier;
-            if (!this.damageBoostActive) projColor = 'gold'; // Cor especial para tiro fortalecido
-            projectileDamage = Math.round(projectileDamage * 1.5); // Bônus de dano para tiro fortalecido
+            if (!this.damageBoostActive) projColor = 'gold';
+            projectileDamage = Math.round(projectileDamage * 1.5);
         }
         playerProjectiles.push(new Projectile(this.x + this.width / 2 - projWidth / 2, this.y, projWidth, projHeight, projColor, projectileSpeed, 'player', 0, 0, projectileDamage));
     }
@@ -322,13 +316,13 @@ class BaseEnemy extends GameObject {
         if (this.health <= 0) {
             this.die();
             score += this.value;
-            updateUI(); // Atualiza a pontuação na UI
-            if (Math.random() < 0.08) { // Aumentei um pouco a chance de drop de inimigo comum
+            updateUI();
+            if (Math.random() < 0.08) {
                 spawnPowerUp(this.x + this.width / 2, this.y + this.height / 2);
             }
         }
     }
-    update(playerRef) { // playerRef pode não ser usado por todos, mas é bom ter
+    update(playerRef) {
         if (this.isDying) return this.updateDeathAnimation();
 
         if (this.targetY !== null && this.y < this.targetY) {
@@ -359,7 +353,7 @@ class GruntEnemy extends BaseEnemy {
             this.x += this.speed * 0.5 * this.moveDirection;
             if (this.x <= 0 || this.x + this.width >= canvas.width) {
                 this.moveDirection *= -1;
-                this.x = Math.max(0, Math.min(this.x, canvas.width - this.width)); // Prevenir sair da tela
+                this.x = Math.max(0, Math.min(this.x, canvas.width - this.width));
             }
             this.changeDirectionTimer--;
             if (this.changeDirectionTimer <= 0) {
@@ -394,7 +388,7 @@ class DartEnemy extends BaseEnemy {
                     this.isCharging = true;
                     this.angleToPlayer = Math.atan2(playerRef.y - this.y, playerRef.x - this.x);
                 }
-                this.x += Math.sin(gameTickCounter * 0.05 + this.x + this.y) * 0.5; // Movimento errático mais aleatório
+                this.x += Math.sin(gameTickCounter * 0.05 + this.x + this.y) * 0.5;
             } else {
                 this.x += Math.cos(this.angleToPlayer) * this.speed * 1.5;
                 this.y += Math.sin(this.angleToPlayer) * this.speed * 1.5;
@@ -442,22 +436,22 @@ class ShooterEnemy extends BaseEnemy {
                 const dx = Math.cos(this.currentAngle) * projSpeed;
                 const dy = Math.sin(this.currentAngle) * projSpeed;
                 enemyProjectiles.push(new Projectile(
-                    this.x + this.width / 2 - 4 + dx * 3, // Spawn um pouco à frente do cano
+                    this.x + this.width / 2 - 4 + dx * 3,
                     this.y + this.height / 2 - 4 + dy * 3,
                     8, 8, 'dodgerblue', projSpeed, 'enemy_shooter', dx, dy, 8 + currentWave * 1.5));
                 this.shootTimer = this.shootCooldown;
             }
         }
-        this.draw(); // Chama o draw personalizado abaixo
+        this.draw();
         return false;
     }
-    draw() { // Sobrescreve o draw de BaseEnemy
-        super.draw(); // Desenha o corpo base primeiro
+    draw() {
+        super.draw();
         ctx.save();
         ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
-        ctx.rotate(this.currentAngle - Math.PI/2); // Ajuste para que 0 radianos seja para cima
-        ctx.fillStyle = "darkgrey"; // Cor do cano
-        ctx.fillRect(-2, -this.height/2 - 5, 4, 10); // "cano" da arma um pouco mais visível
+        ctx.rotate(this.currentAngle - Math.PI/2);
+        ctx.fillStyle = "darkgrey";
+        ctx.fillRect(-2, -this.height/2 - 5, 4, 10);
         ctx.restore();
     }
 }
@@ -468,7 +462,7 @@ class BossDragon extends BaseEnemy {
     constructor(x, y, waveNum) {
         const settings = generateWaveSettings(waveNum);
         super(x, y, 100, 80, getRandomColor(), settings.dragonHealth, settings.dragonMoveSpeedBase, 250 * waveNum);
-        this.maxHealth = settings.dragonHealth;
+        this.maxHealth = settings.dragonHealth; // Usado para UI
         this.attackIntervalBase = settings.dragonAttackInterval;
         this.attackTimer = this.attackIntervalBase;
         this.projectileSpeedMultiplier = settings.projectileSpeedMultiplier;
@@ -489,7 +483,7 @@ class BossDragon extends BaseEnemy {
         this.targetYDuringCircling = MAP_CENTER_Y;
 
         this.hasTriggeredNextWave = false;
-        this.TIME_TO_FADE_OUT = 90; // Boss demora mais para morrer
+        this.TIME_TO_FADE_OUT = 90;
     }
 
     update(playerRef) {
@@ -501,7 +495,7 @@ class BossDragon extends BaseEnemy {
                 }
                 return true;
             }
-            updateUI(); // Para atualizar a vida do boss enquanto ele morre
+            updateUI();
             return false;
         }
 
@@ -529,17 +523,17 @@ class BossDragon extends BaseEnemy {
             this.attackTimer--;
             if (this.attackTimer <= 0) {
                 this.performAttack(playerRef);
-                this.attackTimer = this.attackIntervalBase / (this.isCircling ? 1.3 : 1); // Ataca mais rápido ao circular
+                this.attackTimer = this.attackIntervalBase / (this.isCircling ? 1.3 : 1);
             }
         }
         this.draw();
-        updateUI(); // Atualiza vida do boss na UI
+        updateUI();
         return false;
     }
-    handleCirclingState() { if (this.isCircling) { this.circlingTimer--; if (this.circlingTimer <= 0) { this.isCircling = false; this.circlingCheckTimer = this.circlingCheckInterval; } } else { this.circlingCheckTimer--; if (this.circlingCheckTimer <= 0) { this.circlingCheckTimer = this.circlingCheckInterval; if (Math.random() < this.circlingChance) { this.isCircling = true; this.circlingTimer = this.circlingDuration; this.orbitAngle = Math.random() * Math.PI * 2; } } } } // Reset orbitAngle ao começar a circular
+    handleCirclingState() { if (this.isCircling) { this.circlingTimer--; if (this.circlingTimer <= 0) { this.isCircling = false; this.circlingCheckTimer = this.circlingCheckInterval; } } else { this.circlingCheckTimer--; if (this.circlingCheckTimer <= 0) { this.circlingCheckTimer = this.circlingCheckInterval; if (Math.random() < this.circlingChance) { this.isCircling = true; this.circlingTimer = this.circlingDuration; this.orbitAngle = Math.random() * Math.PI * 2; } } } }
     performAttack(playerRef) { const roll = Math.random(); if (roll < this.tripleAttackChance) this.tripleAttack(playerRef); else this.standardAttack(playerRef); }
     fireBossProjectile(posX, posY, isLaserOverride = false, targetPlayer = false, playerRef = null, fixedAngleDeg = null) {
-        if (this.isDying) return; // Não atirar se estiver morrendo
+        if (this.isDying) return;
         let pColor = 'orange', pWidth = 10, pHeight = 10, pBaseSpeed = 3, dx = 0, dy = 0;
         let damage = 15 + currentWave;
         if (isLaserOverride || Math.random() < this.laserChance) {
@@ -557,26 +551,23 @@ class BossDragon extends BaseEnemy {
     }
     standardAttack(playerRef) {
         const shouldTarget = this.isCircling || Math.random() < 0.4;
-        const numProjs = this.isCircling ? Math.max(1, this.numProjectiles -1) : this.numProjectiles; // Menos projéteis ao circular
+        const numProjs = this.isCircling ? Math.max(1, this.numProjectiles -1) : this.numProjectiles;
         for (let i = 0; i < numProjs; i++) {
             setTimeout(() => {
                 if (this.isDying) return;
                 const projSpawnX = this.x + this.width / 2; const projSpawnY = this.y + this.height;
                 this.fireBossProjectile(projSpawnX, projSpawnY, false, shouldTarget, playerRef);
-            }, i * (this.isCircling ? 120 : 90) ); // Spread out shots more when circling
+            }, i * (this.isCircling ? 120 : 90) );
         }
     }
     tripleAttack(playerRef) {
         if (this.isDying) return;
         const projSpawnX = this.x + this.width / 2; const projSpawnY = this.y + this.height;
         const spreadAngle = 18;
-        // Central shot (targets if circling, otherwise straight down)
         this.fireBossProjectile(projSpawnX, projSpawnY, false, this.isCircling, playerRef, this.isCircling ? null : 90);
-        // Side shots (target if circling, otherwise angled)
         setTimeout(() => { if (!this.isDying) this.fireBossProjectile(projSpawnX, projSpawnY, false, this.isCircling, playerRef, this.isCircling ? null : 90 - spreadAngle)}, 50);
         setTimeout(() => { if (!this.isDying) this.fireBossProjectile(projSpawnX, projSpawnY, false, this.isCircling, playerRef, this.isCircling ? null : 90 + spreadAngle)}, 100);
     }
-    // die() é herdado de BaseEnemy, mas a lógica de transição de onda está no update()
 }
 
 
@@ -585,8 +576,7 @@ class Projectile extends GameObject {
     constructor(x, y, width, height, color, speed, owner, dx = 0, dy = 0, damage = 10) {
         super(x, y, width, height, color);
         this.speed = speed; this.owner = owner; this.dx = dx; this.dy = dy; this.damage = damage;
-        if (this.owner === 'player') { this.dy = -this.speed; this.dx = 0; } // Jogador sempre atira para cima
-        // Para inimigos, dx e dy são passados, exceto grunt
+        if (this.owner === 'player') { this.dy = -this.speed; this.dx = 0; }
         else if (this.owner === 'enemy_grunt') { this.dy = this.speed; this.dx = 0; }
     }
     update() {
@@ -602,7 +592,7 @@ class Projectile extends GameObject {
 
 // --- Funções de Power-up ---
 function spawnPowerUp(x, y, specificType = null) {
-    if (gameTickCounter - lastPowerUpSpawnGameTick < MIN_POWERUP_SPAWN_INTERVAL_TICKS && !specificType) return; // Cooldown para drops aleatórios
+    if (gameTickCounter - lastPowerUpSpawnGameTick < MIN_POWERUP_SPAWN_INTERVAL_TICKS && !specificType) return;
     let type;
     if (specificType) type = specificType;
     else { const typeKeys = Object.values(POWERUP_TYPES); type = typeKeys[Math.floor(Math.random() * typeKeys.length)]; }
@@ -612,11 +602,11 @@ function spawnPowerUp(x, y, specificType = null) {
 function handleRandomGenericPowerUpSpawns(waveSettings) {
     randomPowerUpSpawnTimer--;
     if (randomPowerUpSpawnTimer <= 0) {
-        randomPowerUpSpawnTimer = RANDOM_POWERUP_SPAWN_INTERVAL_CHECK; // Checa a cada segundo
-        if (Math.random() < waveSettings.randomPowerUpSpawnChancePerSecond / (60 / RANDOM_POWERUP_SPAWN_INTERVAL_CHECK) ) { // Ajusta chance para o intervalo
+        randomPowerUpSpawnTimer = RANDOM_POWERUP_SPAWN_INTERVAL_CHECK;
+        if (Math.random() < waveSettings.randomPowerUpSpawnChancePerSecond / (60 / RANDOM_POWERUP_SPAWN_INTERVAL_CHECK) ) {
             const spawnX = Math.random() * (canvas.width - 60) + 30;
             let availableTypes = [POWERUP_TYPES.RAPID_FIRE, POWERUP_TYPES.DAMAGE_BOOST, POWERUP_TYPES.FAST_REGEN];
-            if (player.health < player.maxHealth * 0.5) availableTypes.push(POWERUP_TYPES.HEALTH_PACK); // Mais chance de health se baixo
+            if (player.health < player.maxHealth * 0.5) availableTypes.push(POWERUP_TYPES.HEALTH_PACK);
             const typeToSpawn = availableTypes[Math.floor(Math.random() * availableTypes.length)];
             if (typeToSpawn) spawnPowerUp(spawnX, -30, typeToSpawn);
         }
@@ -628,8 +618,8 @@ function handleStrategicPowerUpSpawns() {
         strategicPowerUpCheckTimer = STRATEGIC_POWERUP_MIN_INTERVAL + Math.random() * STRATEGIC_POWERUP_RANDOM_ADDITION;
         let baseChance = 0.02 + (currentWave -1) * 0.015;
         if (currentWave >= 5) baseChance += 0.07;
-        if (currentWave >= 9 && waveDurationTicks > 3000) baseChance += 0.12; // 50 segundos na wave
-        if (currentWave >= 12 && waveDurationTicks > 4200) baseChance += 0.06; // 70 segundos na wave
+        if (currentWave >= 9 && waveDurationTicks > 3000) baseChance += 0.12;
+        if (currentWave >= 12 && waveDurationTicks > 4200) baseChance += 0.06;
         baseChance = Math.min(baseChance, 0.45);
 
         if (Math.random() < baseChance) {
@@ -655,30 +645,30 @@ function initGame() {
     strategicPowerUpCheckTimer = STRATEGIC_POWERUP_MIN_INTERVAL + Math.random() * STRATEGIC_POWERUP_RANDOM_ADDITION;
 
     gameOverScreen.style.display = 'none';
-    gameOverScreen.innerHTML = ''; // Limpa qualquer conteúdo anterior
+    gameOverScreen.innerHTML = '';
+    if (victoryScreen) victoryScreen.style.display = 'none'; // Se existir
 
     player = new Player(canvas.width / 2 - 25, canvas.height - 70, 50, 30, 'lime', 5, 100);
 
     setupWaveContent(currentWave);
     updateUI();
-    if (!gameLoopRequestId) { // Evita múltiplos loops se initGame for chamado novamente
+    if (!gameLoopRequestId) {
         gameLoop();
     }
 }
-let gameLoopRequestId; // Para controlar o requestAnimationFrame
+let gameLoopRequestId;
 
 function setupWaveContent(waveNum) {
     waveDurationTicks = 0;
     player.updateStatsForWave(waveNum);
     enemies = [];
-    // enemyProjectiles = []; // Não limpar projéteis inimigos aqui, pode haver alguns na tela na transição
     boss = null;
 
     const waveSettings = generateWaveSettings(waveNum);
 
     if (waveNum % 5 === 0) {
         boss = new BossDragon(canvas.width / 2 - 50, -120, waveNum);
-        boss.targetY = 30; // Posição Y de entrada do boss
+        boss.targetY = 30;
     } else {
         const numEnemiesToSpawn = 3 + Math.floor(waveNum / 2) + Math.floor(waveNum / 4);
         for (let i = 0; i < numEnemiesToSpawn; i++) {
@@ -703,12 +693,10 @@ function triggerSmoothNextWaveSetup() {
     waveClearMessage = `Onda ${currentWave - 1} Concluída!`;
     waveClearMessageTimer = WAVE_CLEAR_MESSAGE_DURATION;
 
-    // Evolução do jogador
     if ((currentWave -1) % 5 === 0 && currentWave > 1 && (currentWave-1) / 5 > player.evolutionLevel ) {
         player.evolve();
-        waveClearMessage += " Você evoluiu!"; // Adiciona mensagem de evolução
+        waveClearMessage += " Você evoluiu!";
     }
-    // Cura parcial
     if (player.health < player.maxHealth) {
         player.health = Math.min(player.maxHealth, player.health + Math.floor(player.maxHealth * 0.20));
     }
@@ -716,44 +704,50 @@ function triggerSmoothNextWaveSetup() {
 
     setTimeout(() => {
         if (!gameOver) {
-            waveClearMessage = ""; // Limpa a mensagem antes de configurar a nova onda
+            waveClearMessage = "";
             setupWaveContent(currentWave);
         }
-    }, WAVE_CLEAR_MESSAGE_DURATION * (1000/60) + 1000); // Espera a mensagem sumir + 1 segundo
+    }, WAVE_CLEAR_MESSAGE_DURATION * (1000/60) + 1000);
 }
 
 
 function updateUI() {
-    if (!player) return; // Evita erro se UI for chamada antes do player ser inicializado
+    if (!player) return;
     playerHealthUI.textContent = `${Math.floor(player.health)}/${player.maxHealth}`;
     
-    if (bossHealthUI) { // Verifica se o elemento existe
+    // Ajustado para dragonHealthUI e para mostrar/esconder o <p> pai
+    const dragonHealthParagraph = dragonHealthUI ? dragonHealthUI.parentElement : null;
+
+    if (dragonHealthUI && dragonHealthParagraph) {
         if (boss && !boss.isDying) {
-            bossHealthUI.textContent = `${boss.health}/${boss.maxHealth}`;
-            bossHealthUI.parentElement.style.display = 'block'; // Mostra o <p> do boss
+            dragonHealthUI.textContent = `${boss.health}/${boss.maxHealth}`;
+            dragonHealthParagraph.style.display = 'block';
         } else if (boss && boss.isDying) {
-            bossHealthUI.textContent = `DERROTANDO...`;
-             bossHealthUI.parentElement.style.display = 'block';
-        }
-        else {
-             bossHealthUI.textContent = `---`;
-             bossHealthUI.parentElement.style.display = 'none'; // Esconde o <p> do boss
+            dragonHealthUI.textContent = `DERROTANDO...`;
+            dragonHealthParagraph.style.display = 'block';
+        } else {
+            dragonHealthUI.textContent = `---`; // Ou o valor que você tinha antes
+            dragonHealthParagraph.style.display = 'none';
         }
     }
 
     waveUI.textContent = currentWave;
     scoreUI.textContent = score;
-    if (pauseButton) pauseButton.textContent = isPaused ? "Continuar" : "Pausar";
+
+    // Lida com a ausência do botão de pausa
+    // if (pauseButton) pauseButton.textContent = isPaused ? "Continuar" : "Pausar";
+    // Não há botão de pausa no seu HTML, então esta linha é removida/comentada.
+    // A interface do usuário para o estado de pausa (se houver) seria apenas a tela de pausa no canvas.
 }
 
 function checkCollisions() {
     // Projéteis do jogador vs Inimigos Menores
     for (let i = playerProjectiles.length - 1; i >= 0; i--) {
         const p = playerProjectiles[i];
-        if (!p) continue; // Segurança
+        if (!p) continue;
         for (let j = enemies.length - 1; j >= 0; j--) {
             const enemy = enemies[j];
-            if (!enemy || enemy.isDying) continue; // Segurança
+            if (!enemy || enemy.isDying) continue;
             if (p.x < enemy.x + enemy.width && p.x + p.width > enemy.x &&
                 p.y < enemy.y + enemy.height && p.y + p.height > enemy.y) {
                 enemy.takeDamage(p.damage);
@@ -769,7 +763,7 @@ function checkCollisions() {
             if (!p) continue;
             if (p.x < boss.x + boss.width && p.x + p.width > boss.x &&
                 p.y < boss.y + boss.height && p.y + p.height > boss.y) {
-                boss.takeDamage(p.damage);
+                boss.takeDamage(p.damage); // Dano é propriedade do projétil
                 playerProjectiles.splice(i, 1);
             }
         }
@@ -798,20 +792,19 @@ function checkCollisions() {
 }
 
 function triggerGameOver() {
-    gameOver = true; isPaused = false; // Garante que não está pausado no game over
-    if (gameLoopRequestId) cancelAnimationFrame(gameLoopRequestId); // Para o loop do jogo
+    gameOver = true; isPaused = false;
+    if (gameLoopRequestId) cancelAnimationFrame(gameLoopRequestId);
     gameLoopRequestId = null;
 
     gameOverScreen.innerHTML = `<h2>Fim de Jogo!</h2><p>Você sobreviveu até a Onda ${currentWave}.</p><p>Sua pontuação: <span id="finalScoreOver">${score}</span></p><button id="restartButtonOver">Jogar Novamente</button>`;
     gameOverScreen.style.display = 'block';
     
-    // Adiciona listener APENAS UMA VEZ.
     const restartButton = document.getElementById('restartButtonOver');
     if(restartButton){
-        restartButton.replaceWith(restartButton.cloneNode(true)); // Remove event listeners antigos
-        document.getElementById('restartButtonOver').addEventListener('click', initGame, { once: true }); // {once: true} é uma boa prática aqui
+        restartButton.replaceWith(restartButton.cloneNode(true));
+        document.getElementById('restartButtonOver').addEventListener('click', initGame, { once: true });
     }
-    updateUI(); // Para garantir que o botão de pausa mostre "Pausar"
+    // updateUI(); // Não precisa mais atualizar o botão de pausa
 }
 
 
@@ -820,10 +813,10 @@ function drawWaveClearMessage() {
         ctx.save(); ctx.font = "bold 28px Arial"; ctx.textAlign = "center";
         const alpha = Math.min(1, waveClearMessageTimer / (WAVE_CLEAR_MESSAGE_DURATION / 2));
         ctx.fillStyle = `rgba(255, 255, 255, ${alpha * 0.9})`; ctx.strokeStyle = `rgba(0, 0, 0, ${alpha * 0.7})`;
-        ctx.lineWidth = 2; const xPos = canvas.width / 2; const yPos = 80; // Um pouco mais para baixo
+        ctx.lineWidth = 2; const xPos = canvas.width / 2; const yPos = 80;
         ctx.strokeText(waveClearMessage, xPos, yPos); ctx.fillText(waveClearMessage, xPos, yPos);
         ctx.restore(); waveClearMessageTimer--;
-        if(waveClearMessageTimer <= 0) waveClearMessage = ""; // Limpa a mensagem após o timer
+        if(waveClearMessageTimer <= 0) waveClearMessage = "";
     }
 }
 
@@ -831,16 +824,12 @@ function drawPauseScreen() {
     ctx.save(); ctx.fillStyle = "rgba(0, 0, 0, 0.6)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.font = "bold 48px Arial"; ctx.fillStyle = "white"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
     ctx.fillText("JOGO PAUSADO", canvas.width / 2, canvas.height / 2);
-    ctx.font = "24px Arial"; ctx.fillText("Pressione ESC ou clique em 'Continuar'", canvas.width / 2, canvas.height / 2 + 50);
+    ctx.font = "24px Arial"; ctx.fillText("Pressione ESC para continuar", canvas.width / 2, canvas.height / 2 + 50);
     ctx.restore();
 }
 
 function gameLoop() {
-    if (gameOver) {
-        // Se o game over foi acionado, o loop deve parar.
-        // A função triggerGameOver já deve ter parado o requestAnimationFrame.
-        return;
-    }
+    if (gameOver) return;
 
     if (isPaused) {
         drawPauseScreen();
@@ -850,14 +839,13 @@ function gameLoop() {
 
     gameTickCounter++; waveDurationTicks++;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    const currentWaveSettings = generateWaveSettings(currentWave); // Obter settings atuais
+    const currentWaveSettings = generateWaveSettings(currentWave);
 
     player.update(currentWaveSettings);
 
     if (boss) {
-        if (boss.update(player)) { // Se o update do boss retornar true (morte completa)
-            boss = null; // Remove o boss
-            // A transição de onda é chamada dentro do update do boss quando ele morre
+        if (boss.update(player)) {
+            boss = null;
         }
     }
 
@@ -867,34 +855,26 @@ function gameLoop() {
         }
     }
 
-    // Lógica de fim de onda para inimigos normais
-    // (A morte do boss já lida com sua própria transição de onda)
     if (!boss && enemies.length === 0 && waveClearMessageTimer <= 0 && !gameOver) {
         const isBossWaveJustEnded = (currentWave % 5 === 0);
-        // Só dispara se NÃO for uma onda de boss que acabou de terminar (pois o boss já cuidou disso)
-        // OU se era uma onda de boss, mas o boss já foi totalmente removido (boss === null)
-        // E não há mensagem de "wave clear" na tela
         if (!isBossWaveJustEnded || (isBossWaveJustEnded && boss === null)) {
-             // Certifique-se que não estamos já numa transição
              if (!waveClearMessage && waveClearMessageTimer <= 0) {
                  triggerSmoothNextWaveSetup();
              }
         }
     }
 
-
-    powerUps = powerUps.filter(p => p.update()); // update de PowerUp retorna true para manter, false para remover
-    particles = particles.filter(p => p.update()); // update de Particle retorna true para manter
+    powerUps = powerUps.filter(p => p.update());
+    particles = particles.filter(p => p.update());
     
     handleRandomGenericPowerUpSpawns(currentWaveSettings);
     handleStrategicPowerUpSpawns();
 
-    playerProjectiles = playerProjectiles.filter(p => !p.update()); // update de Projectile retorna true para remover
+    playerProjectiles = playerProjectiles.filter(p => !p.update());
     enemyProjectiles = enemyProjectiles.filter(p => !p.update());
 
-
     checkCollisions();
-    updateUI(); // Atualiza UI após todas as lógicas
+    updateUI();
     drawWaveClearMessage();
     
     gameLoopRequestId = requestAnimationFrame(gameLoop);
@@ -905,30 +885,30 @@ window.addEventListener('keydown', (e) => {
     if (e.code === 'Escape') {
         if (!gameOver) {
             isPaused = !isPaused;
-            updateUI(); // Atualiza texto do botão Pausar/Continuar
+            // updateUI(); // Não há botão de pausa para atualizar
         }
     } else {
         keys[e.code] = true;
     }
-    // Prevenir scroll da página com setas e espaço se o jogo não estiver game over ou pausado
     if (!gameOver && !isPaused && (e.code === 'Space' || e.code.startsWith('Arrow') || ['KeyW', 'KeyA', 'KeyS', 'KeyD'].includes(e.code))) {
         e.preventDefault();
     }
 });
 window.addEventListener('keyup', (e) => {
-    if (e.code !== 'Escape') { // Não queremos que 'Escape' fique preso em keys
+    if (e.code !== 'Escape') {
         keys[e.code] = false;
     }
 });
 
-if (pauseButton) {
-    pauseButton.addEventListener('click', () => {
-        if (!gameOver) {
-            isPaused = !isPaused;
-            updateUI();
-        }
-    });
-}
+// Não há botão de pausa no seu HTML para adicionar listener.
+// if (pauseButton) {
+//     pauseButton.addEventListener('click', () => {
+//         if (!gameOver) {
+//             isPaused = !isPaused;
+//             updateUI();
+//         }
+//     });
+// }
 
 // Iniciar o jogo
 initGame();
