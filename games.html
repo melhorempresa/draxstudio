@@ -47,7 +47,7 @@
 
                     <div class="game-card-detailed">
                         <a href="#" style="text-decoration: none; color: inherit; cursor: default;">
-                            [⏳]
+                            <div class="placeholder-image">[⏳]</div> {/* Envolvendo o símbolo para melhor estilização CSS */}
                             <h3>Coming Soon</h3>
                             <div class="game-stats-detailed">
                                 <div class="stat-item-detailed">
@@ -64,7 +64,7 @@
 
                     <div class="game-card-detailed">
                         <a href="#" style="text-decoration: none; color: inherit; cursor: default;">
-                            [⏳]
+                            <div class="placeholder-image">[⏳]</div> {/* Envolvendo o símbolo para melhor estilização CSS */}
                             <h3>Coming Soon</h3>
                             <div class="game-stats-detailed">
                                 <div class="stat-item-detailed">
@@ -133,14 +133,11 @@
             const allGameCards = document.querySelectorAll('.game-card-detailed');
             allGameCards.forEach(card => {
                 const kagebornImg = card.querySelector('img[src="png/kageborn.png"]');
-                const linkElement = card.querySelector('a');
+                const placeholderDiv = card.querySelector('.placeholder-image');
                 
-                if (!kagebornImg) { 
-                    if (linkElement) { 
-                         linkElement.style.cursor = 'default';
-                    } else if (card.textContent.includes('[⏳]')) { 
-                         card.style.cursor = 'default';
-                    }
+                if (!kagebornImg && placeholderDiv) { 
+                    const linkInCard = card.querySelector('a');
+                    if(linkInCard) linkInCard.style.cursor = 'default';
                 }
             });
         });
