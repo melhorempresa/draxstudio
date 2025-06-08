@@ -68,14 +68,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* width: 100%; /* This might be controlled by the parent .about-content-home grid/flex */
-            min-height: 250px; /* Adjust as needed, ensuring space for logo and padding */
-            border-radius: 8px; /* For the container box, as seen in screenshot */
-            padding: 20px; /* Space inside the container, around the logo */
+            min-height: 250px; /* Keeps the area reserved for the image, centers the logo */
+            padding: 20px;     /* Provides some spacing around the logo within its allocated area */
             box-sizing: border-box;
-            /* The background for 'div.about-image' (the dark purplish box)
-               is assumed to come from your external 'style.css' or other existing styles.
-               If not, you might need to add it here, e.g., background-color: #2a1a47; (example color) */
+            flex-basis: 300px; /* Defines how much horizontal space it takes in the flex layout */
+            /* background-color: #23183D; /* REMOVED to make the container transparent */
+            /* border-radius: 8px; /* REMOVED as it was for the background box shape */
         }
 
         .about-image img {
@@ -117,6 +115,7 @@
         /* Adding basic structure for .about-section-home if not in style.css */
         .about-section-home {
             padding: 40px 0;
+            /* Assuming this section might have its own background or inherit from body */
         }
         .about-section-home h2 {
             text-align: center;
@@ -135,11 +134,8 @@
             line-height: 1.6;
             margin-bottom: 15px;
         }
-        .about-image { /* This will now be the container for the image */
-            flex-basis: 300px; /* Example basis, adjust as needed */
-            /* background-color from screenshot for .about-image appears to be e.g. #23183D or similar */
-             background-color: #23183D; /* Added example based on screenshot for the box */
-        }
+        /* .about-image flex-basis is defined above */
+
          .btn-secondary { /* Style for the button from the image */
             display: inline-block;
             padding: 10px 20px;
@@ -153,30 +149,75 @@
         }
         .btn-secondary:hover {
             background-color: #A020F0;
-            color: #1A1032;
+            color: #1A1032; /* Dark background color for text on hover */
         }
         /* Basic styles for hero and top-hits to make it runnable */
         .hero, .top-hits { padding: 40px 0; text-align: center; }
         .hero h1 { font-size: 3em; }
-        .hero-buttons-new a { margin: 0 10px; padding: 12px 25px; text-decoration: none; border-radius: 5px; }
+        .hero-layout-new { /* Basic flex for hero if needed */
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .hero-text-content-new { flex: 1; text-align: left;}
+        .hero-image-content-new { flex: 1; }
+        .hero-buttons-new a { margin: 5px; display: inline-block; padding: 12px 25px; text-decoration: none; border-radius: 25px; /* Rounded like button in about section */ }
         .btn-primary-new { background-color: #A020F0; color: white; }
         .btn-secondary-new { border: 1px solid #A020F0; color: white; }
-        .games-grid { display: flex; justify-content: space-around; gap: 20px; margin-top: 20px; }
-        .game-card { background-color: #23183D; padding: 20px; border-radius: 8px; width: 30%; text-align: center; }
-        .game-card img { max-width: 100%; height: auto; border-radius: 4px; margin-bottom: 10px; }
+        .btn-secondary-new:hover { background-color: #A020F0; color: #1A1032; }
+
+        .games-grid { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px; margin-top: 20px; }
+        .game-card { background-color: #23183D; padding: 20px; border-radius: 8px; width: calc(33.333% - 27px); /* Adjust width for gap */ min-width: 280px; text-align: center; box-sizing: border-box;}
+        .game-card img { max-width: 100%; height: auto; border-radius: 4px; margin-bottom: 10px; aspect-ratio: 16/9; object-fit: cover; }
         .game-card h3 { margin-bottom: 5px; }
         .game-card p { font-size: 0.9em; color: #ccc; }
-        .hero-image-content-new img { max-width: 100%; height: auto; }
+        .hero-image-content-new img { max-width: 100%; height: auto; border-radius: 8px; }
 
         /* Footer styles for completeness */
         .site-footer-detailed { background-color: #120C27; padding: 30px 0 10px; font-size: 0.9em; }
-        .footer-grid { display: flex; justify-content: space-between; gap: 20px; margin-bottom: 20px; }
+        .footer-grid { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; margin-bottom: 20px; }
         .footer-logo-bio h3 { font-size: 1.5em; }
+        .footer-links { flex-basis: 150px; } /* Give some basis for wrapping */
         .footer-links h4 { margin-bottom: 10px; color: #A020F0; }
         .footer-links ul { list-style: none; padding: 0; }
         .footer-links ul li a { color: #ccc; text-decoration: none; line-height: 1.8; }
         .footer-links ul li a:hover { color: #fff; }
-        .footer-copyright { text-align: center; border-top: 1px solid #333; padding-top: 15px; color: #aaa; }
+        .footer-copyright { text-align: center; border-top: 1px solid #333; padding-top: 15px; margin-top: 20px; color: #aaa; }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            header .container {
+                flex-direction: column;
+            }
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+            }
+            nav ul li {
+                margin: 10px 0;
+            }
+            .hero-layout-new {
+                flex-direction: column;
+            }
+            .hero-text-content-new { text-align: center; }
+            .games-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+            .game-card {
+                width: 80%;
+                max-width: 400px;
+            }
+            .about-content-home {
+                flex-direction: column;
+            }
+            .footer-grid {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
 
     </style>
 </head>
