@@ -10,17 +10,17 @@ html {
 }
 
 :root {
-    --dark-bg: #0D0D1A; /* Fundo principal da página */
-    --primary-color: #7F3FBF; /* Roxo principal (usado em títulos, botões) */
-    --primary-color-active-link: #A020F0; /* Roxo mais vibrante para links ativos/hover */
-    --primary-hover-color: #6A34A2; /* Hover do roxo principal */
-    --secondary-highlight-color: #B185DB; /* Roxo mais claro para destaques secundários */
-    --text-default: #EAEAEA; /* Cor de texto padrão (quase branco) */
-    --text-secondary: #A0A0A0; /* Cor de texto secundária (cinza claro) */
-    --section-bg: #121223; /* Fundo de seções como header, hero, about, footer */
-    --card-bg: #1A1A2E;    /* Fundo dos cards (jogos, imagem do about) */
-    --border-color: #2A2A3D; /* Cor para bordas sutis */
-    --accent-shadow-color: rgba(127, 63, 191, 0.3); /* Sombra roxa sutil */
+    --dark-bg: #0D0D1A;
+    --primary-color: #7F3FBF;
+    --primary-color-active-link: #A020F0;
+    --primary-hover-color: #6A34A2;
+    --secondary-highlight-color: #B185DB;
+    --text-default: #EAEAEA;
+    --text-secondary: #A0A0A0;
+    --section-bg: #121223;
+    --card-bg: #1A1A2E;
+    --border-color: #2A2A3D;
+    --accent-shadow-color: rgba(127, 63, 191, 0.3);
 }
 
 body {
@@ -218,15 +218,13 @@ header nav ul li a.active {
 .top-hits h2, .about-section-home h2, .games-showcase h2 {
     font-size: 2.6em;
     margin-bottom: 1em;
-    text-align: center; /* Padrão centralizado */
+    text-align: center;
     color: #FFFFFF;
 }
 
-/* --- INÍCIO: MODIFICAÇÕES/ADIÇÕES PARA GAMES.HTML --- */
-.games-showcase h2 {
-    text-align: left; /* Alinha o título "Our Game & What's Next" à esquerda */
+.games-showcase h2 { /* Título da games.html */
+    text-align: left;
 }
-/* --- FIM: MODIFICAÇÕES/ADIÇÕES PARA GAMES.HTML --- */
 
 .top-hits > .container > p {
     font-size: 1.1em;
@@ -238,30 +236,28 @@ header nav ul li a.active {
     margin-right: auto;
 }
 
-/* Grid de Jogos (Genérico para .games-grid e .games-grid-fullpage) */
+/* Grid de Jogos */
 .games-grid, .games-grid-fullpage {
     display: grid;
     gap: 30px;
     align-items: stretch;
 }
-.games-grid { /* Usado na Home */
+.games-grid { /* Home */
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
-
-/* --- INÍCIO: MODIFICAÇÕES/ADIÇÕES PARA GAMES.HTML --- */
-.games-grid-fullpage { /* Usado na Games.html */
-    grid-template-columns: 1fr; /* Força uma única coluna */
-    max-width: 650px;       /* Largura máxima da coluna de cards */
-    margin-left: auto;      /* Centraliza a coluna */
-    margin-right: auto;     /* Centraliza a coluna */
+.games-grid-fullpage { /* Games.html */
+    grid-template-columns: 1fr;
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
 }
-/* --- FIM: MODIFICAÇÕES/ADIÇÕES PARA GAMES.HTML --- */
 
-.game-card { /* Estilo unificado para todos os cards de jogo (BASE) */
+/* Game Card Base */
+.game-card {
     background-color: var(--card-bg);
-    border-radius: 10px; /* Raio de borda padrão (para index.html) */
+    border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3); /* Sombra padrão (para index.html) */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
@@ -269,76 +265,71 @@ header nav ul li a.active {
 }
 .game-card:hover {
     transform: translateY(-6px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.4), 0 0 15px var(--accent-shadow-color); /* Sombra no hover (para index.html) */
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4), 0 0 15px var(--accent-shadow-color);
 }
-
 .game-card a {
     text-decoration: none;
     color: inherit;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    padding: 20px; /* Padding padrão */
+    padding: 20px;
 }
 
-/* --- INÍCIO: MODIFICAÇÕES/ADIÇÕES PARA GAMES.HTML --- */
+/* Estilos específicos para cards em games.html */
 .games-grid-fullpage .game-card {
-    border-radius: 35px; /* Cantos BEM arredondados para games.html */
-    box-shadow: none;    /* SEM sombra para games.html */
+    border-radius: 35px;
+    box-shadow: none;
 }
 .games-grid-fullpage .game-card:hover {
-    transform: translateY(-4px); /* Efeito de hover mais sutil */
-    box-shadow: none;        /* SEM sombra no hover para games.html */
+    transform: translateY(-4px);
+    box-shadow: none;
 }
 .games-grid-fullpage .game-card a {
-    padding: 30px 35px; /* Padding interno maior para os cards em games.html */
+    padding: 30px 35px;
 }
-/* --- FIM: MODIFICAÇÕES/ADIÇÕES PARA GAMES.HTML --- */
 
-
+/* Imagem do Jogo */
 .game-card img.game-cover-image {
     width: 100%;
     height: auto;
     object-fit: contain;
     display: block;
     border-radius: 4px;
+    margin-left: auto; /* Centraliza se a largura for menor que 100% */
+    margin-right: auto; /* Centraliza se a largura for menor que 100% */
     margin-bottom: 20px;
-    max-height: 200px; /* Altura máxima padrão */
+    max-height: 250px; /* --- MODIFICADO: Aumentada altura máxima para a imagem ser maior --- */
+                       /* Ajuste este valor conforme necessário para o quão grande você quer a imagem */
 }
 
-/* --- INÍCIO: MODIFICAÇÕES/ADIÇÕES PARA GAMES.HTML --- */
+/* Imagem Kageborn nos cards de games.html */
 .games-grid-fullpage .game-card img.game-cover-image {
-    max-width: 45%; /* Imagem menor e centralizada */
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 20px;
-    max-height: none;
-    object-fit: initial;
+    max-width: 60%; /* --- MODIFICADO: Ajustado para permitir imagem maior mas ainda centralizada --- */
+    max-height: 280px; /* --- MODIFICADO: Altura específica para games.html, pode ser maior que na home --- */
+    object-fit: contain; /* Garante que a imagem inteira apareça */
 }
-/* --- FIM: MODIFICAÇÕES/ADIÇÕES PARA GAMES.HTML --- */
 
-
+/* Visual "Coming Soon" (Ampulheta) */
 .coming-soon-visual {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    min-height: 100px;
+    min-height: 180px; /* --- MODIFICADO: Aumentada altura mínima para o ícone ser maior --- */
     margin-bottom: 10px;
 }
-
-/* --- INÍCIO: MODIFICAÇÕES/ADIÇÕES PARA GAMES.HTML --- */
+/* Visual da ampulheta nos cards de games.html */
 .games-grid-fullpage .coming-soon-visual {
-    min-height: 80px;
+    min-height: 150px; /* --- MODIFICADO: Pode ser um pouco diferente em games.html se necessário --- */
     width: auto;
     margin-left: auto;
     margin-right: auto;
 }
-/* --- FIM: MODIFICAÇÕES/ADIÇÕES PARA GAMES.HTML --- */
 
 .hourglass-icon {
     display: inline-block;
-    font-size: 70px;
+    font-size: 85px; /* --- MODIFICADO: Aumentado tamanho do ícone --- */
     color: var(--text-default);
     animation: spin 3s linear infinite;
 }
@@ -346,38 +337,34 @@ header nav ul li a.active {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
-
-/* --- INÍCIO: MODIFICAÇÕES/ADIÇÕES PARA GAMES.HTML --- */
+/* Ícone da ampulheta em games.html */
 .games-grid-fullpage .hourglass-icon {
-    font-size: 60px; /* Ícone da ampulheta um pouco menor */
+    font-size: 75px; /* --- MODIFICADO: Pode ser um pouco diferente em games.html se necessário --- */
 }
-/* --- FIM: MODIFICAÇÕES/ADIÇÕES PARA GAMES.HTML --- */
 
-
-.game-card h3 { /* Título geral dos cards */
+/* Títulos dos Cards */
+.game-card h3 {
     font-size: 1.6em;
     color: var(--text-default);
     font-weight: bold;
     margin-bottom: 15px;
 }
-.game-card h3.coming-soon-title { /* Título "Coming Soon" */
+.game-card h3.coming-soon-title {
     color: var(--primary-color-active-link);
     font-size: 1.4em;
     margin-bottom: 20px;
 }
-
-/* --- INÍCIO: MODIFICAÇÕES/ADIÇÕES PARA GAMES.HTML --- */
+/* Títulos nos cards de games.html */
 .games-grid-fullpage .game-card h3 {
-    font-size: 1.5em; /* Título Kageborn um pouco menor */
+    font-size: 1.5em;
     margin-bottom: 15px;
 }
 .games-grid-fullpage .game-card h3.coming-soon-title {
-    font-size: 1.3em; /* Título Coming Soon um pouco menor */
+    font-size: 1.3em;
     margin-bottom: 18px;
 }
-/* --- FIM: MODIFICAÇÕES/ADIÇÕES PARA GAMES.HTML --- */
 
-
+/* Detalhes de Status */
 .game-status-details {
     display: flex;
     justify-content: space-around;
@@ -407,16 +394,13 @@ header nav ul li a.active {
     letter-spacing: 0.5px;
     line-height: 1.2;
 }
-
-/* --- INÍCIO: MODIFICAÇÕES/ADIÇÕES PARA GAMES.HTML --- */
+/* Detalhes de status nos cards de games.html */
 .games-grid-fullpage .status-main {
-    font-size: 1.15em; /* Levemente menor */
+    font-size: 1.15em;
 }
 .games-grid-fullpage .status-sub {
-    font-size: 0.7em; /* Levemente menor */
+    font-size: 0.7em;
 }
-/* --- FIM: MODIFICAÇÕES/ADIÇÕES PARA GAMES.HTML --- */
-
 
 /* Seção Sobre Nós (Home) */
 .about-section-home {
@@ -544,12 +528,19 @@ header nav ul li a.active {
     .hero-text-content-new p { font-size: 1.05em; }
     .hero-layout-new { gap: 30px; }
     .games-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-    /* --- INÍCIO: MODIFICAÇÕES/ADIÇÕES PARA GAMES.HTML (Responsivo) --- */
     .games-grid-fullpage {
-        grid-template-columns: 1fr; /* Mantém coluna única */
+        grid-template-columns: 1fr;
         max-width: 600px;
     }
-    /* --- FIM: MODIFICAÇÕES/ADIÇÕES PARA GAMES.HTML (Responsivo) --- */
+    .game-card img.game-cover-image {
+        max-height: 220px; /* Ajuste responsivo */
+    }
+    .coming-soon-visual {
+        min-height: 160px; /* Ajuste responsivo */
+    }
+    .hourglass-icon {
+        font-size: 75px; /* Ajuste responsivo */
+    }
 }
 
 @media (max-width: 768px) {
@@ -571,21 +562,27 @@ header nav ul li a.active {
 
     .games-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
 
-    /* --- INÍCIO: MODIFICAÇÕES/ADIÇÕES PARA GAMES.HTML (Responsivo) --- */
     .games-showcase h2 {
-        text-align: center; /* Centraliza título em mobile se preferir */
+        text-align: center;
     }
     .games-grid-fullpage {
-        grid-template-columns: 1fr; /* Mantém coluna única */
-        max-width: 90%; /* Coluna ocupa mais da largura disponível */
+        grid-template-columns: 1fr;
+        max-width: 90%;
     }
     .games-grid-fullpage .game-card a {
-        padding: 20px 25px; /* Padding menor em mobile */
+        padding: 20px 25px;
     }
     .games-grid-fullpage .game-card img.game-cover-image {
-        max-width: 50%;
+        max-width: 50%; /* Mantém para games.html */
+        max-height: 220px; /* Ajuste para games.html mobile */
     }
-    /* --- FIM: MODIFICAÇÕES/ADIÇÕES PARA GAMES.HTML (Responsivo) --- */
+    .games-grid-fullpage .coming-soon-visual {
+        min-height: 130px; /* Ajuste para games.html mobile */
+    }
+    .games-grid-fullpage .hourglass-icon {
+        font-size: 65px; /* Ajuste para games.html mobile */
+    }
+
 
     .about-content-home { flex-direction: column; text-align: center; }
     .about-image { margin-top: 35px; max-width: 80%; margin-left: auto; margin-right: auto; flex-basis: auto; }
@@ -593,18 +590,25 @@ header nav ul li a.active {
 
     .footer-grid { grid-template-columns: 1fr; text-align: center; }
     .footer-links h4::after { left: 50%; transform: translateX(-50%); }
+
+    /* Ajustes gerais para mobile para imagens e ícones maiores */
+    .game-card img.game-cover-image {
+        max-height: 200px; /* Ajuste geral para mobile */
+    }
+    .coming-soon-visual {
+        min-height: 140px; /* Ajuste geral para mobile */
+    }
+    .hourglass-icon {
+        font-size: 70px; /* Ajuste geral para mobile */
+    }
 }
 
 @media (max-width: 500px) {
     .hero-text-content-new h1 { font-size: 2.2em; }
     .hero-text-content-new p { font-size: 0.95em; }
     .hero-buttons-new .btn { width: 90%; padding: 12px 20px; font-size: 0.85em; }
-    .games-grid { grid-template-columns: 1fr; }
+    .games-grid, .games-grid-fullpage { grid-template-columns: 1fr; }
 
-    /* --- INÍCIO: MODIFICAÇÕES/ADIÇÕES PARA GAMES.HTML (Responsivo) --- */
-    .games-grid-fullpage {
-        grid-template-columns: 1fr; /* Mantém coluna única */
-    }
     .games-grid-fullpage .game-card {
         border-radius: 25px;
     }
@@ -612,10 +616,14 @@ header nav ul li a.active {
         padding: 20px;
     }
     .games-grid-fullpage .game-card img.game-cover-image {
-        max-width: 60%;
+        max-width: 60%; /* Mantém para games.html */
+        max-height: 180px; /* Ajuste para games.html mobile pequeno */
+    }
+    .games-grid-fullpage .coming-soon-visual {
+        min-height: 120px; /* Ajuste para games.html mobile pequeno */
     }
     .games-grid-fullpage .hourglass-icon {
-        font-size: 50px;
+        font-size: 50px; /* Mantém para games.html mobile pequeno */
     }
     .games-grid-fullpage .game-card h3 {
         font-size: 1.3em;
@@ -629,10 +637,18 @@ header nav ul li a.active {
     .games-grid-fullpage .status-sub {
         font-size: 0.65em;
     }
-    /* --- FIM: MODIFICAÇÕES/ADIÇÕES PARA GAMES.HTML (Responsivo) --- */
 
-    .game-card img.game-cover-image { max-height: 180px; } /* Estilo geral para home, pode ser sobrescrito acima */
+    /* Ajustes gerais para mobile pequeno para imagens e ícones maiores */
+    .game-card img.game-cover-image { /* Este é para a home */
+        max-height: 180px;
+    }
+    .coming-soon-visual { /* Este é para a home */
+        min-height: 120px;
+    }
+    .hourglass-icon { /* Este é para a home */
+        font-size: 60px;
+    }
+
     .about-image { padding: 15px; min-height: 220px;}
     .about-image img {max-height: 160px;}
-    .hourglass-icon { font-size: 60px; } /* Estilo geral para home, pode ser sobrescrito acima */
 }
