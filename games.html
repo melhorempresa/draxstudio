@@ -5,17 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Games - Drax Studio</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Os estilos inline para .game-card-detailed foram removidos
-         pois as transições e hovers já estão no style.css principal
-         ou podem ser adicionados lá se precisar de algo específico apenas para esta página.
-         Se houver algum estilo inline que você queira manter especificamente aqui,
-         você pode adicioná-lo de volta ou, idealmente, movê-lo para o style.css com uma classe mais específica.
-    -->
 </head>
 <body>
     <header>
         <div class="container">
             <div class="logo">
+                <img src="png/Draxstudio.png" alt="Drax Studio Logo">
                 <h1>Drax Studio</h1>
             </div>
             <nav>
@@ -32,10 +27,9 @@
     <main>
         <section class="games-showcase">
             <div class="container">
-                <h2>Our Game & What's Next</h2> <!-- Título ajustado para refletir o conteúdo -->
+                <h2>Our Game & What's Next</h2>
                 <div class="games-grid-fullpage">
                    
-                    <!-- Kageborn Game Card -->
                     <div class="game-card-detailed">
                         <img src="png/kageborn.png" alt="Kageborn Game Cover">
                         <h3>Kageborn</h3>
@@ -51,10 +45,9 @@
                         </div>
                     </div>
 
-                    <!-- ADDED: Coming Soon Game Card 1 -->
-                    <div class="game-card-detailed"> <!-- Usando a mesma classe para consistência de estilo -->
+                    <div class="game-card-detailed">
                         <a href="#" style="text-decoration: none; color: inherit; cursor: default;">
-                            <img src="png/iscoming.png" alt="Coming Soon Game Cover">
+                            [⏳]
                             <h3>Coming Soon</h3>
                             <div class="game-stats-detailed">
                                 <div class="stat-item-detailed">
@@ -69,10 +62,9 @@
                         </a>
                     </div>
 
-                    <!-- ADDED: Coming Soon Game Card 2 -->
-                    <div class="game-card-detailed"> <!-- Usando a mesma classe para consistência de estilo -->
+                    <div class="game-card-detailed">
                         <a href="#" style="text-decoration: none; color: inherit; cursor: default;">
-                            <img src="png/iscoming.png" alt="Coming Soon Game Cover">
+                            [⏳]
                             <h3>Coming Soon</h3>
                             <div class="game-stats-detailed">
                                 <div class="stat-item-detailed">
@@ -121,30 +113,34 @@
             </div>
         </div>
         <div class="container footer-copyright">
-             <p>© 2025 Drax Studio. All rights reserved.</p>
+             <p>© 2025 Drax Studio. Todos os direitos reservados.</p>
         </div>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Ajuste para que o dblclick só se aplique ao card do Kageborn
             const kagebornCard = document.querySelector('.game-card-detailed img[src="png/kageborn.png"]');
             if (kagebornCard) {
                 const parentCard = kagebornCard.closest('.game-card-detailed');
                 if (parentCard) {
-                    parentCard.style.cursor = 'pointer'; // Adiciona cursor de ponteiro para o Kageborn
+                    parentCard.style.cursor = 'pointer'; 
                     parentCard.addEventListener('dblclick', () => {
                         window.location.href = 'dragon-slayer.html';
                     });
                 }
             }
 
-            // Opcional: Adicionar um cursor diferente para os cards "Coming Soon" se não forem clicáveis
-            const comingSoonCards = document.querySelectorAll('.game-card-detailed img[src="png/iscoming.png"]');
-            comingSoonCards.forEach(img => {
-                const parentCard = img.closest('.game-card-detailed');
-                if (parentCard) {
-                    parentCard.style.cursor = 'default';
+            const allGameCards = document.querySelectorAll('.game-card-detailed');
+            allGameCards.forEach(card => {
+                const kagebornImg = card.querySelector('img[src="png/kageborn.png"]');
+                const linkElement = card.querySelector('a');
+                
+                if (!kagebornImg) { 
+                    if (linkElement) { 
+                         linkElement.style.cursor = 'default';
+                    } else if (card.textContent.includes('[⏳]')) { 
+                         card.style.cursor = 'default';
+                    }
                 }
             });
         });
