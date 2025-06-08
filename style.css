@@ -9,18 +9,32 @@ html {
   scroll-behavior: smooth;
 }
 
+:root {
+    --dark-bg: #0D0D1A; /* Fundo principal da página */
+    --primary-color: #7F3FBF; /* Roxo principal (usado em títulos, botões) */
+    --primary-color-active-link: #A020F0; /* Roxo mais vibrante para links ativos/hover */
+    --primary-hover-color: #6A34A2; /* Hover do roxo principal */
+    --secondary-highlight-color: #B185DB; /* Roxo mais claro para destaques secundários */
+    --text-default: #EAEAEA; /* Cor de texto padrão (quase branco) */
+    --text-secondary: #A0A0A0; /* Cor de texto secundária (cinza claro) */
+    --section-bg: #121223; /* Fundo de seções como header, hero, about, footer */
+    --card-bg: #1A1A2E;    /* Fundo dos cards (jogos, imagem do about) */
+    --border-color: #2A2A3D; /* Cor para bordas sutis */
+    --accent-shadow-color: rgba(127, 63, 191, 0.3); /* Sombra roxa sutil */
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--dark-bg); /* Garante que o fundo da página seja escuro */
+    background-color: var(--dark-bg);
     color: var(--text-default);
     line-height: 1.6;
 }
 
 .container {
     width: 90%;
-    max-width: 1100px;
+    max-width: 1100px; /* Era 1200px, ajustei para corresponder ao style.css fornecido */
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 20px; /* Adicionado padding lateral ao container */
 }
 
 a {
@@ -39,21 +53,8 @@ img {
 
 h1, h2, h3, h4 {
     margin-bottom: 0.8em;
-    color: #FFFFFF;
+    color: #FFFFFF; /* Títulos principais brancos */
     font-weight: 600;
-}
-
-:root {
-    --dark-bg: #0D0D1A;
-    --primary-color: #7F3FBF;
-    --primary-hover-color: #6A34A2;
-    --secondary-highlight-color: #B185DB;
-    --text-default: #EAEAEA;
-    --text-secondary: #A0A0A0;
-    --section-bg: #121223;
-    --card-bg: #1A1A2E;
-    --border-color: #2A2A3D;
-    --accent-shadow-color: rgba(127, 63, 191, 0.3);
 }
 
 /* Header */
@@ -72,26 +73,24 @@ header .container {
     align-items: center;
 }
 
-/* ESTILOS CORRIGIDOS/ADICIONADOS PARA A LOGO */
 header .logo {
-    display: flex; /* Alinha a imagem e o texto H1 lado a lado */
-    align-items: center; /* Centraliza verticalmente a imagem e o texto */
+    display: flex;
+    align-items: center;
 }
 
 header .logo img {
-    height: 50px;       /* Altura da imagem da logo (ajuste conforme necessário) */
-    width: auto;        /* Mantém a proporção da imagem */
-    margin-right: 10px; /* Espaço entre a imagem da logo e o texto "Drax Studio" */
+    height: 50px;
+    width: auto;
+    margin-right: 10px;
 }
 
 header .logo h1 {
-    font-size: 1.9em;   /* Tamanho do texto "Drax Studio" */
-    color: var(--primary-color);
-    margin-bottom: 0;   /* Remove margem inferior para melhor alinhamento vertical */
+    font-size: 1.9em;
+    color: var(--primary-color-active-link); /* Roxo vibrante para o título no header */
+    margin-bottom: 0;
     font-weight: 700;
     letter-spacing: 1px;
 }
-/* FIM DOS ESTILOS DA LOGO */
 
 header nav ul {
     display: flex;
@@ -104,29 +103,24 @@ header nav ul li {
 header nav ul li a {
     color: var(--text-default);
     font-weight: 500;
-    transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
+    transition: color 0.2s ease-in-out, transform 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
     padding-bottom: 5px;
     border-bottom: 2px solid transparent;
 }
 
 header nav ul li a:hover,
 header nav ul li a.active {
-    color: var(--secondary-highlight-color);
-    border-bottom-color: var(--secondary-highlight-color);
+    color: var(--primary-color-active-link); /* Roxo vibrante */
+    border-bottom-color: var(--primary-color-active-link); /* Roxo vibrante */
 }
 
-/* ======== NOVA HERO SECTION ESTILOS ======== */
+/* Hero Section */
 .hero {
-    background-color: var(--dark-bg);
+    background-color: var(--section-bg); /* Cor de fundo da seção hero */
     padding: 80px 0;
-    min-height: calc(80vh - 70px);
+    /* min-height: calc(80vh - 70px); */ /* Removido para simplificar, padding controla altura */
     display: flex;
     align-items: center;
-    background-image: none;
-}
-
-.hero-overlay {
-    display: none;
 }
 
 .hero-layout-new {
@@ -139,6 +133,7 @@ header nav ul li a.active {
 .hero-text-content-new {
     flex: 1.2;
     max-width: 580px;
+    text-align: left; /* Garantido */
 }
 
 .hero-text-content-new h1 {
@@ -162,9 +157,9 @@ header nav ul li a.active {
     margin-top: 30px;
 }
 
-.hero-buttons-new .btn {
+.hero-buttons-new .btn { /* Estilo base para botões da hero */
     padding: 14px 30px;
-    border-radius: 8px;
+    border-radius: 8px; /* Era 25px, ajustado para 8px como na imagem */
     font-weight: bold;
     text-transform: uppercase;
     font-size: 0.9em;
@@ -179,7 +174,6 @@ header nav ul li a.active {
     color: #FFFFFF;
     border-color: var(--primary-color);
 }
-
 .btn-primary-new:hover {
     background-color: var(--primary-hover-color);
     border-color: var(--primary-hover-color);
@@ -187,15 +181,14 @@ header nav ul li a.active {
     box-shadow: 0 4px 10px var(--accent-shadow-color);
 }
 
-.btn-secondary-new {
+.btn-secondary-new { /* Botão secundário da Hero (Join Community) */
     background-color: transparent;
-    color: var(--primary-color);
-    border-color: var(--primary-color);
+    color: var(--primary-color); /* Texto Roxo */
+    border-color: var(--primary-color); /* Borda Roxa */
 }
-
 .btn-secondary-new:hover {
     background-color: var(--primary-color);
-    color: var(--dark-bg);
+    color: var(--dark-bg); /* Texto escuro ao passar o mouse */
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(127, 63, 191, 0.2);
 }
@@ -206,7 +199,6 @@ header nav ul li a.active {
     justify-content: center;
     align-items: center;
 }
-
 .hero-image-content-new img {
     max-width: 100%;
     max-height: 450px;
@@ -214,50 +206,23 @@ header nav ul li a.active {
     border-radius: 12px;
 }
 
-.hero-stats { display: none; }
-
-.btn-primary {
-    background-color: var(--primary-color);
-    color: #FFFFFF;
-    border-color: var(--primary-color);
-}
-.btn-primary:hover {
-    background-color: var(--primary-hover-color);
-    border-color: var(--primary-hover-color);
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 5px 15px var(--accent-shadow-color);
-}
-
-.btn-secondary {
-    background-color: transparent;
-    color: var(--secondary-highlight-color);
-    border-color: var(--secondary-highlight-color);
-}
-.btn-secondary:hover {
-    background-color: var(--secondary-highlight-color);
-    color: var(--dark-bg);
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 5px 15px rgba(177, 133, 219, 0.3);
-}
-/* ======== FIM NOVA HERO SECTION ESTILOS ======== */
-
-
-.top-hits, .games-showcase, .about-section-home {
+/* Seções Gerais (Top Hits / Featured Games, About Us) */
+.top-hits, .about-section-home {
     padding: 70px 0;
-    background-color: var(--section-bg);
-    border-top: 1px solid var(--border-color);
+    background-color: var(--section-bg); /* Cor de fundo dessas seções */
+    border-top: 1px solid var(--border-color); /* Borda sutil entre seções */
 }
-.top-hits:first-of-type, .games-showcase:first-of-type {
+.top-hits:first-of-type { /* Remove borda do topo da primeira seção após hero */
     border-top: none;
 }
 
-.top-hits h2, .games-showcase h2, .about-section-home h2 {
+.top-hits h2, .about-section-home h2 {
     font-size: 2.6em;
     margin-bottom: 1em;
     text-align: center;
     color: #FFFFFF;
 }
-.top-hits > .container > p {
+.top-hits > .container > p { /* Parágrafo abaixo do título "Featured Games" */
     font-size: 1.1em;
     color: var(--text-secondary);
     margin-bottom: 50px;
@@ -267,106 +232,190 @@ header nav ul li a.active {
     margin-right: auto;
 }
 
-.games-grid, .games-grid-fullpage {
-    display: grid;
-    gap: 30px;
-}
+/* Grid de Jogos (Featured Games) */
 .games-grid {
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-}
-.games-grid-fullpage {
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    display: grid; /* Usando grid para melhor controle */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Ajustado minmax */
+    gap: 30px;
+    align-items: stretch; /* Cards da mesma altura */
 }
 
-.game-card, .game-card-detailed {
+.game-card {
     background-color: var(--card-bg);
-    border-radius: 10px;
+    border-radius: 10px; /* Era 8px, ajustado para 10px como no style.css original */
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,0.3);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
+    text-align: center; /* Centraliza conteúdo do card */
 }
-
-.game-card:hover, .game-card-detailed:hover {
+.game-card:hover {
     transform: translateY(-6px);
     box-shadow: 0 6px 20px rgba(0,0,0,0.4), 0 0 15px var(--accent-shadow-color);
 }
 
-.game-card img, .game-card-detailed img {
+.game-card a { /* Link envolvendo o conteúdo do card */
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Faz o link ocupar o espaço do card */
+    padding: 20px; /* Padding interno para o conteúdo do link */
+}
+.game-card a.coming-soon-card-link { /* Para cards "Coming Soon" */
+    cursor: default;
+}
+
+.game-card img.game-cover-image {
     width: 100%;
-    object-fit: cover;
-    aspect-ratio: 1 / 1;
+    height: auto;
+    object-fit: contain; /* Mostra a imagem inteira */
+    display: block;
+    border-radius: 4px; /* Pequena borda na imagem */
+    margin-bottom: 20px; /* Aumentado espaço abaixo da imagem */
+    max-height: 200px; /* Limita altura da imagem para não esticar demais o card */
 }
 
-.game-card h3, .game-card-detailed h3 {
-    margin: 15px 15px 8px 15px;
-    color: var(--primary-color);
-    font-size: 1.25em;
+.coming-soon-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100px; /* Altura mínima para o ícone */
+    margin-bottom: 10px; /* Espaço abaixo do ícone */
 }
-.game-card-detailed h3 {
-    font-size: 1.15em;
-    min-height: 44px;
+.hourglass-icon {
+    display: inline-block;
+    font-size: 70px;
+    color: var(--text-default);
+    /* animation: spin 3s linear infinite; Desativando animação por enquanto */
+}
+/* @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } } */
+
+.game-card h3 {
+    font-size: 1.6em;
+    color: var(--text-default); /* Título Kageborn em branco */
+    font-weight: bold;
+    margin-bottom: 15px; /* Espaço para os detalhes de status */
+}
+.game-card h3.coming-soon-title {
+    color: var(--primary-color-active-link); /* Título "Coming Soon" em roxo vibrante */
+    font-size: 1.4em;
+    margin-bottom: 20px;
 }
 
-.game-card p {
-    font-size: 0.9em;
-    color: var(--text-secondary);
-    margin: 0 15px 15px 15px;
-    flex-grow: 1;
-}
-
-.game-stats-detailed {
+.game-status-details {
     display: flex;
     justify-content: space-around;
-    padding: 5px 10px 15px 10px;
-    margin-top: auto;
-    border-top: 1px solid var(--border-color);
+    align-items: flex-start;
+    margin-top: auto; /* Empurra para o final do card */
+    padding-top: 15px;
+    width: 100%;
 }
-
-.stat-item-detailed {
+.status-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    padding-top: 10px;
+    flex-basis: 45%;
 }
-
-.stat-item-detailed span {
-    display: block;
-    font-size: 1.1em;
+.status-main {
     font-weight: bold;
-    color: #FFFFFF;
-    margin-bottom: 2px;
+    font-size: 1.2em;
+    color: var(--text-default);
+    margin-bottom: 5px;
+    line-height: 1.1;
 }
-
-.stat-item-detailed p {
-    font-size: 0.7em;
+.status-sub {
+    font-size: 0.75em;
     color: var(--text-secondary);
     text-transform: uppercase;
-    margin: 0;
     letter-spacing: 0.5px;
+    line-height: 1.2;
 }
 
+/* Seção Sobre Nós (Home) */
+.about-content-home {
+    display: flex;
+    align-items: center; /* Alinha verticalmente texto e imagem */
+    gap: 50px;
+}
+.about-text {
+    flex: 1.2;
+    color: var(--text-default);
+}
+.about-text p {
+    margin-bottom: 1.5em;
+    line-height: 1.75;
+    font-size: 1.05em;
+    color: var(--text-secondary);
+}
+.about-text p:first-of-type { /* Primeiro parágrafo pode ter destaque */
+    color: var(--text-default);
+    font-size: 1.1em;
+}
+
+/* Botão "Contact Us & Partnerships" na seção About Us */
+.about-text .btn-secondary {
+    display: inline-block; /* Comportamento de botão */
+    padding: 14px 30px;
+    border: 2px solid var(--primary-color-active-link); /* Borda roxa vibrante */
+    color: var(--primary-color-active-link); /* Texto roxo vibrante */
+    background-color: transparent;
+    text-decoration: none;
+    border-radius: 30px; /* Cantos bem arredondados */
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.95em;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s;
+    margin-top: 25px; /* Espaço acima do botão */
+}
+.about-text .btn-secondary:hover {
+    background-color: var(--primary-color-active-link);
+    color: var(--dark-bg); /* Texto escuro no hover */
+    transform: translateY(-2px);
+}
+
+.about-image { /* Card para a imagem/mascote na seção About Us */
+    flex: 0.8;
+    max-width: 350px; /* Ajustado para não ficar tão largo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--card-bg); /* Fundo do card */
+    padding: 25px; /* Aumentado padding */
+    border-radius: 10px; /* Cantos arredondados */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Sombra sutil */
+    min-height: 280px; /* Altura mínima para o card */
+}
+.about-image img { /* Imagem do mascote dentro do card */
+    max-width: 100%;
+    max-height: 200px; /* Altura máxima para a imagem do mascote */
+    height: auto;
+    object-fit: contain;
+}
+
+/* Footer Detalhado */
 .site-footer-detailed {
-    background-color: #0A0A14;
+    background-color: var(--section-bg); /* Fundo do footer */
     padding: 50px 0 0 0;
     color: var(--text-secondary);
     font-size: 0.9em;
     border-top: 1px solid var(--border-color);
 }
-
 .footer-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Ajustado minmax */
     gap: 35px;
     margin-bottom: 40px;
 }
-
 .footer-logo-bio h3 {
     font-size: 1.6em;
-    color: var(--primary-color);
+    color: var(--primary-color-active-link); /* Roxo vibrante para o título no footer */
     margin-bottom: 12px;
     font-weight: 700;
 }
-
 .footer-links h4 {
     font-size: 1.15em;
     color: var(--text-default);
@@ -384,263 +433,69 @@ header nav ul li a.active {
     bottom: 0;
     width: 30px;
     height: 2px;
-    background-color: var(--primary-color);
+    background-color: var(--primary-color-active-link);
 }
-
 .footer-links ul li {
     margin-bottom: 10px;
 }
-
 .footer-links ul li a {
     color: var(--text-secondary);
     transition: color 0.2s ease, padding-left 0.2s ease;
 }
-
 .footer-links ul li a:hover {
-    color: var(--secondary-highlight-color);
+    color: var(--primary-color-active-link);
     padding-left: 5px;
 }
-
 .footer-copyright {
     text-align: center;
     padding: 25px 0;
     border-top: 1px solid var(--border-color);
     font-size: 0.85em;
-    color: #6A6A7A;
+    color: #6A6A7A; /* Cinza para o copyright */
 }
-
-/* Estilos para a Página Contato (contact.html) */
-.page-header-contact {
-    text-align: center;
-    padding: 50px 20px;
-}
-.page-header-contact h2 {
-    font-size: 2.5em;
-    margin-bottom: 0.5em;
-}
-.page-header-contact p {
-    font-size: 1.1em;
-    color: var(--text-secondary);
-    max-width: 700px;
-    margin: 0 auto;
-}
-
-.acquisitions-info {
-    padding: 20px 0 50px 0;
-}
-.acquisitions-info .info-block {
-    background-color: var(--card-bg);
-    padding: 25px;
-    margin-bottom: 25px;
-    border-radius: 8px;
-    border-left: 5px solid var(--primary-color);
-    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-}
-.acquisitions-info .info-block h3 { font-size: 1.7em; color: var(--primary-color); margin-bottom: 10px; }
-.acquisitions-info .info-block h4 { font-size: 1.25em; color: var(--text-default); margin-bottom: 8px; }
-.acquisitions-info .info-block p { color: var(--text-secondary); line-height: 1.7; }
-
-.contact-form-wrapper { background-color: var(--section-bg); padding: 70px 0; }
-.contact-box {
-    background-color: var(--card-bg);
-    padding: 40px 50px;
-    border-radius: 12px;
-    max-width: 700px;
-    margin: 0 auto;
-    color: var(--text-default);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-    border-top: 4px solid var(--primary-color);
-}
-.contact-box-header { text-align: center; margin-bottom: 35px; }
-.contact-icon { font-size: 3em; display: block; margin-bottom: 10px; color: var(--primary-color); }
-.contact-box-header h2 { font-size: 2.3em; margin-bottom: 0.3em; color: #FFFFFF; }
-.contact-box-header p { font-size: 1em; color: var(--text-secondary); }
-.contact-form-main .form-group { margin-bottom: 22px; }
-.contact-form-main input[type="email"],
-.contact-form-main textarea {
-    width: 100%; padding: 16px; border-radius: 6px; border: 1px solid var(--border-color);
-    background-color: #1F1F33; color: var(--text-default); font-size: 1em;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-.contact-form-main input[type="email"]::placeholder,
-.contact-form-main textarea::placeholder { color: #7A7A8A; }
-.contact-form-main input[type="email"]:focus,
-.contact-form-main textarea:focus {
-    outline: none; border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px var(--accent-shadow-color);
-}
-.contact-form-main .checkbox-group { display: flex; align-items: center; font-size: 0.9em; color: var(--text-secondary); }
-.contact-form-main .checkbox-group input[type="checkbox"] {
-    margin-right: 10px; width: 18px; height: 18px; accent-color: var(--primary-color);
-    background-color: #1F1F33; border: 1px solid var(--border-color);
-}
-.contact-form-main .checkbox-group label { cursor: pointer; }
-.btn-form-submit {
-    background-color: var(--primary-color); color: #FFFFFF; border: 2px solid var(--primary-color);
-    width: 100%; padding: 16px; font-size: 1.1em; font-weight: bold;
-    text-transform: uppercase; border-radius: 6px; transition: all 0.3s ease;
-}
-.btn-form-submit:hover {
-    background-color: var(--primary-hover-color); border-color: var(--primary-hover-color);
-    box-shadow: 0 4px 12px var(--accent-shadow-color);
-}
-.form-disclaimer { text-align: center; font-size: 0.8em; color: var(--text-secondary); margin-top: 30px; }
-
-/* Estilos para a Seção Sobre Nós na Home (index.html#sobre-nos) */
-.about-content-home { display: flex; align-items: flex-start; gap: 50px; }
-.about-text { flex: 1.2; color: var(--text-default); }
-.about-text p { margin-bottom: 1.5em; line-height: 1.75; font-size: 1.05em; color: var(--text-secondary); }
-.about-text p:first-of-type { color: var(--text-default); font-size: 1.1em; }
-.about-text .btn {
-    margin-top: 25px;
-    display: inline-block;
-    padding: 14px 30px;
-    border-radius: 30px;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 0.95em;
-    transition: all 0.3s ease;
-    border-width: 2px;
-    border-style: solid;
-}
-.about-image { flex: 0.8; max-width: 400px; }
-.about-image img { border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.3), 0 0 20px var(--accent-shadow-color); }
-
-
-/* ======== Placeholder Symbol Styles ======== */
-/* Para os cards de jogos onde o [⏳] substitui uma imagem.
-   Melhor resultado se o [⏳] estiver dentro de um <div class="placeholder-image">
-   Ex: <div class="game-card"><a href="..."><div class="placeholder-image">[⏳]</div><h3>...</h3></a></div> */
-.placeholder-image {
-    width: 100%;
-    aspect-ratio: 1 / 1; /* Mantém a proporção quadrada, igual às imagens dos jogos */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #252538; /* Cor de fundo para o placeholder, um pouco diferente do card */
-    color: var(--text-secondary);
-    font-size: 3rem; /* Tamanho do símbolo */
-    font-family: monospace; /* Fonte monoespaçada para o símbolo */
-    /* Herda o border-radius do .game-card/.game-card-detailed devido ao overflow:hidden no pai */
-}
-
-/* Para a seção "About Us" onde [ℹ️] substitui a imagem.
-   Aqui, o .about-image é o próprio container do placeholder. */
-.about-section-home .about-image { /* Estilo quando .about-image contém o [ℹ️] diretamente */
-    /* flex: 0.8; max-width: 400px; (já definido acima) */
-    display: flex; /* Para centralizar o conteúdo */
-    justify-content: center;
-    align-items: center;
-    min-height: 300px; /* Defina uma altura aproximada da imagem que substitui */
-    background-color: #252538; /* Mesma cor de fundo do placeholder */
-    color: var(--text-secondary);
-    font-size: 4rem; /* Tamanho do símbolo */
-    font-family: monospace;
-    border-radius: 10px; /* Mesmas bordas da imagem original */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3), 0 0 20px var(--accent-shadow-color); /* Mesma sombra */
-}
-/* Remova a regra .about-image img se .about-image for usado apenas para placeholder */
-/* .about-image img { ... } */
 
 
 /* Responsividade */
 @media (max-width: 992px) {
-    .hero-text-content-new h1 {
-        font-size: 3em;
-    }
-    .hero-text-content-new p {
-        font-size: 1.05em;
-    }
-    .hero-layout-new {
-        gap: 30px;
-    }
+    .hero-text-content-new h1 { font-size: 3em; }
+    .hero-text-content-new p { font-size: 1.05em; }
+    .hero-layout-new { gap: 30px; }
+    .games-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); } /* Ajuste para tablets */
 }
 
 @media (max-width: 768px) {
     header .container { flex-direction: column; gap: 15px; }
-    /* Para a logo no mobile, ela já deve se alinhar corretamente com os novos estilos .logo */
-    header .logo {
-        /* Se precisar de ajustes específicos para o .logo em mobile, adicione aqui.
-           Ex: align-self: flex-start; para alinhar à esquerda na coluna. */
-    }
     header nav { margin-top: 0; width: 100%; }
     header nav ul { flex-direction: column; align-items: center; width: 100%; }
     header nav ul li { margin: 8px 0; margin-left: 0; width: 100%; text-align: center; }
     header nav ul li a { display: block; padding: 10px 0; }
 
-    .hero {
-        padding: 60px 0;
-        min-height: auto;
-        text-align: center;
-    }
-    .hero-layout-new {
-        flex-direction: column;
-        gap: 40px;
-    }
-    .hero-text-content-new {
-        max-width: 100%;
-        order: 2;
-    }
-    .hero-image-content-new {
-        order: 1;
-        margin-bottom: 20px;
-    }
-    .hero-image-content-new img {
-        max-height: 300px;
-    }
-    .hero-buttons-new {
-        justify-content: center;
-        flex-direction: column;
-        align-items: center;
-    }
-    .hero-buttons-new .btn {
-        width: 80%;
-        max-width: 300px;
-    }
-    .hero-text-content-new h1 {
-        font-size: 2.6em;
-    }
-     .hero-text-content-new p {
-        font-size: 1em;
-    }
+    .hero { padding: 60px 0; text-align: center; }
+    .hero-layout-new { flex-direction: column; gap: 40px; }
+    .hero-text-content-new { max-width: 100%; order: 2; text-align: center;}
+    .hero-image-content-new { order: 1; margin-bottom: 20px; }
+    .hero-image-content-new img { max-height: 300px; }
+    .hero-buttons-new { justify-content: center; flex-direction: column; align-items: center;}
+    .hero-buttons-new .btn { width: 80%; max-width: 300px; }
+    .hero-text-content-new h1 { font-size: 2.6em; }
+    .hero-text-content-new p { font-size: 1em; }
 
     .games-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
-    .games-grid-fullpage { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
 
     .about-content-home { flex-direction: column; text-align: center; }
-    .about-image { margin-top: 35px; max-width: 80%; margin-left: auto; margin-right: auto; }
-    /* Ajuste para .about-image quando for placeholder em mobile */
-    .about-section-home .about-image {
-        min-height: 200px; /* Reduz altura do placeholder em mobile */
-        font-size: 3rem;   /* Reduz tamanho do símbolo */
-    }
+    .about-image { margin-top: 35px; max-width: 80%; margin-left: auto; margin-right: auto; flex-basis: auto; }
+    .about-text .btn-secondary { margin-left:auto; margin-right:auto; } /* Centralizar botão */
 
-    .about-text .btn {
-        width: auto;
-        padding-left: 35px;
-        padding-right: 35px;
-        background-color: transparent;
-        color: var(--secondary-highlight-color);
-        border-color: var(--secondary-highlight-color);
-    }
-    .about-text .btn:hover {
-        background-color: var(--secondary-highlight-color);
-        color: var(--dark-bg);
-    }
-
-    .contact-box { padding: 30px 25px; }
     .footer-grid { grid-template-columns: 1fr; text-align: center; }
     .footer-links h4::after { left: 50%; transform: translateX(-50%); }
 }
 
 @media (max-width: 500px) {
-    .games-grid-fullpage { grid-template-columns: 1fr; }
     .hero-text-content-new h1 { font-size: 2.2em; }
     .hero-text-content-new p { font-size: 0.95em; }
-
-    .hero-buttons-new .btn {
-        width: 90%;
-        padding: 12px 20px;
-        font-size: 0.85em;
-    }
+    .hero-buttons-new .btn { width: 90%; padding: 12px 20px; font-size: 0.85em; }
+    .games-grid { grid-template-columns: 1fr; } /* Uma coluna em telas muito pequenas */
+    .game-card img.game-cover-image { max-height: 180px; }
+    .about-image { padding: 15px; min-height: 220px;}
+    .about-image img {max-height: 160px;}
 }
