@@ -6,11 +6,48 @@
     <title>Drax Studio - Game Innovation</title>
     <link rel="stylesheet" href="style.css">
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> -->
+    <style>
+        /* Adicione este CSS para alinhar a logo e o texto e ajustar o tamanho da logo */
+        .logo {
+            display: flex; /* Alinha itens na horizontal */
+            align-items: center; /* Centraliza itens verticalmente */
+        }
+        .logo img {
+            height: 40px; /* Ajuste a altura conforme necessário */
+            width: auto;  /* Mantém a proporção */
+            margin-right: 10px; /* Espaço entre a logo e o texto */
+        }
+        .logo h1 {
+            margin-bottom: 0; /* Remove margem inferior padrão do h1 se necessário */
+        }
+
+        /* Estilo para os placeholders de imagem, se quiser dar um tamanho fixo */
+        .game-card [⏳],
+        .about-image [ℹ️] {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%; /* Ou um tamanho fixo, ex: 200px */
+            min-height: 150px; /* Ou um tamanho fixo, ex: 150px */
+            background-color: #333; /* Um fundo para destacar o placeholder */
+            color: #fff;
+            font-size: 2em;
+            border-radius: 8px; /* Se os cards de jogo tiverem bordas arredondadas */
+            box-sizing: border-box;
+            padding: 10px;
+            text-align: center;
+        }
+        .about-image [ℹ️] {
+             min-height: 200px; /* Altura diferente para a imagem do "sobre nós" se precisar */
+        }
+
+    </style>
 </head>
 <body>
     <header>
         <div class="container">
             <div class="logo">
+                <img src="png/Draxstudio.png" alt="Drax Studio Logo"> {/* LOGO ADICIONADA AQUI */}
                 <h1>Drax Studio</h1>
             </div>
             <nav>
