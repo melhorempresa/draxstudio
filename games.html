@@ -5,6 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Games - Drax Studio</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estilos do Logo (para consistência, caso não estejam globais) */
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        .logo img {
+            height: 50px; /* Ajuste conforme necessário, igual à index */
+            width: auto;
+            margin-right: 10px;
+        }
+        .logo h1 {
+            margin-bottom: 0;
+        }
+
+        /* ESTILOS PARA A ÁREA VISUAL DO "COMING SOON" E AMPULHETA */
+        .coming-soon-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            min-height: 150px; /* Altura da área do ícone, ajuste se os cards forem diferentes */
+            padding-top: 15px;   /* Empurra o ícone para baixo dentro desta div */
+            margin-bottom: 20px; /* Mais espaço entre ícone e texto abaixo */
+            box-sizing: border-box;
+        }
+
+        .hourglass-icon {
+            display: inline-block;
+            font-size: 90px; /* Tamanho da ampulheta */
+            color: #fff;     /* Cor da ampulheta */
+            animation: spin 3s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        /* FIM DOS ESTILOS DA AMPULHETA */
+
+        /* Adicional: Garante que o texto dentro dos game-card-detailed esteja alinhado
+           de forma similar à index, se necessário.
+           Pode já estar coberto pelo seu style.css */
+        .game-card-detailed h3, .game-card-detailed .game-stats-detailed {
+            text-align: center; /* Centraliza o título e os stats se não estiverem */
+        }
+        .game-card-detailed .game-stats-detailed p {
+            margin-top: 0.2em; /* Pequeno ajuste se necessário */
+            margin-bottom: 0.5em;
+        }
+
+    </style>
 </head>
 <body>
     <header>
@@ -29,7 +85,7 @@
             <div class="container">
                 <h2>Our Game & What's Next</h2>
                 <div class="games-grid-fullpage">
-                   
+
                     <div class="game-card-detailed">
                         <img src="png/kageborn.png" alt="Kageborn Game Cover">
                         <h3>Kageborn</h3>
@@ -47,7 +103,9 @@
 
                     <div class="game-card-detailed">
                         <a href="#" style="text-decoration: none; color: inherit; cursor: default;">
-                            <div class="placeholder-image">[⏳]</div> {/* Envolvendo o símbolo para melhor estilização CSS */}
+                            <div class="coming-soon-visual">
+                                <span class="hourglass-icon">⏳</span>
+                            </div>
                             <h3>Coming Soon</h3>
                             <div class="game-stats-detailed">
                                 <div class="stat-item-detailed">
@@ -64,7 +122,9 @@
 
                     <div class="game-card-detailed">
                         <a href="#" style="text-decoration: none; color: inherit; cursor: default;">
-                            <div class="placeholder-image">[⏳]</div> {/* Envolvendo o símbolo para melhor estilização CSS */}
+                            <div class="coming-soon-visual">
+                                <span class="hourglass-icon">⏳</span>
+                            </div>
                             <h3>Coming Soon</h3>
                             <div class="game-stats-detailed">
                                 <div class="stat-item-detailed">
@@ -123,7 +183,7 @@
             if (kagebornCard) {
                 const parentCard = kagebornCard.closest('.game-card-detailed');
                 if (parentCard) {
-                    parentCard.style.cursor = 'pointer'; 
+                    parentCard.style.cursor = 'pointer';
                     parentCard.addEventListener('dblclick', () => {
                         window.location.href = 'dragon-slayer.html';
                     });
@@ -133,9 +193,11 @@
             const allGameCards = document.querySelectorAll('.game-card-detailed');
             allGameCards.forEach(card => {
                 const kagebornImg = card.querySelector('img[src="png/kageborn.png"]');
-                const placeholderDiv = card.querySelector('.placeholder-image');
-                
-                if (!kagebornImg && placeholderDiv) { 
+                // ATUALIZADO AQUI para procurar pela nova classe
+                const comingSoonVisual = card.querySelector('.coming-soon-visual');
+
+                // Se não for o card do Kageborn E tiver o visual de "coming soon"
+                if (!kagebornImg && comingSoonVisual) {
                     const linkInCard = card.querySelector('a');
                     if(linkInCard) linkInCard.style.cursor = 'default';
                 }
