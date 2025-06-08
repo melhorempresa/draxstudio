@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Drax Studio - Game Innovation</title>
-    <link rel="stylesheet" href="style.css"> <!-- Seu style.css original -->
+    <!-- <link rel="stylesheet" href="style.css"> Seu style.css original (se houver mais estilos lá) -->
     <style>
         body {
             background-color: #1A1032;
@@ -62,31 +62,26 @@
             align-items: center;
         }
 
-        /* Styles for .about-image and the logo inside it */
-        .about-image { /* Este é o contêiner da logo */
+        .about-image {
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-basis: 300px; /* Mantém o espaço horizontal para a coluna da imagem */
-            min-height: 200px; /* Altura mínima para alinhamento, pode ajustar conforme necessário */
+            flex-basis: 300px;
+            min-height: 200px;
             box-sizing: border-box;
-
-            /* --- OVERRIDES IMPORTANTES PARA GARANTIR QUE NÃO HAJA FUNDO/BORDA NO CONTÊINER --- */
             background: none !important;
             background-color: transparent !important;
             border: none !important;
-            border-radius: 0 !important; /* Remove cantos arredondados */
-            padding: 0 !important;      /* Remove preenchimento que formava a "caixa".
-                                            Se desejar um espaço *ao redor* da imagem dentro desta área,
-                                            adicione um padding aqui, mas não terá uma caixa visível. */
-            box-shadow: none !important; /* Remove qualquer sombra de caixa */
+            border-radius: 0 !important;
+            padding: 0 !important;
+            box-shadow: none !important;
         }
 
-        .about-image img { /* Estilos para a imagem da logo em si */
-            max-width: 100%;   /* Garante que a logo não ultrapasse a largura do seu contêiner .about-image */
-            max-height: 180px; /* Ajuste a altura máxima da logo como desejar */
+        .about-image img {
+            max-width: 100%;
+            max-height: 180px;
             height: auto;
-            object-fit: contain; /* Garante que toda a logo seja visível */
+            object-fit: contain;
         }
 
         .coming-soon-visual {
@@ -95,7 +90,7 @@
             align-items: center;
             width: 100%;
             min-height: 150px;
-            padding-top: 15px;
+            /* padding-top: 15px; Removido, padding agora no .game-card-default > a */
             margin-bottom: 20px;
             box-sizing: border-box;
         }
@@ -159,13 +154,80 @@
         .btn-primary-new { background-color: #A020F0; color: white; }
         .btn-secondary-new { border: 1px solid #A020F0; color: white; }
         .btn-secondary-new:hover { background-color: #A020F0; color: #1A1032; }
-
-        .games-grid { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px; margin-top: 20px; }
-        .game-card { background-color: #23183D; padding: 20px; border-radius: 8px; width: calc(33.333% - 27px); min-width: 280px; text-align: center; box-sizing: border-box;}
-        .game-card img { max-width: 100%; height: auto; border-radius: 4px; margin-bottom: 10px; aspect-ratio: 16/9; object-fit: cover; }
-        .game-card h3 { margin-bottom: 5px; }
-        .game-card p { font-size: 0.9em; color: #ccc; }
         .hero-image-content-new img { max-width: 100%; height: auto; border-radius: 8px; }
+
+        /* Game Grid and Cards Styling */
+        .games-grid {
+            display: flex;
+            justify-content: space-around; /* ou space-between se preferir */
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .game-card {
+            background-color: #23183D;
+            border-radius: 8px;
+            width: calc(33.333% - 27px); /* Largura original, ajuste se necessário */
+            min-width: 280px;
+            text-align: center;
+            box-sizing: border-box;
+            overflow: hidden; /* Crucial para a imagem full-width respeitar o border-radius */
+            display: flex; /* Para permitir que o <a> preencha a altura */
+            flex-direction: column; /* Para empilhar o <a> corretamente */
+        }
+
+        .game-card > a {
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+            height: 100%; /* Faz o link preencher a altura do card */
+        }
+        
+        .game-card > a:hover h3 {
+             color: #A020F0; /* Efeito hover no título, opcional */
+        }
+
+        /* Estilos para cards padrão (ex: Coming Soon) */
+        .game-card-default > a {
+            padding: 20px;
+            justify-content: center; /* Centraliza verticalmente o conteúdo dentro do <a> */
+            align-items: center; /* Centraliza horizontalmente (o text-align: center no card já faz isso) */
+            cursor: default; /* Cursor para links não clicáveis */
+        }
+
+        /* Estilos para card com imagem completa (ex: Kageborn) */
+        .game-card-full-image > a > img {
+            width: 100%;
+            height: auto; /* Mantém proporção da imagem */
+            aspect-ratio: 16 / 9; /* Força proporção, bom para consistência */
+            object-fit: cover; /* Cobre a área, pode cortar se proporção não bater */
+            display: block; /* Remove espaço extra abaixo da imagem */
+        }
+
+        .game-card-full-image > a > .game-card-text-content {
+            padding: 15px 20px; /* Espaçamento para o título e parágrafo */
+            flex-grow: 1; /* Permite que esta seção cresça se houver altura extra no card */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Centraliza o texto verticalmente dentro desta área */
+        }
+
+        .game-card h3 {
+            margin-top: 0; /* Remove margem superior se houver */
+            margin-bottom: 5px;
+            color: #FFFFFF; /* Cor do título */
+        }
+
+        .game-card p {
+            font-size: 0.9em;
+            color: #ccc;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+        /* Fim Game Grid and Cards Styling */
+
 
         .site-footer-detailed { background-color: #120C27; padding: 30px 0 10px; font-size: 0.9em; }
         .footer-grid { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; margin-bottom: 20px; }
@@ -184,7 +246,7 @@
             .hero-layout-new { flex-direction: column; }
             .hero-text-content-new { text-align: center; }
             .games-grid { flex-direction: column; align-items: center; }
-            .game-card { width: 80%; max-width: 400px; }
+            .game-card { width: 80%; max-width: 400px; } /* Ajuste de largura para mobile */
             .about-content-home { flex-direction: column; }
             .footer-grid { flex-direction: column; align-items: center; text-align: center; }
         }
@@ -230,15 +292,20 @@
                 <h2>Featured Games</h2>
                 <p>Check out our most popular and upcoming games.</p>
                 <div class="games-grid">
-                    <div class="game-card">
-                        <a href="dragon-slayer.html" style="text-decoration: none; color: inherit;">
+                    <!-- Kageborn Card - Full Image Style -->
+                    <div class="game-card game-card-full-image">
+                        <a href="dragon-slayer.html">
                             <img src="png/kageborn.png" alt="Kageborn Game Cover">
-                            <h3>Kageborn</h3>
-                            <p>Status: In Development</p>
+                            <div class="game-card-text-content">
+                                <h3>Kageborn</h3>
+                                <p>Status: In Development</p>
+                            </div>
                         </a>
                     </div>
-                    <div class="game-card">
-                        <a href="#" style="text-decoration: none; color: inherit; cursor: default;">
+
+                    <!-- Coming Soon Card - Default Style -->
+                    <div class="game-card game-card-default">
+                        <a href="#">
                             <div class="coming-soon-visual">
                                 <span class="hourglass-icon">⏳</span>
                             </div>
@@ -246,8 +313,10 @@
                             <p>Exciting new adventures await!</p>
                         </a>
                     </div>
-                    <div class="game-card">
-                        <a href="#" style="text-decoration: none; color: inherit; cursor: default;">
+
+                    <!-- Coming Soon Card - Default Style -->
+                    <div class="game-card game-card-default">
+                        <a href="#">
                             <div class="coming-soon-visual">
                                 <span class="hourglass-icon">⏳</span>
                             </div>
@@ -269,7 +338,7 @@
                         <p>With an eye on the future of the metaverse and digital interactions, we always seek to push boundaries and set new standards in the gaming industry.</p>
                         <a href="contact.html" class="btn btn-secondary">Contact Us & Partnerships</a>
                     </div>
-                    <div class="about-image"> <!-- Este contêiner agora não terá fundo/borda visível -->
+                    <div class="about-image">
                         <img src="png/Draxstudio.png" alt="Drax Studio Logo">
                     </div>
                 </div>
