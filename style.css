@@ -32,9 +32,9 @@ body {
 
 .container {
     width: 90%;
-    max-width: 1100px; /* Era 1200px, ajustei para corresponder ao style.css fornecido */
+    max-width: 1100px;
     margin: 0 auto;
-    padding: 0 20px; /* Adicionado padding lateral ao container */
+    padding: 0 20px;
 }
 
 a {
@@ -53,7 +53,7 @@ img {
 
 h1, h2, h3, h4 {
     margin-bottom: 0.8em;
-    color: #FFFFFF; /* Títulos principais brancos */
+    color: #FFFFFF;
     font-weight: 600;
 }
 
@@ -86,7 +86,7 @@ header .logo img {
 
 header .logo h1 {
     font-size: 1.9em;
-    color: var(--primary-color-active-link); /* Roxo vibrante para o título no header */
+    color: var(--primary-color-active-link);
     margin-bottom: 0;
     font-weight: 700;
     letter-spacing: 1px;
@@ -110,15 +110,14 @@ header nav ul li a {
 
 header nav ul li a:hover,
 header nav ul li a.active {
-    color: var(--primary-color-active-link); /* Roxo vibrante */
-    border-bottom-color: var(--primary-color-active-link); /* Roxo vibrante */
+    color: var(--primary-color-active-link);
+    border-bottom-color: var(--primary-color-active-link);
 }
 
 /* Hero Section */
 .hero {
-    background-color: var(--section-bg); /* Cor de fundo da seção hero */
+    background-color: var(--section-bg);
     padding: 80px 0;
-    /* min-height: calc(80vh - 70px); */ /* Removido para simplificar, padding controla altura */
     display: flex;
     align-items: center;
 }
@@ -133,7 +132,7 @@ header nav ul li a.active {
 .hero-text-content-new {
     flex: 1.2;
     max-width: 580px;
-    text-align: left; /* Garantido */
+    text-align: left;
 }
 
 .hero-text-content-new h1 {
@@ -157,9 +156,9 @@ header nav ul li a.active {
     margin-top: 30px;
 }
 
-.hero-buttons-new .btn { /* Estilo base para botões da hero */
+.hero-buttons-new .btn {
     padding: 14px 30px;
-    border-radius: 8px; /* Era 25px, ajustado para 8px como na imagem */
+    border-radius: 8px;
     font-weight: bold;
     text-transform: uppercase;
     font-size: 0.9em;
@@ -181,14 +180,14 @@ header nav ul li a.active {
     box-shadow: 0 4px 10px var(--accent-shadow-color);
 }
 
-.btn-secondary-new { /* Botão secundário da Hero (Join Community) */
+.btn-secondary-new {
     background-color: transparent;
-    color: var(--primary-color); /* Texto Roxo */
-    border-color: var(--primary-color); /* Borda Roxa */
+    color: var(--primary-color);
+    border-color: var(--primary-color);
 }
 .btn-secondary-new:hover {
     background-color: var(--primary-color);
-    color: var(--dark-bg); /* Texto escuro ao passar o mouse */
+    color: var(--dark-bg);
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(127, 63, 191, 0.2);
 }
@@ -206,23 +205,23 @@ header nav ul li a.active {
     border-radius: 12px;
 }
 
-/* Seções Gerais (Top Hits / Featured Games, About Us) */
-.top-hits, .about-section-home {
+/* Seções Gerais (Top Hits / Featured Games, About Us, Games Showcase) */
+.top-hits, .about-section-home, .games-showcase {
     padding: 70px 0;
-    background-color: var(--section-bg); /* Cor de fundo dessas seções */
-    border-top: 1px solid var(--border-color); /* Borda sutil entre seções */
+    background-color: var(--section-bg);
+    border-top: 1px solid var(--border-color);
 }
-.top-hits:first-of-type { /* Remove borda do topo da primeira seção após hero */
+.top-hits:first-of-type, .games-showcase:first-of-type { /* Remove borda do topo da primeira seção após hero ou header */
     border-top: none;
 }
 
-.top-hits h2, .about-section-home h2 {
+.top-hits h2, .about-section-home h2, .games-showcase h2 {
     font-size: 2.6em;
     margin-bottom: 1em;
     text-align: center;
     color: #FFFFFF;
 }
-.top-hits > .container > p { /* Parágrafo abaixo do título "Featured Games" */
+.top-hits > .container > p {
     font-size: 1.1em;
     color: var(--text-secondary);
     margin-bottom: 50px;
@@ -232,49 +231,51 @@ header nav ul li a.active {
     margin-right: auto;
 }
 
-/* Grid de Jogos (Featured Games) */
-.games-grid {
-    display: grid; /* Usando grid para melhor controle */
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Ajustado minmax */
+/* Grid de Jogos (Genérico para .games-grid e .games-grid-fullpage) */
+.games-grid, .games-grid-fullpage {
+    display: grid;
     gap: 30px;
-    align-items: stretch; /* Cards da mesma altura */
+    align-items: stretch;
+}
+.games-grid { /* Usado na Home */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+.games-grid-fullpage { /* Usado na Games.html */
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* Um pouco menor para caber mais? Ajuste conforme necessidade */
 }
 
-.game-card {
+.game-card { /* Estilo unificado para todos os cards de jogo */
     background-color: var(--card-bg);
-    border-radius: 10px; /* Era 8px, ajustado para 10px como no style.css original */
+    border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,0.3);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
-    text-align: center; /* Centraliza conteúdo do card */
+    text-align: center;
 }
 .game-card:hover {
     transform: translateY(-6px);
     box-shadow: 0 6px 20px rgba(0,0,0,0.4), 0 0 15px var(--accent-shadow-color);
 }
 
-.game-card a { /* Link envolvendo o conteúdo do card */
+.game-card a {
     text-decoration: none;
     color: inherit;
     display: flex;
     flex-direction: column;
-    flex-grow: 1; /* Faz o link ocupar o espaço do card */
-    padding: 20px; /* Padding interno para o conteúdo do link */
-}
-.game-card a.coming-soon-card-link { /* Para cards "Coming Soon" */
-    cursor: default;
+    flex-grow: 1;
+    padding: 20px;
 }
 
 .game-card img.game-cover-image {
     width: 100%;
     height: auto;
-    object-fit: contain; /* Mostra a imagem inteira */
+    object-fit: contain;
     display: block;
-    border-radius: 4px; /* Pequena borda na imagem */
-    margin-bottom: 20px; /* Aumentado espaço abaixo da imagem */
-    max-height: 200px; /* Limita altura da imagem para não esticar demais o card */
+    border-radius: 4px;
+    margin-bottom: 20px;
+    max-height: 200px;
 }
 
 .coming-soon-visual {
@@ -282,25 +283,29 @@ header nav ul li a.active {
     justify-content: center;
     align-items: center;
     width: 100%;
-    min-height: 100px; /* Altura mínima para o ícone */
-    margin-bottom: 10px; /* Espaço abaixo do ícone */
+    min-height: 100px; /* Era 150px, ajustado para ser consistente com o visual da home */
+    margin-bottom: 10px; /* Era 20px, ajustado */
+    /* padding-top: 15px; Removido, centralização vertical cuida disso */
 }
 .hourglass-icon {
     display: inline-block;
-    font-size: 70px;
+    font-size: 70px; /* Era 90px, ajustado para visual da home */
     color: var(--text-default);
-    /* animation: spin 3s linear infinite; Desativando animação por enquanto */
+    animation: spin 3s linear infinite; /* ANIMAÇÃO DA AMPULHETA */
 }
-/* @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } } */
+@keyframes spin { /* DEFINIÇÃO DA ANIMAÇÃO */
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
 
 .game-card h3 {
     font-size: 1.6em;
-    color: var(--text-default); /* Título Kageborn em branco */
+    color: var(--text-default);
     font-weight: bold;
-    margin-bottom: 15px; /* Espaço para os detalhes de status */
+    margin-bottom: 15px;
 }
 .game-card h3.coming-soon-title {
-    color: var(--primary-color-active-link); /* Título "Coming Soon" em roxo vibrante */
+    color: var(--primary-color-active-link);
     font-size: 1.4em;
     margin-bottom: 20px;
 }
@@ -309,7 +314,7 @@ header nav ul li a.active {
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
-    margin-top: auto; /* Empurra para o final do card */
+    margin-top: auto;
     padding-top: 15px;
     width: 100%;
 }
@@ -336,9 +341,12 @@ header nav ul li a.active {
 }
 
 /* Seção Sobre Nós (Home) */
+.about-section-home { /* Assegurar que os estilos desta seção não conflitem com games.html */
+    /* Estilos específicos do about-section-home já estão definidos */
+}
 .about-content-home {
     display: flex;
-    align-items: center; /* Alinha verticalmente texto e imagem */
+    align-items: center;
     gap: 50px;
 }
 .about-text {
@@ -351,54 +359,51 @@ header nav ul li a.active {
     font-size: 1.05em;
     color: var(--text-secondary);
 }
-.about-text p:first-of-type { /* Primeiro parágrafo pode ter destaque */
+.about-text p:first-of-type {
     color: var(--text-default);
     font-size: 1.1em;
 }
-
-/* Botão "Contact Us & Partnerships" na seção About Us */
-.about-text .btn-secondary {
-    display: inline-block; /* Comportamento de botão */
+.about-text .btn-secondary { /* Botão "Contact Us & Partnerships" */
+    display: inline-block;
     padding: 14px 30px;
-    border: 2px solid var(--primary-color-active-link); /* Borda roxa vibrante */
-    color: var(--primary-color-active-link); /* Texto roxo vibrante */
+    border: 2px solid var(--primary-color-active-link);
+    color: var(--primary-color-active-link);
     background-color: transparent;
     text-decoration: none;
-    border-radius: 30px; /* Cantos bem arredondados */
+    border-radius: 30px;
     font-weight: bold;
     text-transform: uppercase;
     font-size: 0.95em;
     transition: background-color 0.3s, color 0.3s, transform 0.3s;
-    margin-top: 25px; /* Espaço acima do botão */
+    margin-top: 25px;
 }
 .about-text .btn-secondary:hover {
     background-color: var(--primary-color-active-link);
-    color: var(--dark-bg); /* Texto escuro no hover */
+    color: var(--dark-bg);
     transform: translateY(-2px);
 }
-
-.about-image { /* Card para a imagem/mascote na seção About Us */
+.about-image {
     flex: 0.8;
-    max-width: 350px; /* Ajustado para não ficar tão largo */
+    max-width: 350px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--card-bg); /* Fundo do card */
-    padding: 25px; /* Aumentado padding */
-    border-radius: 10px; /* Cantos arredondados */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Sombra sutil */
-    min-height: 280px; /* Altura mínima para o card */
+    background-color: var(--card-bg);
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    min-height: 280px;
 }
-.about-image img { /* Imagem do mascote dentro do card */
+.about-image img {
     max-width: 100%;
-    max-height: 200px; /* Altura máxima para a imagem do mascote */
+    max-height: 200px;
     height: auto;
     object-fit: contain;
 }
 
 /* Footer Detalhado */
 .site-footer-detailed {
-    background-color: var(--section-bg); /* Fundo do footer */
+    background-color: var(--section-bg);
     padding: 50px 0 0 0;
     color: var(--text-secondary);
     font-size: 0.9em;
@@ -406,13 +411,13 @@ header nav ul li a.active {
 }
 .footer-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Ajustado minmax */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 35px;
     margin-bottom: 40px;
 }
 .footer-logo-bio h3 {
     font-size: 1.6em;
-    color: var(--primary-color-active-link); /* Roxo vibrante para o título no footer */
+    color: var(--primary-color-active-link);
     margin-bottom: 12px;
     font-weight: 700;
 }
@@ -451,7 +456,7 @@ header nav ul li a.active {
     padding: 25px 0;
     border-top: 1px solid var(--border-color);
     font-size: 0.85em;
-    color: #6A6A7A; /* Cinza para o copyright */
+    color: #6A6A7A;
 }
 
 
@@ -460,7 +465,8 @@ header nav ul li a.active {
     .hero-text-content-new h1 { font-size: 3em; }
     .hero-text-content-new p { font-size: 1.05em; }
     .hero-layout-new { gap: 30px; }
-    .games-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); } /* Ajuste para tablets */
+    .games-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .games-grid-fullpage { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); } /* Ajuste para tablet */
 }
 
 @media (max-width: 768px) {
@@ -480,11 +486,11 @@ header nav ul li a.active {
     .hero-text-content-new h1 { font-size: 2.6em; }
     .hero-text-content-new p { font-size: 1em; }
 
-    .games-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .games-grid, .games-grid-fullpage { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
 
     .about-content-home { flex-direction: column; text-align: center; }
     .about-image { margin-top: 35px; max-width: 80%; margin-left: auto; margin-right: auto; flex-basis: auto; }
-    .about-text .btn-secondary { margin-left:auto; margin-right:auto; } /* Centralizar botão */
+    .about-text .btn-secondary { margin-left:auto; margin-right:auto; }
 
     .footer-grid { grid-template-columns: 1fr; text-align: center; }
     .footer-links h4::after { left: 50%; transform: translateX(-50%); }
@@ -494,8 +500,9 @@ header nav ul li a.active {
     .hero-text-content-new h1 { font-size: 2.2em; }
     .hero-text-content-new p { font-size: 0.95em; }
     .hero-buttons-new .btn { width: 90%; padding: 12px 20px; font-size: 0.85em; }
-    .games-grid { grid-template-columns: 1fr; } /* Uma coluna em telas muito pequenas */
+    .games-grid, .games-grid-fullpage { grid-template-columns: 1fr; }
     .game-card img.game-cover-image { max-height: 180px; }
     .about-image { padding: 15px; min-height: 220px;}
     .about-image img {max-height: 160px;}
+    .hourglass-icon { font-size: 60px; } /* Ajuste da ampulheta para telas menores */
 }
