@@ -4,190 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Drax Studio - Game Innovation</title>
-    <link rel="stylesheet" href="style.css"> <!-- Seu style.css original -->
-    <style>
-        body {
-            background-color: #1A1032;
-            color: #FFFFFF;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #120C27;
-            padding: 10px 0;
-        }
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-        .logo img {
-            height: 50px;
-            width: auto;
-            margin-right: 10px;
-        }
-        .logo h1 {
-            margin-bottom: 0;
-            font-size: 2em;
-        }
-        nav {
-            display: flex;
-            align-items: center;
-        }
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-        }
-        nav ul li {
-            margin-left: 20px;
-        }
-        nav ul li a {
-            text-decoration: none;
-            color: #FFFFFF;
-            padding: 5px 10px;
-        }
-        nav ul li a.active {
-            border-bottom: 2px solid #A020F0; /* Purple accent */
-        }
-        header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-/* Styles for .about-image and the logo inside it */
-    .about-image { /* Este é o contêiner da logo */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-basis: 300px; /* Mantém o espaço horizontal para a coluna da imagem */
-        min-height: 200px; /* Altura mínima para alinhamento, pode ajustar conforme necessário */
-        box-sizing: border-box;
-/* --- OVERRIDES IMPORTANTES PARA GARANTIR QUE NÃO HAJA FUNDO/BORDA NO CONTÊINER --- */
-    background: none !important;
-    background-color: transparent !important;
-    border: none !important;
-    border-radius: 0 !important; /* Remove cantos arredondados */
-    padding: 0 !important;      /* Remove preenchimento que formava a "caixa".
-                                    Se desejar um espaço *ao redor* da imagem dentro desta área,
-                                    adicione um padding aqui, mas não terá uma caixa visível. */
-    box-shadow: none !important; /* Remove qualquer sombra de caixa */
-}
-
-.about-image img { /* Estilos para a imagem da logo em si */
-    max-width: 100%;   /* Garante que a logo não ultrapasse a largura do seu contêiner .about-image */
-    max-height: 180px; /* Ajuste a altura máxima da logo como desejar */
-    height: auto;
-    object-fit: contain; /* Garante que toda a logo seja visível */
-}
-
-.coming-soon-visual {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    min-height: 150px;
-    padding-top: 15px;
-    margin-bottom: 20px;
-    box-sizing: border-box;
-}
-.hourglass-icon {
-    display: inline-block;
-    font-size: 90px;
-    color: #fff;
-    animation: spin 3s linear infinite;
-}
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-.about-section-home {
-    padding: 40px 0;
-}
-.about-section-home h2 {
-    text-align: center;
-    font-size: 2.5em;
-    margin-bottom: 30px;
-}
-.about-content-home {
-    display: flex;
-    gap: 30px;
-    align-items: center;
-}
-.about-text {
-    flex: 1;
-}
-.about-text p {
-    line-height: 1.6;
-    margin-bottom: 15px;
-}
-.btn-secondary {
-    display: inline-block;
-    padding: 10px 20px;
-    border: 1px solid #A020F0;
-    color: #FFFFFF;
-    background-color: transparent;
-    text-decoration: none;
-    border-radius: 20px;
-    font-weight: bold;
-    transition: background-color 0.3s, color 0.3s;
-}
-.btn-secondary:hover {
-    background-color: #A020F0;
-    color: #1A1032;
-}
-
-.hero, .top-hits { padding: 40px 0; text-align: center; }
-.hero h1 { font-size: 3em; }
-.hero-layout-new {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-.hero-text-content-new { flex: 1; text-align: left;}
-.hero-image-content-new { flex: 1; }
-.hero-buttons-new a { margin: 5px; display: inline-block; padding: 12px 25px; text-decoration: none; border-radius: 25px; }
-.btn-primary-new { background-color: #A020F0; color: white; }
-.btn-secondary-new { border: 1px solid #A020F0; color: white; }
-.btn-secondary-new:hover { background-color: #A020F0; color: #1A1032; }
-
-.games-grid { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px; margin-top: 20px; }
-.game-card { background-color: #23183D; padding: 20px; border-radius: 8px; width: calc(33.333% - 27px); min-width: 280px; text-align: center; box-sizing: border-box;}
-.game-card img { max-width: 100%; height: auto; border-radius: 4px; margin-bottom: 10px; aspect-ratio: 16/9; object-fit: cover; }
-.game-card h3 { margin-bottom: 5px; }
-.game-card p { font-size: 0.9em; color: #ccc; }
-.hero-image-content-new img { max-width: 100%; height: auto; border-radius: 8px; }
-
-.site-footer-detailed { background-color: #120C27; padding: 30px 0 10px; font-size: 0.9em; }
-.footer-grid { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; margin-bottom: 20px; }
-.footer-logo-bio h3 { font-size: 1.5em; }
-.footer-links { flex-basis: 150px; }
-.footer-links h4 { margin-bottom: 10px; color: #A020F0; }
-.footer-links ul { list-style: none; padding: 0; }
-.footer-links ul li a { color: #ccc; text-decoration: none; line-height: 1.8; }
-.footer-links ul li a:hover { color: #fff; }
-.footer-copyright { text-align: center; border-top: 1px solid #333; padding-top: 15px; margin-top: 20px; color: #aaa; }
-
-@media (max-width: 768px) {
-    header .container { flex-direction: column; }
-    nav ul { flex-direction: column; align-items: center; width: 100%; }
-    nav ul li { margin: 10px 0; }
-    .hero-layout-new { flex-direction: column; }
-    .hero-text-content-new { text-align: center; }
-    .games-grid { flex-direction: column; align-items: center; }
-    .game-card { width: 80%; max-width: 400px; }
-    .about-content-home { flex-direction: column; }
-    .footer-grid { flex-direction: column; align-items: center; text-align: center; }
-}
-Use code with caution.
-</style>
+    <link rel="stylesheet" href="style.css"> <!-- Ligação para o style.css externo -->
 </head>
 <body>
     <header>
@@ -218,65 +35,100 @@ Use code with caution.
                 </div>
             </div>
             <div class="hero-image-content-new">
+                <!-- Idealmente, a imagem do Kageborn aqui seria uma arte mais geral ou do jogo principal em destaque -->
                 <img src="png/kageborn.png" alt="Featured Game Artwork from Drax Studio">
             </div>
         </div>
     </section>
-<section class="top-hits">
-    <div class="container">
-        <h2>Featured Games</h2>
-        <p>Check out our most popular and upcoming games.</p>
-        <div class="games-grid">
-            <div class="game-card">
-                <a href="dragon-slayer.html" style="text-decoration: none; color: inherit;">
-                    <img src="png/kageborn.png" alt="Kageborn Game Cover">
-                    <h3>Kageborn</h3>
-                    <p>Status: In Development</p>
-                </a>
-            </div>
-            <div class="game-card">
-                <a href="#" style="text-decoration: none; color: inherit; cursor: default;">
-                    <div class="coming-soon-visual">
-                        <span class="hourglass-icon">⏳</span>
-                    </div>
-                    <h3>Coming Soon</h3>
-                    <p>Exciting new adventures await!</p>
-                </a>
-            </div>
-            <div class="game-card">
-                <a href="#" style="text-decoration: none; color: inherit; cursor: default;">
-                    <div class="coming-soon-visual">
-                        <span class="hourglass-icon">⏳</span>
-                    </div>
-                    <h3>Coming Soon</h3>
-                    <p>Stay tuned for more updates.</p>
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
 
-<section id="about-us-section" class="about-section-home">
-    <div class="container">
-        <h2>About Drax Studio</h2>
-        <div class="about-content-home">
-            <div class="about-text">
-                <p>Drax Studio is a creative and passionate team focused on innovation in game development. Our mission is to build memorable and immersive experiences that captivate players of all ages around the world.</p>
-                <p>We believe in the transformative power of games to connect people, tell engaging stories, and challenge creativity. We are constantly exploring new technologies, cutting-edge game mechanics, and captivating narratives to deliver high-quality entertainment.</p>
-                <p>With an eye on the future of the metaverse and digital interactions, we always seek to push boundaries and set new standards in the gaming industry.</p>
-                <a href="contact.html" class="btn btn-secondary">Contact Us & Partnerships</a>
-            </div>
-            <div class="about-image"> <!-- Este contêiner agora não terá fundo/borda visível -->
-                <img src="png/Draxstudio.png" alt="Drax Studio Logo">
+    <section class="top-hits" id="featured-games"> <!-- Adicionado ID para possível navegação e clareza -->
+        <div class="container">
+            <h2>Featured Games</h2>
+            <p>Check out our most popular and upcoming games.</p>
+            <div class="games-grid">
+                <!-- Kageborn Card Atualizado -->
+                <div class="game-card">
+                    <a href="kageborn-details.html"> <!-- Link para uma página de detalhes do Kageborn -->
+                        <img src="png/kageborn.png" alt="Kageborn Game Cover" class="game-cover-image">
+                        <h3>Kageborn</h3>
+                        <div class="game-status-details">
+                            <div class="status-item">
+                                <span class="status-main">Alpha</span>
+                                <span class="status-sub">DEVELOPMENT PHASE</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-main">In Progress</span>
+                                <span class="status-sub">CURRENT STATUS</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <!-- Coming Soon Card 1 Atualizado -->
+                <div class="game-card">
+                    <a href="#" class="coming-soon-card-link">
+                        <div class="coming-soon-visual">
+                            <span class="hourglass-icon">⏳</span>
+                        </div>
+                        <h3 class="coming-soon-title">Coming Soon</h3>
+                        <div class="game-status-details">
+                            <div class="status-item">
+                                <span class="status-main">??</span>
+                                <span class="status-sub">ANTICIPATED</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-main">??</span>
+                                <span class="status-sub">KEEP AN EYE OUT!</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <!-- Coming Soon Card 2 Atualizado -->
+                <div class="game-card">
+                    <a href="#" class="coming-soon-card-link">
+                        <div class="coming-soon-visual">
+                            <span class="hourglass-icon">⏳</span>
+                        </div>
+                        <h3 class="coming-soon-title">Coming Soon</h3>
+                        <div class="game-status-details">
+                            <div class="status-item">
+                                <span class="status-main">TBA</span>
+                                <span class="status-sub">EXCITEMENT BUILDS</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-main">Soon<sup>™</sup></span>
+                                <span class="status-sub">PATIENCE IS KEY!</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
+    <section id="about-us-section" class="about-section-home">
+        <div class="container">
+            <h2>About Drax Studio</h2>
+            <div class="about-content-home">
+                <div class="about-text">
+                    <p>Drax Studio is a creative and passionate team focused on innovation in game development. Our mission is to build memorable and immersive experiences that captivate players of all ages around the world.</p>
+                    <p>We believe in the transformative power of games to connect people, tell engaging stories, and challenge creativity. We are constantly exploring new technologies, cutting-edge game mechanics, and captivating narratives to deliver high-quality entertainment.</p>
+                    <p>With an eye on the future of the metaverse and digital interactions, we always seek to push boundaries and set new standards in the gaming industry.</p>
+                    <!-- Botão movido para dentro de .about-text conforme a imagem de referência -->
+                    <a href="contact.html" class="btn btn-secondary">Contact Us & Partnerships</a>
+                </div>
+                <div class="about-image">
+                    <img src="png/Draxstudio.png" alt="Drax Studio Logo Mascot"> <!-- Imagem do dragão/mascote -->
+                </div>
+            </div>
+        </div>
+    </section>
 </main>
+
 <footer class="site-footer-detailed">
     <div class="container footer-grid">
         <div class="footer-logo-bio">
             <h3>Drax Studio</h3>
+            <!-- <p>Breve descrição sobre o estúdio pode ir aqui, se desejado.</p> -->
         </div>
         <div class="footer-links">
             <h4>Services</h4>
