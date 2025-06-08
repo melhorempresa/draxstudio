@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Drax Studio - Game Innovation</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css"> <!-- Seu style.css original que define o fundo dos cards -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> -->
     <style>
         /* Adicione este CSS para alinhar a logo e o texto e ajustar o tamanho da logo */
@@ -13,52 +13,47 @@
             align-items: center; /* Centraliza itens verticalmente */
         }
         .logo img {
-            height: 50px; /* AUMENTADO DE 40px PARA 50px */
-            width: auto;  /* Mantém a proporção */
-            margin-right: 10px; /* Espaço entre a logo e o texto */
+            height: 50px;
+            width: auto;
+            margin-right: 10px;
         }
         .logo h1 {
-            margin-bottom: 0; /* Remove margem inferior padrão do h1 se necessário */
+            margin-bottom: 0;
         }
 
-        /* Estilo para os placeholders de imagem, se quiser dar um tamanho fixo */
-        /* A regra original para .game-card [⏳] não será mais usada para os game cards
-           porque [⏳] foi substituído por uma estrutura HTML diferente.
-           Ela ainda se aplicará a .about-image [ℹ️] se usado. */
-        .game-card /*[⏳]*/, /* Removido ou comentado para evitar confusão */
+        /* Estilo para o placeholder da imagem na seção "About Us" */
+        /* Este placeholder terá um fundo cinza distinto */
         .about-image [ℹ️] {
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 100%; /* Ou um tamanho fixo, ex: 200px */
-            min-height: 150px; /* Ou um tamanho fixo, ex: 150px */
-            background-color: #333; /* Um fundo para destacar o placeholder */
+            width: 100%;
+            min-height: 200px; /* Altura para o placeholder do "sobre nós" */
+            background-color: #333; /* Fundo cinza para este placeholder específico */
             color: #fff;
             font-size: 2em;
-            border-radius: 8px; /* Se os cards de jogo tiverem bordas arredondadas */
+            border-radius: 8px;
             box-sizing: border-box;
             padding: 10px;
             text-align: center;
         }
-        .about-image [ℹ️] {
-             min-height: 200px; /* Altura diferente para a imagem do "sobre nós" se precisar */
-        }
 
-        /* NOVOS ESTILOS PARA A AMPULHETA ANIMADA */
+        /* ESTILOS PARA A ÁREA VISUAL DO "COMING SOON" E AMPULHETA */
         .coming-soon-visual {
             display: flex;
             justify-content: center;
             align-items: center;
             width: 100%;
-            min-height: 150px; /* Mantém a altura do placeholder original para o ícone */
+            min-height: 150px; /* Altura da área do ícone, igual ao placeholder original */
             margin-bottom: 10px; /* Espaço antes do título "Coming Soon" */
             box-sizing: border-box;
+            /* Sem background-color aqui, para que o ícone apareça sobre o fundo do .game-card */
         }
 
         .hourglass-icon {
-            display: inline-block; /* Necessário para aplicar transformações */
-            font-size: 90px; /* Tamanho grande para a ampulheta, ajuste conforme necessário */
-            color: #fff; /* Cor da ampulheta, branca para bom contraste */
+            display: inline-block;
+            font-size: 90px; /* Tamanho grande para a ampulheta */
+            color: #fff; /* Cor da ampulheta (branca) */
             animation: spin 3s linear infinite; /* Animação de rotação */
         }
 
@@ -70,7 +65,7 @@
                 transform: rotate(360deg);
             }
         }
-        /* FIM DOS NOVOS ESTILOS */
+        /* FIM DOS ESTILOS DA AMPULHETA */
 
     </style>
 </head>
@@ -105,8 +100,6 @@
                 </div>
                 <div class="hero-image-content-new">
                     <img src="png/kageborn.png" alt="Featured Game Artwork from Drax Studio">
-                    <!-- Optional caption below image: -->
-                    <!-- <p class="image-caption" style="text-align: center; color: var(--text-secondary); margin-top: 10px; font-size: 0.9em;">Game Showcase</p> -->
                 </div>
             </div>
         </section>
@@ -116,14 +109,14 @@
                 <h2>Featured Games</h2>
                 <p>Check out our most popular and upcoming games.</p>
                 <div class="games-grid">
-                    <div class="game-card">
+                    <div class="game-card"> <!-- Este card deve ter o fundo roxo do style.css -->
                         <a href="dragon-slayer.html" style="text-decoration: none; color: inherit;">
                             <img src="png/kageborn.png" alt="Kageborn Game Cover">
                             <h3>Kageborn</h3>
                             <p>Status: In Development</p>
                         </a>
                     </div>
-                    <div class="game-card">
+                    <div class="game-card"> <!-- Este card deve ter o fundo roxo do style.css -->
                         <a href="#" style="text-decoration: none; color: inherit; cursor: default;">
                             <div class="coming-soon-visual">
                                 <span class="hourglass-icon">⏳</span>
@@ -132,7 +125,7 @@
                             <p>Exciting new adventures await!</p>
                         </a>
                     </div>
-                    <div class="game-card">
+                    <div class="game-card"> <!-- Este card deve ter o fundo roxo do style.css -->
                         <a href="#" style="text-decoration: none; color: inherit; cursor: default;">
                             <div class="coming-soon-visual">
                                 <span class="hourglass-icon">⏳</span>
@@ -156,7 +149,7 @@
                         <a href="contact.html" class="btn btn-secondary">Contact Us & Partnerships</a>
                     </div>
                     <div class="about-image">
-                        [ℹ️] <!-- Este placeholder não foi alterado, conforme não solicitado -->
+                        [ℹ️] <!-- Este placeholder da seção About Us manterá o fundo #333 se desejado -->
                     </div>
                 </div>
             </div>
