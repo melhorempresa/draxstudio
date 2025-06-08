@@ -22,7 +22,10 @@
         }
 
         /* Estilo para os placeholders de imagem, se quiser dar um tamanho fixo */
-        .game-card [⏳],
+        /* A regra original para .game-card [⏳] não será mais usada para os game cards
+           porque [⏳] foi substituído por uma estrutura HTML diferente.
+           Ela ainda se aplicará a .about-image [ℹ️] se usado. */
+        .game-card /*[⏳]*/, /* Removido ou comentado para evitar confusão */
         .about-image [ℹ️] {
             display: flex;
             justify-content: center;
@@ -40,6 +43,34 @@
         .about-image [ℹ️] {
              min-height: 200px; /* Altura diferente para a imagem do "sobre nós" se precisar */
         }
+
+        /* NOVOS ESTILOS PARA A AMPULHETA ANIMADA */
+        .coming-soon-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            min-height: 150px; /* Mantém a altura do placeholder original para o ícone */
+            margin-bottom: 10px; /* Espaço antes do título "Coming Soon" */
+            box-sizing: border-box;
+        }
+
+        .hourglass-icon {
+            display: inline-block; /* Necessário para aplicar transformações */
+            font-size: 90px; /* Tamanho grande para a ampulheta, ajuste conforme necessário */
+            color: #fff; /* Cor da ampulheta, branca para bom contraste */
+            animation: spin 3s linear infinite; /* Animação de rotação */
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        /* FIM DOS NOVOS ESTILOS */
 
     </style>
 </head>
@@ -94,14 +125,18 @@
                     </div>
                     <div class="game-card">
                         <a href="#" style="text-decoration: none; color: inherit; cursor: default;">
-                            [⏳]
+                            <div class="coming-soon-visual">
+                                <span class="hourglass-icon">⏳</span>
+                            </div>
                             <h3>Coming Soon</h3>
                             <p>Exciting new adventures await!</p>
                         </a>
                     </div>
                     <div class="game-card">
                         <a href="#" style="text-decoration: none; color: inherit; cursor: default;">
-                            [⏳]
+                            <div class="coming-soon-visual">
+                                <span class="hourglass-icon">⏳</span>
+                            </div>
                             <h3>Coming Soon</h3>
                             <p>Stay tuned for more updates.</p>
                         </a>
@@ -121,7 +156,7 @@
                         <a href="contact.html" class="btn btn-secondary">Contact Us & Partnerships</a>
                     </div>
                     <div class="about-image">
-                        [ℹ️]
+                        [ℹ️] <!-- Este placeholder não foi alterado, conforme não solicitado -->
                     </div>
                 </div>
             </div>
