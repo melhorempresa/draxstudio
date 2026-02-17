@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Drax Studio</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estúdio Drax</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <header>
   <div class="container">
     <div class="logo">
-      <img src="png/Draxstudio.png" alt="Drax Studio">
-      <h1>Drax Studio</h1>
+      <img src="png/Draxstudio.png" alt="Estúdio Drax">
+      <h1>Estúdio Drax</h1>
     </div>
     <nav>
       <ul>
         <li><a href="index.html" class="active">Início</a></li>
         <li><a href="games.html">Nossos Jogos</a></li>
+        <li><a href="#sobre">Sobre nós</a></li>
         <li><a href="contact.html">Contato</a></li>
       </ul>
     </nav>
@@ -31,9 +31,13 @@
   <div class="hero-card dobig-hero">
     <div class="hero-title-row">
       <div class="hero-icon">
-        <img src="png/Draxstudio.png">
+        <img src="png/Draxstudio.png" alt="Estúdio Drax">
       </div>
-      <h1 class="hero-title-text">Drax Studio</h1>
+      <h1 class="hero-title-text">Estúdio Drax</h1>
+    </div>
+
+    <div class="hero-sub-text">
+      Experiências no Roblox focadas em progressão, competição e retenção.
     </div>
 
     <div class="hero-actions-row">
@@ -43,13 +47,105 @@
 
     <div class="hero-stats-row">
       <div class="hero-stat">
-        <div class="hero-stat-number" id="livePlayers">0</div>
+        <div class="hero-stat-number" id="livePlayers">—</div>
         <div class="hero-stat-label">Jogadores ativos</div>
       </div>
-
       <div class="hero-stat">
-        <div class="hero-stat-number" id="totalVisits">0</div>
+        <div class="hero-stat-number" id="totalVisits">—</div>
         <div class="hero-stat-label">Total de visitas</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="destaques">
+  <div class="container">
+    <div class="section-title">
+      <h2>Featured Games</h2>
+      <p>Veja os jogos em destaque e próximos lançamentos.</p>
+    </div>
+
+    <div class="games-grid">
+      <div class="game-card">
+        <div class="game-thumb">
+          <img src="png/kageborn.png" alt="Kageborn">
+        </div>
+        <div class="game-body">
+          <h3>Kageborn</h3>
+          <p>Status: Em desenvolvimento</p>
+          <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
+            <span class="badge">Alpha</span>
+            <span class="badge gray">In Progress</span>
+          </div>
+        </div>
+        <div class="game-actions">
+          <a class="btn btn-primary" href="games.html">Ver detalhes</a>
+          <a class="btn btn-secondary" href="contact.html">Parcerias</a>
+        </div>
+      </div>
+
+      <div class="game-card">
+        <div class="game-thumb" style="display:flex;align-items:center;justify-content:center;">
+          <div style="font-size:64px;">⏳</div>
+        </div>
+        <div class="game-body">
+          <h3>Coming Soon</h3>
+          <p>Um novo jogo está chegando.</p>
+          <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
+            <span class="badge">TBA</span>
+            <span class="badge gray">Em breve</span>
+          </div>
+        </div>
+        <div class="game-actions">
+          <a class="btn btn-secondary" href="games.html">Ver jogos</a>
+          <a class="btn btn-secondary" href="contact.html">Contato</a>
+        </div>
+      </div>
+
+      <div class="game-card">
+        <div class="game-thumb" style="display:flex;align-items:center;justify-content:center;">
+          <div style="font-size:64px;">⏳</div>
+        </div>
+        <div class="game-body">
+          <h3>Coming Soon</h3>
+          <p>Mais novidades em breve.</p>
+          <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
+            <span class="badge">TBA</span>
+            <span class="badge gray">Em breve</span>
+          </div>
+        </div>
+        <div class="game-actions">
+          <a class="btn btn-secondary" href="games.html">Ver jogos</a>
+          <a class="btn btn-secondary" href="contact.html">Contato</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="sobre">
+  <div class="container">
+    <div class="section-title">
+      <h2>Sobre o Estúdio</h2>
+      <p>Construímos experiências no Roblox com foco em qualidade, replay e comunidade.</p>
+    </div>
+
+    <div class="about-wrap">
+      <div class="about-box">
+        <h3>Missão</h3>
+        <p>Criar jogos que prendem o jogador com progressão clara, metas diárias e sistemas de recompensa.</p>
+
+        <h3 style="margin-top:14px;">O que fazemos</h3>
+        <p>Desenvolvimento, melhorias de retenção, balanceamento e otimização para mobile.</p>
+
+        <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap;">
+          <a class="btn btn-primary" href="games.html">Nossos jogos</a>
+          <a class="btn btn-secondary" href="contact.html">Contato</a>
+        </div>
+      </div>
+
+      <div class="about-box about-logo">
+        <img src="png/Draxstudio.png" alt="Logo Estúdio Drax">
       </div>
     </div>
   </div>
@@ -57,32 +153,39 @@
 
 <footer class="site-footer">
   <div class="container">
-    © 2025 Drax Studio
+    <div class="footer-row">
+      <div>© Estúdio Drax 2025</div>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;">
+        <a href="games.html">Nossos Jogos</a>
+        <a href="contact.html">Contato</a>
+        <a href="#sobre">Sobre nós</a>
+      </div>
+    </div>
   </div>
 </footer>
 
 <script>
 async function fetchGameData(){
+  const universeIds = [0];
+
   try{
-    const universeId = SEU_UNIVERSE_ID_AQUI;
+    const url = `https://games.roblox.com/v1/games?universeIds=${universeIds.join(",")}`;
+    const r = await fetch(url);
+    const j = await r.json();
 
-    const response = await fetch(
-      `https://games.roblox.com/v1/games?universeIds=${universeId}`
-    );
-
-    const data = await response.json();
-
-    if(data.data && data.data.length > 0){
-      const game = data.data[0];
-
-      document.getElementById("livePlayers").innerText =
-        game.playing.toLocaleString("pt-BR");
-
-      document.getElementById("totalVisits").innerText =
-        game.visits.toLocaleString("pt-BR");
+    if(j && j.data && j.data.length){
+      let playing = 0;
+      let visits = 0;
+      for(const g of j.data){
+        playing += (g.playing || 0);
+        visits += (g.visits || 0);
+      }
+      document.getElementById("livePlayers").innerText = playing.toLocaleString("pt-BR");
+      document.getElementById("totalVisits").innerText = visits.toLocaleString("pt-BR");
     }
   }catch(e){
-    console.log("Erro ao buscar dados", e);
+    document.getElementById("livePlayers").innerText = "—";
+    document.getElementById("totalVisits").innerText = "—";
   }
 }
 
