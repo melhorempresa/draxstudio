@@ -2,9 +2,9 @@
 html{scroll-behavior:smooth}
 :root{
   --dark-bg:#0D0D1A;
-  --primary:#7F3FBF;
-  --primary-2:#A020F0;
-  --primary-hover:#6A34A2;
+ --primary:#3B82F6;
+  --primary-2:#60A5FA;
+  --primary-hover:#2563EB;
   --text:#EAEAEA;
   --muted:#A0A0A0;
   --section:#121223;
