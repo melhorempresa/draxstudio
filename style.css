@@ -1,18 +1,17 @@
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 :root{
-  --dark-bg:#0D0D1A;
-  --primary:#3B82F6;
-  --primary-2:#60A5FA;
-  --primary-hover:#2563EB;
-  --text:#EAEAEA;
-  --muted:#A0A0A0;
-  --section:#121223;
-  --card:#1A1A2E;
-  --border:#2A2A3D;
-  --shadow:rgba(0,0,0,.45);
-  --glow:rgba(127,63,191,.28);
-  --radius:18px;
+  --primary:#00B3FF;
+  --primary-2:#1ED760;
+  --primary-hover:#0095D9;
+
+  --dark-bg:#0B1020;
+  --section:#111827;
+  --card:#0F172A;
+  --border:#1F2937;
+
+  --text:#EAF6FF;
+  --muted:#9CA3AF;
 }
 
 body{
