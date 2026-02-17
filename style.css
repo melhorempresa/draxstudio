@@ -126,14 +126,6 @@ header nav ul li a.active{
   opacity:.55;
 }
 
-.hero-card{
-  position:relative;
-  margin:0 auto;
-  width:min(600px, 90%);
-  padding:14px 18px;   /* menor padding */
-  border-radius:20px;
-}
-
 .hero-title{
   font-size:clamp(28px,3.5vw,54px);
   line-height:1.05;
