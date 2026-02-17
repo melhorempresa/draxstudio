@@ -18,149 +18,159 @@
       <ul>
         <li><a href="index.html" class="active">Início</a></li>
         <li><a href="games.html">Nossos Jogos</a></li>
-        <li><a href="#sobre">Sobre nós</a></li>
+        <li><a href="#about-us-section">Sobre nós</a></li>
         <li><a href="contact.html">Contato</a></li>
       </ul>
     </nav>
   </div>
 </header>
 
-<section class="hero">
-  <div class="hero-bg"></div>
+<main>
+  <section class="hero">
+    <div class="hero-bg"></div>
 
-  <div class="hero-card dobig-hero">
-    <div class="hero-title-row">
-      <div class="hero-icon">
-        <img src="png/Draxstudio.png" alt="Estúdio Drax">
+    <div class="hero-card">
+      <div class="hero-head">
+        <div class="hero-icon">
+          <img src="png/Draxstudio.png" alt="Estúdio Drax">
+        </div>
+        <h1 class="hero-title">Estúdio Drax</h1>
       </div>
-      <h1 class="hero-title-text">Estúdio Drax</h1>
-    </div>
 
-    <div class="hero-sub-text">
-      Experiências no Roblox focadas em progressão, competição e retenção.
-    </div>
+      <p class="hero-sub">
+        Experiências no Roblox focadas em progressão, competição e retenção.
+      </p>
 
-    <div class="hero-actions-row">
-      <a href="games.html" class="btn btn-primary hero-btn">Explore nossos jogos</a>
-      <a href="contact.html" class="btn btn-white hero-btn">Fale conosco</a>
-    </div>
-
-    <div class="hero-stats-row">
-      <div class="hero-stat">
-        <div class="hero-stat-number" id="livePlayers">—</div>
-        <div class="hero-stat-label">Jogadores ativos</div>
+      <div class="hero-actions">
+        <a href="games.html" class="btn btn-primary">Explore nossos jogos</a>
+        <a href="https://discord.gg/draxstudio" target="_blank" class="btn btn-ghost">Junte-se à nossa comunidade</a>
+        <a href="contact.html" class="btn btn-ghost">Parcerias</a>
       </div>
-      <div class="hero-stat">
-        <div class="hero-stat-number" id="totalVisits">—</div>
-        <div class="hero-stat-label">Total de visitas</div>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-number" id="livePlayers">0</div>
+          <div class="hero-stat-label">Jogadores ativos</div>
+        </div>
+
+        <div class="hero-stat">
+          <div class="hero-stat-number" id="totalVisits">0</div>
+          <div class="hero-stat-label">Total de visitas</div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="section" id="destaques">
-  <div class="container">
-    <div class="section-title">
+  <section class="top-hits" id="featured-games">
+    <div class="container">
       <h2>Featured Games</h2>
-      <p>Veja os jogos em destaque e próximos lançamentos.</p>
+      <p>Confira nossos jogos em destaque e os próximos lançamentos.</p>
+
+      <div class="games-grid">
+        <div class="game-card">
+          <a href="games.html">
+            <img src="png/kageborn.png" alt="Kageborn" class="game-cover-image">
+            <h3>Kageborn</h3>
+            <div class="game-status-details">
+              <div class="status-item">
+                <span class="status-main">Alpha</span>
+                <span class="status-sub">FASE</span>
+              </div>
+              <div class="status-item">
+                <span class="status-main">In Progress</span>
+                <span class="status-sub">STATUS</span>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="game-card">
+          <a href="#">
+            <div class="coming-soon-visual">
+              <span class="hourglass-icon">⏳</span>
+            </div>
+            <h3 class="coming-soon-title">Coming Soon</h3>
+            <div class="game-status-details">
+              <div class="status-item">
+                <span class="status-main">TBA</span>
+                <span class="status-sub">EM BREVE</span>
+              </div>
+              <div class="status-item">
+                <span class="status-main">TBA</span>
+                <span class="status-sub">NOVIDADES</span>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="game-card">
+          <a href="#">
+            <div class="coming-soon-visual">
+              <span class="hourglass-icon">⏳</span>
+            </div>
+            <h3 class="coming-soon-title">Coming Soon</h3>
+            <div class="game-status-details">
+              <div class="status-item">
+                <span class="status-main">TBA</span>
+                <span class="status-sub">EM BREVE</span>
+              </div>
+              <div class="status-item">
+                <span class="status-main">TBA</span>
+                <span class="status-sub">NOVIDADES</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <div class="games-grid">
-      <div class="game-card">
-        <div class="game-thumb">
-          <img src="png/kageborn.png" alt="Kageborn">
-        </div>
-        <div class="game-body">
-          <h3>Kageborn</h3>
-          <p>Status: Em desenvolvimento</p>
-          <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
-            <span class="badge">Alpha</span>
-            <span class="badge gray">In Progress</span>
-          </div>
-        </div>
-        <div class="game-actions">
-          <a class="btn btn-primary" href="games.html">Ver detalhes</a>
-          <a class="btn btn-secondary" href="contact.html">Parcerias</a>
-        </div>
-      </div>
-
-      <div class="game-card">
-        <div class="game-thumb" style="display:flex;align-items:center;justify-content:center;">
-          <div style="font-size:64px;">⏳</div>
-        </div>
-        <div class="game-body">
-          <h3>Coming Soon</h3>
-          <p>Um novo jogo está chegando.</p>
-          <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
-            <span class="badge">TBA</span>
-            <span class="badge gray">Em breve</span>
-          </div>
-        </div>
-        <div class="game-actions">
-          <a class="btn btn-secondary" href="games.html">Ver jogos</a>
-          <a class="btn btn-secondary" href="contact.html">Contato</a>
-        </div>
-      </div>
-
-      <div class="game-card">
-        <div class="game-thumb" style="display:flex;align-items:center;justify-content:center;">
-          <div style="font-size:64px;">⏳</div>
-        </div>
-        <div class="game-body">
-          <h3>Coming Soon</h3>
-          <p>Mais novidades em breve.</p>
-          <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
-            <span class="badge">TBA</span>
-            <span class="badge gray">Em breve</span>
-          </div>
-        </div>
-        <div class="game-actions">
-          <a class="btn btn-secondary" href="games.html">Ver jogos</a>
-          <a class="btn btn-secondary" href="contact.html">Contato</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="sobre">
-  <div class="container">
-    <div class="section-title">
+  <section id="about-us-section" class="about-section-home">
+    <div class="container">
       <h2>Sobre o Estúdio</h2>
-      <p>Construímos experiências no Roblox com foco em qualidade, replay e comunidade.</p>
-    </div>
-
-    <div class="about-wrap">
-      <div class="about-box">
-        <h3>Missão</h3>
-        <p>Criar jogos que prendem o jogador com progressão clara, metas diárias e sistemas de recompensa.</p>
-
-        <h3 style="margin-top:14px;">O que fazemos</h3>
-        <p>Desenvolvimento, melhorias de retenção, balanceamento e otimização para mobile.</p>
-
-        <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap;">
-          <a class="btn btn-primary" href="games.html">Nossos jogos</a>
-          <a class="btn btn-secondary" href="contact.html">Contato</a>
+      <div class="about-content-home">
+        <div class="about-text">
+          <p>O Estúdio Drax cria experiências no Roblox com foco em diversão, progressão e comunidade.</p>
+          <p>Trabalhamos para entregar sistemas que geram retenção: metas, recompensas, progressão e updates constantes.</p>
+          <a href="contact.html" class="btn btn-secondary">Contato & Parcerias</a>
+        </div>
+        <div class="about-image">
+          <img src="png/Draxstudio.png" alt="Logo Estúdio Drax">
         </div>
       </div>
+    </div>
+  </section>
+</main>
 
-      <div class="about-box about-logo">
-        <img src="png/Draxstudio.png" alt="Logo Estúdio Drax">
-      </div>
+<footer class="site-footer-detailed">
+  <div class="container footer-grid">
+    <div class="footer-logo-bio">
+      <h3>Estúdio Drax</h3>
+    </div>
+    <div class="footer-links">
+      <h4>Serviços</h4>
+      <ul>
+        <li><a href="contact.html">Parcerias</a></li>
+        <li><a href="contact.html">Consultoria</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Empresa</h4>
+      <ul>
+        <li><a href="#about-us-section">Sobre nós</a></li>
+        <li><a href="contact.html">Contato</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="#">Privacidade</a></li>
+        <li><a href="#">Termos</a></li>
+      </ul>
     </div>
   </div>
-</section>
-
-<footer class="site-footer">
-  <div class="container">
-    <div class="footer-row">
-      <div>© Estúdio Drax 2025</div>
-      <div style="display:flex;gap:14px;flex-wrap:wrap;">
-        <a href="games.html">Nossos Jogos</a>
-        <a href="contact.html">Contato</a>
-        <a href="#sobre">Sobre nós</a>
-      </div>
-    </div>
+  <div class="container footer-copyright">
+    <p>© 2025 Estúdio Drax. Todos os direitos reservados.</p>
   </div>
 </footer>
 
@@ -184,8 +194,8 @@ async function fetchGameData(){
       document.getElementById("totalVisits").innerText = visits.toLocaleString("pt-BR");
     }
   }catch(e){
-    document.getElementById("livePlayers").innerText = "—";
-    document.getElementById("totalVisits").innerText = "—";
+    document.getElementById("livePlayers").innerText = "0";
+    document.getElementById("totalVisits").innerText = "0";
   }
 }
 
