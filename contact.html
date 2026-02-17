@@ -1,114 +1,58 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contato & Aquisições - Drax Studio</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contato — Drax Studio</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="logo">
-                <img src="png/Draxstudio.png" alt="Drax Studio Logo">
-                <h1>Drax Studio</h1>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="games.html">Nossos Jogos</a></li>
-                    <li><a href="index.html#sobre-nos">Sobre Nós</a></li>
-                    <li><a href="contact.html" class="active">Contato</a></li>
-                </ul>
-            </nav>
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html"><img src="assets/logo.png" alt="Drax Studio Logo" /><span>DRAX STUDIO</span></a>
+    <nav class="links" aria-label="Menu">
+      <a href="index.html">Home</a>
+      <a href="games.html">Jogos</a>
+      <a href="about.html">Sobre</a>
+      <a href="contact.html" aria-current="page">Contato</a>
+    </nav>
+  </div>
+</header>
+
+<main class="section">
+  <div class="container">
+    <div class="section-title">
+      <div>
+        <h2>Contato & Parcerias</h2>
+        <p>Use links diretos (Discord / e-mail) e, se quiser, um formulário simples.</p>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card" style="grid-column: span 7;">
+        <div class="body">
+          <h3>Enviar proposta</h3>
+          <p>Inclua: link do jogo, visitas, CCU médio, receita (se tiver) e o que você quer (vender / parceria).</p>
         </div>
-    </header>
-
-    <main>
-        <section class="page-header-contact container">
-            <h2>Aquisições de Jogos & Parcerias</h2>
-            <p>Tem um jogo incrível e procura um parceiro para levá-lo ao próximo nível? <br>O Drax Studio está sempre em busca de novos talentos e jogos promissores!</p>
-        </section>
-
-        <section class="acquisitions-info container">
-            <div class="info-block">
-                <h3>Por que se juntar ao Drax Studio?</h3>
-                <p>Compramos seu jogo Roblox adiantado, oferecendo um pagamento inicial competitivo.</p>
-            </div>
-            <div class="info-block">
-                <h4>Desenvolvimento e Marketing Especializados</h4>
-                <p>Nossa equipe experiente assume o desenvolvimento, marketing e otimização contínua, garantindo que seus jogos prosperem a longo prazo.</p>
-            </div>
-            <div class="info-block">
-                <h4>Compartilhamento de Receita</h4>
-                <p>Você se beneficiará da receita contínua gerada pelo seu jogo através de um modelo transparente de compartilhamento de receita.</p>
-            </div>
-            <div class="info-block">
-                <h4>Transição sem Complicações</h4>
-                <p>Relaxe! Cuidamos de tudo, desde a venda até o gerenciamento futuro, permitindo que você se concentre em sua próxima grande ideia.</p>
-            </div>
-        </section>
-
-        <section class="contact-form-wrapper">
-            <div class="contact-box">
-                <div class="contact-box-header">
-                    <span class="contact-icon">🤝</span>
-                    <h2>Vamos começar!</h2>
-                    <p>Envie-nos uma mensagem com o link do seu jogo e métricas.</p>
-                </div>
-                <form action="#" method="POST" class="contact-form-main">
-                    <div class="form-group">
-                        <input type="email" id="email" name="email" placeholder="Seu Endereço de Email..." required>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="message" name="message" rows="6" placeholder="Sua mensagem, link do jogo, métricas..." required></textarea>
-                    </div>
-                    <div class="form-group checkbox-group">
-                        <input type="checkbox" id="confirmAge" name="confirmAge" required>
-                        <label for="confirmAge">Confirmo que tenho mais de 13 anos.</label>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-form-submit">Enviar Mensagem</button>
-                    </div>
-                </form>
-                <p class="form-disclaimer">Ao preencher este formulário e enviá-lo, você concorda com nossa política de privacidade.</p>
-            </div>
-        </section>
-    </main>
-
-    <footer class="site-footer-detailed">
-        <div class="container footer-grid">
-            <div class="footer-logo-bio">
-                <h3>Drax Studio</h3>
-            </div>
-            <div class="footer-links">
-                <h4>Serviços</h4>
-                <ul>
-                    <li><a href="contact.html">Aquisição de Jogos</a></li>
-                    <li><a href="#">Consultoria</a></li>
-                    <li><a href="#">Marketing</a></li>
-                </ul>
-            </div>
-            <div class="footer-links">
-                <h4>Empresa</h4>
-                <ul>
-                    <li><a href="index.html#sobre-nos">Sobre Nós</a></li>
-                    <li><a href="#">Carreiras</a></li>
-                    <li><a href="contact.html">Contato</a></li>
-                </ul>
-            </div>
-            <div class="footer-links">
-                <h4>Legal</h4>
-                <ul>
-                    <li><a href="#">Política de Privacidade</a></li>
-                    <li><a href="#">Termos de Serviço</a></li>
-                </ul>
-            </div>
+        <div class="actions">
+          <a class="btn primary" href="mailto:contato@draxstudio.com">E-mail</a>
+          <a class="btn secondary" href="https://discord.gg/SEU_INVITE" target="_blank" rel="noopener">Discord</a>
         </div>
-        <div class="container footer-copyright">
-             <p>© 2025 Drax Studio. Todos os direitos reservados.</p>
-        </div>
-    </footer>
+      </div>
 
+      <div class="card" style="grid-column: span 5;">
+        <div class="body">
+          <h3>Regras</h3>
+          <p>Somente +13 anos (conforme seu texto atual). :contentReference[oaicite:5]{index=5}</p>
+          <p>Responda com prazo e instruções claras na primeira mensagem.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">© 2026 Drax Studio.</div>
+</footer>
 </body>
 </html>
