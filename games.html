@@ -1,144 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Games - Drax Studio</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Jogos — Drax Studio</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="logo">
-                <img src="png/Draxstudio.png" alt="Drax Studio Logo">
-                <h1>Drax Studio</h1>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="games.html" class="active">Our Games</a></li>
-                    <li><a href="index.html#about-us-section">About Us</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </nav>
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html"><img src="assets/logo.png" alt="Drax Studio Logo" /><span>DRAX STUDIO</span></a>
+    <nav class="links" aria-label="Menu">
+      <a href="index.html">Home</a>
+      <a href="games.html" aria-current="page">Jogos</a>
+      <a href="about.html">Sobre</a>
+      <a href="contact.html">Contato</a>
+    </nav>
+  </div>
+</header>
+
+<main class="section">
+  <div class="container">
+    <div class="section-title">
+      <div>
+        <h2>Nossos jogos</h2>
+        <p>Substitui “Coming Soon …” por cards com status real (Alpha/Beta/Live) e botão de jogar.</p>
+      </div>
+    </div>
+
+    <div class="grid">
+      <article class="card" id="jogo1">
+        <div class="thumb"><img src="assets/game1.jpg" alt="Thumbnail do jogo 1" /></div>
+        <div class="body">
+          <h3>Nome do Jogo 1</h3>
+          <p>Status: <b>LIVE</b> • Plataforma: Roblox • Gênero: Simulador/PvP</p>
         </div>
-    </header>
-
-    <main>
-        <section class="games-showcase"> <!-- Mantém a classe da seção específica da página -->
-            <div class="container">
-                <h2>Our Game & What's Next</h2>
-                <div class="games-grid-fullpage"> <!-- Grid específico para esta página -->
-
-                    <!-- Kageborn Card - Estrutura alinhada com index.html -->
-                    <div class="game-card"> <!-- Usando .game-card para consistência de estilo -->
-                        <a href="dragon-slayer.html"> <!-- Link direto para a página do jogo -->
-                            <img src="png/kageborn.png" alt="Kageborn Game Cover" class="game-cover-image">
-                            <h3>Kageborn</h3>
-                            <div class="game-status-details">
-                                <div class="status-item">
-                                    <span class="status-main">Alpha</span>
-                                    <span class="status-sub">DEVELOPMENT PHASE</span>
-                                </div>
-                                <div class="status-item">
-                                    <span class="status-main">In Progress</span>
-                                    <span class="status-sub">CURRENT STATUS</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <!-- Coming Soon Card 1 - Estrutura alinhada com index.html -->
-                    <div class="game-card">
-                        <a href="#" class="coming-soon-card-link">
-                            <div class="coming-soon-visual">
-                                <span class="hourglass-icon">⏳</span>
-                            </div>
-                            <h3 class="coming-soon-title">Coming Soon</h3>
-                            <div class="game-status-details">
-                                <div class="status-item">
-                                    <span class="status-main">??</span>
-                                    <span class="status-sub">ANTICIPATED</span>
-                                </div>
-                                <div class="status-item">
-                                    <span class="status-main">??</span>
-                                    <span class="status-sub">KEEP AN EYE OUT!</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <!-- Coming Soon Card 2 - Estrutura alinhada com index.html -->
-                    <div class="game-card">
-                        <a href="#" class="coming-soon-card-link">
-                            <div class="coming-soon-visual">
-                                <span class="hourglass-icon">⏳</span>
-                            </div>
-                            <h3 class="coming-soon-title">Coming Soon</h3>
-                            <div class="game-status-details">
-                                <div class="status-item">
-                                    <span class="status-main">TBA</span>
-                                    <span class="status-sub">EXCITEMENT BUILDS</span>
-                                </div>
-                                <div class="status-item">
-                                    <span class="status-main">Soon<sup>™</sup></span>
-                                    <span class="status-sub">PATIENCE IS KEY!</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <!-- Adicione mais cards "Coming Soon" aqui se necessário, seguindo o padrão acima -->
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="site-footer-detailed">
-        <div class="container footer-grid">
-            <div class="footer-logo-bio">
-                <h3>Drax Studio</h3>
-            </div>
-            <div class="footer-links">
-                <h4>Services</h4>
-                <ul>
-                    <li><a href="contact.html">Game Acquisition</a></li>
-                    <li><a href="#">Consulting</a></li>
-                    <li><a href="#">Marketing</a></li>
-                </ul>
-            </div>
-            <div class="footer-links">
-                <h4>Company</h4>
-                <ul>
-                    <li><a href="index.html#about-us-section">About Us</a></li>
-                    <li><a href="#">Careers</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-links">
-                <h4>Legal</h4>
-                <ul>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                </ul>
-            </div>
+        <div class="actions">
+          <a class="btn primary" href="https://www.roblox.com/games/SEU_ID_1" target="_blank" rel="noopener">Jogar</a>
+          <a class="btn secondary" href="contact.html">Parcerias</a>
         </div>
-        <div class="container footer-copyright">
-             <p>© 2025 Drax Studio. All rights reserved.</p> <!-- Corrigido para "All rights reserved" -->
+      </article>
+
+      <article class="card" id="jogo2">
+        <div class="thumb"><img src="assets/game2.jpg" alt="Thumbnail do jogo 2" /></div>
+        <div class="body">
+          <h3>Nome do Jogo 2</h3>
+          <p>Status: <b>ALPHA</b> • Em desenvolvimento</p>
         </div>
-    </footer>
+        <div class="actions">
+          <a class="btn primary" href="https://www.roblox.com/games/SEU_ID_2" target="_blank" rel="noopener">Jogar</a>
+          <a class="btn secondary" href="https://discord.gg/SEU_INVITE" target="_blank" rel="noopener">Feedback</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</main>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Define o cursor como default para os links dos cards "Coming Soon"
-            const comingSoonLinks = document.querySelectorAll('.game-card a.coming-soon-card-link');
-            comingSoonLinks.forEach(link => {
-                link.style.cursor = 'default';
-                link.addEventListener('click', (event) => {
-                    event.preventDefault(); // Impede a navegação para '#'
-                });
-            });
-        });
-    </script>
-
+<footer class="footer">
+  <div class="container">© 2026 Drax Studio.</div>
+</footer>
 </body>
 </html>
