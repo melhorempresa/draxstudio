@@ -104,10 +104,11 @@ header nav ul li a.active{
 
 .hero{
   position:relative;
-  min-height:72vh;
+  min-height:90vh;
   display:flex;
   align-items:center;
-  padding:60px 0;
+  justify-content:center;
+  padding:120px 0;
   overflow:hidden;
 }
 
@@ -116,52 +117,64 @@ header nav ul li a.active{
   position:absolute;
   inset:0;
   background:
-    radial-gradient(900px 500px at 65% 30%, rgba(0,179,255,.18) 0%, transparent 60%),
-    radial-gradient(900px 600px at 20% 40%, rgba(30,215,96,.10) 0%, transparent 62%),
+    radial-gradient(900px 500px at 65% 30%, rgba(0,179,255,.20) 0%, transparent 60%),
+    radial-gradient(900px 600px at 20% 40%, rgba(30,215,96,.15) 0%, transparent 62%),
     url("png/kageborn.png");
   background-size:cover;
   background-position:center;
-  filter:blur(8px) brightness(.7);
-  transform:scale(1.05);
-  opacity:.55;
+  filter:blur(14px) brightness(.55);
+  transform:scale(1.08);
+  opacity:.75;
 }
 
 .hero-card{
   position:relative;
+  width:min(760px,92%);
   margin:0 auto;
-  width:min(900px,100%);
-  background:rgba(15,23,42,.75);
+  padding:48px 56px;
+  background:rgba(8,12,28,.85);
   border:1px solid rgba(255,255,255,.08);
-  border-radius:24px;
-  padding:28px;
-  box-shadow:0 20px 60px rgba(0,0,0,.45);
+  border-radius:28px;
+  backdrop-filter:blur(20px);
+  box-shadow:
+    0 40px 100px rgba(0,0,0,.65),
+    0 0 0 1px rgba(255,255,255,.05) inset;
+}
+
+.hero-top{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  margin-bottom:14px;
 }
 
 .hero-title{
-  font-size:clamp(28px,3.5vw,54px);
+  font-size:clamp(34px,4vw,58px);
   line-height:1.05;
+  margin:0;
 }
 
 .hero-sub{
-  margin-top:10px;
+  margin-top:14px;
   color:var(--muted);
-  font-size:clamp(14px,1.4vw,18px);
+  font-size:1.1em;
+  max-width:60ch;
 }
 
 .hero-buttons{
   display:flex;
-  gap:12px;
+  gap:16px;
   flex-wrap:wrap;
-  margin-top:20px;
+  margin-top:28px;
 }
 
 .btn{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  height:46px;
-  padding:0 18px;
-  border-radius:14px;
+  height:48px;
+  padding:0 20px;
+  border-radius:16px;
   font-weight:800;
   text-transform:uppercase;
   font-size:.85em;
@@ -173,16 +186,19 @@ header nav ul li a.active{
 
 .btn:hover{
   transform:translateY(-2px);
+  box-shadow:0 14px 30px rgba(0,0,0,.35);
 }
 
 .btn-primary{
   background:linear-gradient(180deg, var(--primary), var(--primary-hover));
-  border-color:rgba(0,179,255,.4);
+  border-color:rgba(0,179,255,.45);
 }
 
 .btn-secondary{
   background:rgba(255,255,255,.08);
+  border-color:rgba(255,255,255,.14);
 }
+
 
 .section{
   padding:70px 0;
