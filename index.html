@@ -1,152 +1,94 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Drax Studio</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Drax Studio</title>
+<link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <header>
-    <div class="container">
-      <div class="logo">
-        <img src="png/Draxstudio.png" alt="Drax Studio Logo">
-        <h1>Drax Studio</h1>
-      </div>
-      <nav>
-        <ul>
-          <li><a href="index.html" class="active">Home</a></li>
-          <li><a href="games.html">Our Games</a></li>
-          <li><a href="#about-us-section">About Us</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
 
-  <main>
-   <section class="hero">
+<body>
+
+<header>
+  <div class="container">
+    <div class="logo">
+      <img src="png/Draxstudio.png" alt="Drax Studio">
+      <h1>Drax Studio</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html" class="active">Início</a></li>
+        <li><a href="games.html">Nossos Jogos</a></li>
+        <li><a href="contact.html">Contato</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
   <div class="hero-bg"></div>
 
   <div class="hero-card dobig-hero">
     <div class="hero-title-row">
       <div class="hero-icon">
-        <img src="png/Draxstudio.png" alt="Drax Studio">
+        <img src="png/Draxstudio.png">
       </div>
       <h1 class="hero-title-text">Drax Studio</h1>
     </div>
 
     <div class="hero-actions-row">
-      <a href="games.html" class="btn btn-primary hero-btn">Explore our games</a>
-      <a href="contact.html" class="btn btn-white hero-btn">
-        <span class="btn-ic">💬</span>
-        Talk to us
-      </a>
+      <a href="games.html" class="btn btn-primary hero-btn">Explore nossos jogos</a>
+      <a href="contact.html" class="btn btn-white hero-btn">Fale conosco</a>
     </div>
 
     <div class="hero-stats-row">
       <div class="hero-stat">
-        <div class="hero-stat-number">2.340.922</div>
-        <div class="hero-stat-label">Players playing our games</div>
+        <div class="hero-stat-number" id="livePlayers">0</div>
+        <div class="hero-stat-label">Jogadores ativos</div>
       </div>
+
       <div class="hero-stat">
-        <div class="hero-stat-number">142.8B+</div>
-        <div class="hero-stat-label">Total play sessions</div>
+        <div class="hero-stat-number" id="totalVisits">0</div>
+        <div class="hero-stat-label">Total de visitas</div>
       </div>
     </div>
   </div>
 </section>
 
+<footer class="site-footer">
+  <div class="container">
+    © 2025 Drax Studio
+  </div>
+</footer>
 
-    <section class="section" id="featured-games">
-      <div class="container">
-        <div class="section-title">
-          <h2>Featured Games</h2>
-          <p>Clear cards with thumbnail, status, and a direct action button.</p>
-        </div>
+<script>
+async function fetchGameData(){
+  try{
+    const universeId = SEU_UNIVERSE_ID_AQUI;
 
-        <div class="games-grid">
-          <article class="game-card">
-            <div class="game-thumb">
-              <img src="png/kageborn.png" alt="Kageborn cover">
-            </div>
-            <div class="game-body">
-              <span class="badge">ALPHA</span>
-              <h3>Kageborn</h3>
-              <p>In development. Competitive gameplay and progression systems.</p>
-            </div>
-            <div class="game-actions">
-              <a href="games.html" class="btn btn-primary">View</a>
-              <a href="contact.html" class="btn btn-secondary">Feedback</a>
-            </div>
-          </article>
+    const response = await fetch(
+      `https://games.roblox.com/v1/games?universeIds=${universeId}`
+    );
 
-          <article class="game-card">
-            <div class="game-thumb">
-              <img src="png/Draxstudio.png" alt="Coming soon">
-            </div>
-            <div class="game-body">
-              <span class="badge gray">COMING SOON</span>
-              <h3>New Project</h3>
-              <p>Next release in development. More info soon.</p>
-            </div>
-            <div class="game-actions">
-              <a href="games.html" class="btn btn-primary">Games</a>
-              <a href="https://discord.gg/draxstudio" target="_blank" class="btn btn-secondary">Discord</a>
-            </div>
-          </article>
+    const data = await response.json();
 
-          <article class="game-card">
-            <div class="game-thumb">
-              <img src="png/Draxstudio.png" alt="Coming soon">
-            </div>
-            <div class="game-body">
-              <span class="badge gray">COMING SOON</span>
-              <h3>New Project</h3>
-              <p>Work in progress. Updates will be posted to the community.</p>
-            </div>
-            <div class="game-actions">
-              <a href="games.html" class="btn btn-primary">Games</a>
-              <a href="contact.html" class="btn btn-secondary">Contact</a>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
+    if(data.data && data.data.length > 0){
+      const game = data.data[0];
 
-    <section class="section" id="about-us-section">
-      <div class="container">
-        <div class="section-title">
-          <h2>About Drax Studio</h2>
-          <p>Short, objective text works better and looks more professional.</p>
-        </div>
+      document.getElementById("livePlayers").innerText =
+        game.playing.toLocaleString("pt-BR");
 
-        <div class="about-wrap">
-          <div class="about-box">
-            <h3>What we build</h3>
-            <p>We create Roblox experiences with strong loops: goals, rewards, and competitive moments that keep players engaged.</p>
-            <div style="margin-top:14px;display:flex;gap:12px;flex-wrap:wrap">
-              <a href="games.html" class="btn btn-primary">See Games</a>
-              <a href="contact.html" class="btn btn-secondary">Contact</a>
-            </div>
-          </div>
+      document.getElementById("totalVisits").innerText =
+        game.visits.toLocaleString("pt-BR");
+    }
+  }catch(e){
+    console.log("Erro ao buscar dados", e);
+  }
+}
 
-          <div class="about-box about-logo">
-            <img src="png/Draxstudio.png" alt="Drax Studio">
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
+fetchGameData();
+setInterval(fetchGameData, 60000);
+</script>
 
-  <footer class="site-footer">
-    <div class="container footer-row">
-      <div>© 2026 Drax Studio</div>
-      <div style="display:flex;gap:14px;flex-wrap:wrap">
-        <a href="games.html">Games</a>
-        <a href="contact.html">Contact</a>
-      </div>
-    </div>
-  </footer>
 </body>
 </html>
