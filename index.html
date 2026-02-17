@@ -1,162 +1,111 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drax Studio - Game Innovation</title>
-    <link rel="stylesheet" href="style.css"> <!-- Ligação para o style.css externo -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Drax Studio</title>
+  <meta name="description" content="Drax Studio — experiências Roblox com foco em retenção e gameplay competitivo." />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="logo">
-                <img src="png/Draxstudio.png" alt="Drax Studio Logo">
-                <h1>Drax Studio</h1>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="index.html" class="active">Home</a></li>
-                    <li><a href="games.html">Our Games</a></li>
-                    <li><a href="index.html#about-us-section">About Us</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html" aria-label="Drax Studio Home">
+      <img src="assets/logo.png" alt="Drax Studio Logo" />
+      <span>DRAX STUDIO</span>
+    </a>
+
+    <nav class="links" aria-label="Menu">
+      <a href="index.html" aria-current="page">Home</a>
+      <a href="games.html">Jogos</a>
+      <a href="about.html">Sobre</a>
+      <a href="contact.html">Contato</a>
+    </nav>
+  </div>
+</header>
+
 <main>
-    <section class="hero">
-        <div class="container hero-layout-new">
-            <div class="hero-text-content-new">
-                <h1>Your Next Adventure Awaits.</h1>
-                <p>At Drax Studio, we craft games that challenge, entertain, and create lasting memories. Join us on this journey.</p>
-                <div class="hero-buttons-new">
-                    <a href="games.html" class="btn btn-primary-new">Explore Games</a>
-                    <a href="https://discord.gg/draxstudio" target="_blank" class="btn btn-secondary-new">Join Our Community</a>
-                </div>
-            </div>
-            <div class="hero-image-content-new">
-                <!-- Idealmente, a imagem do Kageborn aqui seria uma arte mais geral ou do jogo principal em destaque -->
-                <img src="png/kageborn.png" alt="Featured Game Artwork from Drax Studio">
-            </div>
+  <section class="hero" style="--hero:url('assets/hero.jpg')">
+    <div class="container hero-content">
+      <div class="hero-card">
+        <div class="hero-top">
+          <div class="logo"><img src="assets/logo.png" alt="" /></div>
+          <div>
+            <h1>Experiências Roblox que prendem o jogador.</h1>
+            <p class="subtitle">
+              Site oficial do Drax Studio. Veja nossos jogos e entre na comunidade.
+            </p>
+          </div>
         </div>
-    </section>
 
-    <section class="top-hits" id="featured-games"> <!-- Adicionado ID para possível navegação e clareza -->
-        <div class="container">
-            <h2>Featured Games</h2>
-            <p>Check out our most popular and upcoming games.</p>
-            <div class="games-grid">
-                <!-- Kageborn Card Atualizado -->
-                <div class="game-card">
-                    <a href="kageborn-details.html"> <!-- Link para uma página de detalhes do Kageborn -->
-                        <img src="png/kageborn.png" alt="Kageborn Game Cover" class="game-cover-image">
-                        <h3>Kageborn</h3>
-                        <div class="game-status-details">
-                            <div class="status-item">
-                                <span class="status-main">Alpha</span>
-                                <span class="status-sub">DEVELOPMENT PHASE</span>
-                            </div>
-                            <div class="status-item">
-                                <span class="status-main">In Progress</span>
-                                <span class="status-sub">CURRENT STATUS</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <!-- Coming Soon Card 1 Atualizado -->
-                <div class="game-card">
-                    <a href="#" class="coming-soon-card-link">
-                        <div class="coming-soon-visual">
-                            <span class="hourglass-icon">⏳</span>
-                        </div>
-                        <h3 class="coming-soon-title">Coming Soon</h3>
-                        <div class="game-status-details">
-                            <div class="status-item">
-                                <span class="status-main">??</span>
-                                <span class="status-sub">ANTICIPATED</span>
-                            </div>
-                            <div class="status-item">
-                                <span class="status-main">??</span>
-                                <span class="status-sub">KEEP AN EYE OUT!</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <!-- Coming Soon Card 2 Atualizado -->
-                <div class="game-card">
-                    <a href="#" class="coming-soon-card-link">
-                        <div class="coming-soon-visual">
-                            <span class="hourglass-icon">⏳</span>
-                        </div>
-                        <h3 class="coming-soon-title">Coming Soon</h3>
-                        <div class="game-status-details">
-                            <div class="status-item">
-                                <span class="status-main">TBA</span>
-                                <span class="status-sub">EXCITEMENT BUILDS</span>
-                            </div>
-                            <div class="status-item">
-                                <span class="status-main">Soon<sup>™</sup></span>
-                                <span class="status-sub">PATIENCE IS KEY!</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
+        <div class="ctas">
+          <a class="btn primary" href="games.html">Explorar jogos</a>
+          <a class="btn secondary" href="https://discord.gg/SEU_INVITE" target="_blank" rel="noopener">Entrar no Discord</a>
+          <a class="btn green" href="contact.html">Parcerias</a>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <section id="about-us-section" class="about-section-home">
-        <div class="container">
-            <h2>About Drax Studio</h2>
-            <div class="about-content-home">
-                <div class="about-text">
-                    <p>Drax Studio is a creative and passionate team focused on innovation in game development. Our mission is to build memorable and immersive experiences that captivate players of all ages around the world.</p>
-                    <p>We believe in the transformative power of games to connect people, tell engaging stories, and challenge creativity. We are constantly exploring new technologies, cutting-edge game mechanics, and captivating narratives to deliver high-quality entertainment.</p>
-                    <p>With an eye on the future of the metaverse and digital interactions, we always seek to push boundaries and set new standards in the gaming industry.</p>
-                    <!-- Botão movido para dentro de .about-text conforme a imagem de referência -->
-                    <a href="contact.html" class="btn btn-secondary">Contact Us & Partnerships</a>
-                </div>
-                <div class="about-image">
-                    <img src="png/Draxstudio.png" alt="Drax Studio Logo Mascot"> <!-- Imagem do dragão/mascote -->
-                </div>
-            </div>
+  <section class="section">
+    <div class="container">
+      <div class="section-title">
+        <div>
+          <h2>Jogos em destaque</h2>
+          <p>Cards claros com thumbnail + botão. Troque os links pelos seus jogos do Roblox.</p>
         </div>
-    </section>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <div class="thumb"><img src="assets/game1.jpg" alt="Thumbnail do jogo 1" /></div>
+          <div class="body">
+            <h3>Nome do Jogo 1</h3>
+            <p>Uma frase curta: PvP, simulador, obby, etc.</p>
+          </div>
+          <div class="actions">
+            <a class="btn primary" href="https://www.roblox.com/games/SEU_ID_1" target="_blank" rel="noopener">Jogar</a>
+            <a class="btn secondary" href="games.html#jogo1">Detalhes</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="thumb"><img src="assets/game2.jpg" alt="Thumbnail do jogo 2" /></div>
+          <div class="body">
+            <h3>Nome do Jogo 2</h3>
+            <p>Uma frase curta: progressão, aura, roubo de poder, etc.</p>
+          </div>
+          <div class="actions">
+            <a class="btn primary" href="https://www.roblox.com/games/SEU_ID_2" target="_blank" rel="noopener">Jogar</a>
+            <a class="btn secondary" href="games.html#jogo2">Detalhes</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-title">
+        <div>
+          <h2>O que o jogador encontra</h2>
+          <p>3 pontos rápidos. Isso substitui textos longos e aumenta clareza.</p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="kpi"><b>Progressão</b><span>Recompensas e sensação de evolução.</span></div>
+        <div class="kpi"><b>Competição</b><span>PvP e metas claras para o player.</span></div>
+        <div class="kpi"><b>Atualizações</b><span>Eventos e mudanças frequentes.</span></div>
+      </div>
+    </div>
+  </section>
 </main>
 
-<footer class="site-footer-detailed">
-    <div class="container footer-grid">
-        <div class="footer-logo-bio">
-            <h3>Drax Studio</h3>
-            <!-- <p>Breve descrição sobre o estúdio pode ir aqui, se desejado.</p> -->
-        </div>
-        <div class="footer-links">
-            <h4>Services</h4>
-            <ul>
-                <li><a href="contact.html">Game Acquisition</a></li>
-                <li><a href="contact.html">Consulting</a></li>
-                <li><a href="#">Marketing</a></li>
-            </ul>
-        </div>
-        <div class="footer-links">
-            <h4>Company</h4>
-            <ul>
-                <li><a href="index.html#about-us-section">About Us</a></li>
-                <li><a href="#">Careers</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </div>
-        <div class="footer-links">
-            <h4>Legal</h4>
-            <ul>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Terms of Service</a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="container footer-copyright">
-         <p>© 2025 Drax Studio. All rights reserved.</p>
-    </div>
+<footer class="footer">
+  <div class="container">© 2026 Drax Studio. Todos os direitos reservados.</div>
 </footer>
+
 </body>
 </html>
