@@ -1,207 +1,141 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Estúdio Drax</title>
+  <title>Drax Studio</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<header>
-  <div class="container">
-    <div class="logo">
-      <img src="png/Draxstudio.png" alt="Estúdio Drax">
-      <h1>Estúdio Drax</h1>
-    </div>
-    <nav>
-      <ul>
-        <li><a href="index.html" class="active">Início</a></li>
-        <li><a href="games.html">Nossos Jogos</a></li>
-        <li><a href="#about-us-section">Sobre nós</a></li>
-        <li><a href="contact.html">Contato</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
-
-<main>
-  <section class="hero">
-    <div class="hero-bg"></div>
-
-    <div class="hero-card">
-      <div class="hero-head">
-        <div class="hero-icon">
-          <img src="png/Draxstudio.png" alt="Estúdio Drax">
-        </div>
-        <h1 class="hero-title">Estúdio Drax</h1>
-      </div>
-
-      <p class="hero-sub">
-        Experiências no Roblox focadas em progressão, competição e retenção.
-      </p>
-
-      <div class="hero-actions">
-        <a href="games.html" class="btn btn-primary">Explore nossos jogos</a>
-        <a href="https://discord.gg/draxstudio" target="_blank" class="btn btn-ghost">Junte-se à nossa comunidade</a>
-        <a href="contact.html" class="btn btn-ghost">Parcerias</a>
-      </div>
-
-      <div class="hero-stats">
-        <div class="hero-stat">
-          <div class="hero-stat-number" id="livePlayers">0</div>
-          <div class="hero-stat-label">Jogadores ativos</div>
-        </div>
-
-        <div class="hero-stat">
-          <div class="hero-stat-number" id="totalVisits">0</div>
-          <div class="hero-stat-label">Total de visitas</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="top-hits" id="featured-games">
+  <header>
     <div class="container">
-      <h2>Featured Games</h2>
-      <p>Confira nossos jogos em destaque e os próximos lançamentos.</p>
+      <div class="logo">
+        <img src="png/Draxstudio.png" alt="Drax Studio Logo">
+        <h1>Drax Studio</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="games.html">Our Games</a></li>
+          <li><a href="#about-us-section">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-      <div class="games-grid">
-        <div class="game-card">
-          <a href="games.html">
-            <img src="png/kageborn.png" alt="Kageborn" class="game-cover-image">
-            <h3>Kageborn</h3>
-            <div class="game-status-details">
-              <div class="status-item">
-                <span class="status-main">Alpha</span>
-                <span class="status-sub">FASE</span>
-              </div>
-              <div class="status-item">
-                <span class="status-main">In Progress</span>
-                <span class="status-sub">STATUS</span>
-              </div>
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-card">
+          <div class="hero-top">
+            <div class="hero-mark">
+              <img src="png/Draxstudio.png" alt="">
             </div>
-          </a>
-        </div>
+            <div>
+              <h1 class="hero-title">Drax Studio</h1>
+              <p class="hero-sub">Roblox experiences focused on progression, competition, and retention.</p>
+            </div>
+          </div>
 
-        <div class="game-card">
-          <a href="#">
-            <div class="coming-soon-visual">
-              <span class="hourglass-icon">⏳</span>
-            </div>
-            <h3 class="coming-soon-title">Coming Soon</h3>
-            <div class="game-status-details">
-              <div class="status-item">
-                <span class="status-main">TBA</span>
-                <span class="status-sub">EM BREVE</span>
-              </div>
-              <div class="status-item">
-                <span class="status-main">TBA</span>
-                <span class="status-sub">NOVIDADES</span>
-              </div>
-            </div>
-          </a>
-        </div>
-
-        <div class="game-card">
-          <a href="#">
-            <div class="coming-soon-visual">
-              <span class="hourglass-icon">⏳</span>
-            </div>
-            <h3 class="coming-soon-title">Coming Soon</h3>
-            <div class="game-status-details">
-              <div class="status-item">
-                <span class="status-main">TBA</span>
-                <span class="status-sub">EM BREVE</span>
-              </div>
-              <div class="status-item">
-                <span class="status-main">TBA</span>
-                <span class="status-sub">NOVIDADES</span>
-              </div>
-            </div>
-          </a>
+          <div class="hero-buttons">
+            <a href="games.html" class="btn btn-primary">Explore Our Games</a>
+            <a href="https://discord.gg/draxstudio" target="_blank" class="btn btn-secondary">Join Our Community</a>
+            <a href="contact.html" class="btn btn-secondary">Partnerships</a>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="about-us-section" class="about-section-home">
-    <div class="container">
-      <h2>Sobre o Estúdio</h2>
-      <div class="about-content-home">
-        <div class="about-text">
-          <p>O Estúdio Drax cria experiências no Roblox com foco em diversão, progressão e comunidade.</p>
-          <p>Trabalhamos para entregar sistemas que geram retenção: metas, recompensas, progressão e updates constantes.</p>
-          <a href="contact.html" class="btn btn-secondary">Contato & Parcerias</a>
+    <section class="section" id="featured-games">
+      <div class="container">
+        <div class="section-title">
+          <h2>Featured Games</h2>
+          <p>Clear cards with thumbnail, status, and a direct action button.</p>
         </div>
-        <div class="about-image">
-          <img src="png/Draxstudio.png" alt="Logo Estúdio Drax">
+
+        <div class="games-grid">
+          <article class="game-card">
+            <div class="game-thumb">
+              <img src="png/kageborn.png" alt="Kageborn cover">
+            </div>
+            <div class="game-body">
+              <span class="badge">ALPHA</span>
+              <h3>Kageborn</h3>
+              <p>In development. Competitive gameplay and progression systems.</p>
+            </div>
+            <div class="game-actions">
+              <a href="games.html" class="btn btn-primary">View</a>
+              <a href="contact.html" class="btn btn-secondary">Feedback</a>
+            </div>
+          </article>
+
+          <article class="game-card">
+            <div class="game-thumb">
+              <img src="png/Draxstudio.png" alt="Coming soon">
+            </div>
+            <div class="game-body">
+              <span class="badge gray">COMING SOON</span>
+              <h3>New Project</h3>
+              <p>Next release in development. More info soon.</p>
+            </div>
+            <div class="game-actions">
+              <a href="games.html" class="btn btn-primary">Games</a>
+              <a href="https://discord.gg/draxstudio" target="_blank" class="btn btn-secondary">Discord</a>
+            </div>
+          </article>
+
+          <article class="game-card">
+            <div class="game-thumb">
+              <img src="png/Draxstudio.png" alt="Coming soon">
+            </div>
+            <div class="game-body">
+              <span class="badge gray">COMING SOON</span>
+              <h3>New Project</h3>
+              <p>Work in progress. Updates will be posted to the community.</p>
+            </div>
+            <div class="game-actions">
+              <a href="games.html" class="btn btn-primary">Games</a>
+              <a href="contact.html" class="btn btn-secondary">Contact</a>
+            </div>
+          </article>
         </div>
       </div>
+    </section>
+
+    <section class="section" id="about-us-section">
+      <div class="container">
+        <div class="section-title">
+          <h2>About Drax Studio</h2>
+          <p>Short, objective text works better and looks more professional.</p>
+        </div>
+
+        <div class="about-wrap">
+          <div class="about-box">
+            <h3>What we build</h3>
+            <p>We create Roblox experiences with strong loops: goals, rewards, and competitive moments that keep players engaged.</p>
+            <div style="margin-top:14px;display:flex;gap:12px;flex-wrap:wrap">
+              <a href="games.html" class="btn btn-primary">See Games</a>
+              <a href="contact.html" class="btn btn-secondary">Contact</a>
+            </div>
+          </div>
+
+          <div class="about-box about-logo">
+            <img src="png/Draxstudio.png" alt="Drax Studio">
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <div>© 2026 Drax Studio</div>
+      <div style="display:flex;gap:14px;flex-wrap:wrap">
+        <a href="games.html">Games</a>
+        <a href="contact.html">Contact</a>
+      </div>
     </div>
-  </section>
-</main>
-
-<footer class="site-footer-detailed">
-  <div class="container footer-grid">
-    <div class="footer-logo-bio">
-      <h3>Estúdio Drax</h3>
-    </div>
-    <div class="footer-links">
-      <h4>Serviços</h4>
-      <ul>
-        <li><a href="contact.html">Parcerias</a></li>
-        <li><a href="contact.html">Consultoria</a></li>
-      </ul>
-    </div>
-    <div class="footer-links">
-      <h4>Empresa</h4>
-      <ul>
-        <li><a href="#about-us-section">Sobre nós</a></li>
-        <li><a href="contact.html">Contato</a></li>
-      </ul>
-    </div>
-    <div class="footer-links">
-      <h4>Legal</h4>
-      <ul>
-        <li><a href="#">Privacidade</a></li>
-        <li><a href="#">Termos</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="container footer-copyright">
-    <p>© 2025 Estúdio Drax. Todos os direitos reservados.</p>
-  </div>
-</footer>
-
-<script>
-async function fetchGameData(){
-  const universeIds = [0];
-
-  try{
-    const url = `https://games.roblox.com/v1/games?universeIds=${universeIds.join(",")}`;
-    const r = await fetch(url);
-    const j = await r.json();
-
-    if(j && j.data && j.data.length){
-      let playing = 0;
-      let visits = 0;
-      for(const g of j.data){
-        playing += (g.playing || 0);
-        visits += (g.visits || 0);
-      }
-      document.getElementById("livePlayers").innerText = playing.toLocaleString("pt-BR");
-      document.getElementById("totalVisits").innerText = visits.toLocaleString("pt-BR");
-    }
-  }catch(e){
-    document.getElementById("livePlayers").innerText = "0";
-    document.getElementById("totalVisits").innerText = "0";
-  }
-}
-
-fetchGameData();
-setInterval(fetchGameData, 60000);
-</script>
-
+  </footer>
 </body>
 </html>
