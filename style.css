@@ -2,7 +2,7 @@
 html{scroll-behavior:smooth}
 :root{
   --dark-bg:#0D0D1A;
- --primary:#3B82F6;
+  --primary:#3B82F6;
   --primary-2:#60A5FA;
   --primary-hover:#2563EB;
   --text:#EAEAEA;
