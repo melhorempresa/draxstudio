@@ -104,11 +104,11 @@ header nav ul li a.active{
 
 .hero{
   position:relative;
-  min-height:40vh;
+  min-height:22vh;
   display:flex;
   align-items:center;
-  justify-content:center;
-  padding:40px 0;
+  padding:60px 0;
+  overflow:hidden;
 }
 
 .hero-card{
