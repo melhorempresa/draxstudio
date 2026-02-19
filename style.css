@@ -105,7 +105,7 @@ header nav ul li a.active{
 
 .hero{
   position:relative;
-  min-height:100vh;
+  min-height:30vh;
   display:flex;
   align-items:center;
   padding:60px 0;
