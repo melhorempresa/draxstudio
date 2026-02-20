@@ -1,63 +1,116 @@
-<!doctype html>
-<html lang="pt-BR">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Jogos — Drax Studio</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <title>Our Games - Drax Studio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="nav">
-  <div class="container nav-inner">
-    <a class="brand" href="index.html"><img src="assets/logo.png" alt="Drax Studio Logo" /><span>DRAX STUDIO</span></a>
-    <nav class="links" aria-label="Menu">
-      <a href="index.html">Home</a>
-      <a href="games.html" aria-current="page">Jogos</a>
-      <a href="about.html">Sobre</a>
-      <a href="contact.html">Contato</a>
+
+<header>
+  <div class="container">
+    <div class="logo">
+      <img src="png/Draxstudio.png" alt="Logo">
+      <h1>Drax Studio</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="games.html" class="active">Our Games</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
     </nav>
   </div>
 </header>
 
-<main class="section">
+<main class="games-page">
   <div class="container">
-    <div class="section-title">
-      <div>
-        <h2>Nossos jogos</h2>
-        <p>Substitui “Coming Soon …” por cards com status real (Alpha/Beta/Live) e botão de jogar.</p>
+
+    <div class="games-header">
+      <a href="index.html" class="back-link">← Back to Home</a>
+      <h1>Our Games</h1>
+      <p>Explore our portfolio of Roblox games</p>
+    </div>
+
+    <div class="games-grid">
+
+      <!-- GAME 1 -->
+      <div class="game-card">
+        <img src="png/1.png" alt="Climb the Tower of the Scary Brainrot">
+        <h3>Climb the Tower of the Scary Brainrot</h3>
+
+        <div class="stats">
+          <div class="stat">
+            <span>Plays</span>
+            <b>11</b>
+          </div>
+          <div class="stat">
+            <span>Playing</span>
+            <b class="green">0</b>
+          </div>
+        </div>
+
+        <a class="view-btn" 
+           href="https://www.roblox.com/pt/games/133584961412914/Climb-the-Tower-of-the-Scary-Brainrot"
+           target="_blank">
+           View Game
+        </a>
       </div>
+
+      <!-- GAME 2 -->
+      <div class="game-card">
+        <img src="png/2.png" alt="YOU VS PETER">
+        <h3>YOU VS PETER</h3>
+        <p class="co-dev">Co-Developed with Pixelcore</p>
+
+        <div class="stats">
+          <div class="stat">
+            <span>Plays</span>
+            <b>22</b>
+          </div>
+          <div class="stat">
+            <span>Playing</span>
+            <b class="green">0</b>
+          </div>
+        </div>
+
+        <a class="view-btn"
+           href="https://www.roblox.com/pt/games/89558340223426/YOU-VS-PETER"
+           target="_blank">
+           View Game
+        </a>
+      </div>
+
+      <!-- GAME 3 -->
+      <div class="game-card">
+        <img src="png/3.png" alt="Coming Soon">
+        <h3>Coming Soon</h3>
+
+        <div class="stats">
+          <div class="stat">
+            <span>Plays</span>
+            <b>0</b>
+          </div>
+          <div class="stat">
+            <span>Playing</span>
+            <b class="green">0</b>
+          </div>
+        </div>
+
+        <a class="view-btn disabled">Coming Soon</a>
+      </div>
+
     </div>
 
-    <div class="grid">
-      <article class="card" id="jogo1">
-        <div class="thumb"><img src="assets/game1.jpg" alt="Thumbnail do jogo 1" /></div>
-        <div class="body">
-          <h3>Nome do Jogo 1</h3>
-          <p>Status: <b>LIVE</b> • Plataforma: Roblox • Gênero: Simulador/PvP</p>
-        </div>
-        <div class="actions">
-          <a class="btn primary" href="https://www.roblox.com/games/SEU_ID_1" target="_blank" rel="noopener">Jogar</a>
-          <a class="btn secondary" href="contact.html">Parcerias</a>
-        </div>
-      </article>
-
-      <article class="card" id="jogo2">
-        <div class="thumb"><img src="assets/game2.jpg" alt="Thumbnail do jogo 2" /></div>
-        <div class="body">
-          <h3>Nome do Jogo 2</h3>
-          <p>Status: <b>ALPHA</b> • Em desenvolvimento</p>
-        </div>
-        <div class="actions">
-          <a class="btn primary" href="https://www.roblox.com/games/SEU_ID_2" target="_blank" rel="noopener">Jogar</a>
-          <a class="btn secondary" href="https://discord.gg/SEU_INVITE" target="_blank" rel="noopener">Feedback</a>
-        </div>
-      </article>
-    </div>
   </div>
 </main>
 
-<footer class="footer">
-  <div class="container">© 2026 Drax Studio.</div>
+<footer>
+  <div class="container">
+    © 2026 Drax Studio
+  </div>
 </footer>
+
 </body>
 </html>
