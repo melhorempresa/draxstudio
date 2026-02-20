@@ -1,114 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Our Games - Drax Studio</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="stylegame.css">
+
+  <!-- IMPORTANTE: o arquivo TEM que se chamar exatamente stylegame.css e estar na raiz -->
+  <link rel="stylesheet" href="stylegame.css" />
 </head>
 <body>
 
-<header>
-  <div class="container">
-    <div class="logo">
-      <img src="png/drax.png" alt="Logo">
-      <h1>Drax Studio</h1>
-    </div>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="games.html" class="active">Our Games</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
+<header class="topbar">
+  <div class="container topbar-row">
+    <a class="brand" href="index.html">
+      <!-- IMPORTANTE: coloque a extensão .png -->
+      <img class="brand-logo" src="png/drax.png" alt="Drax Studio Logo" />
+      <span class="brand-name">Drax Studio</span>
+    </a>
+
+    <nav class="nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="games.html" class="nav-link active">Our Games</a>
+      <a href="contact.html" class="nav-link">Contact</a>
     </nav>
   </div>
 </header>
 
-<main class="games-page">
+<main class="page">
   <div class="container">
 
-    <div class="games-header">
-      <a href="index.html" class="back-link">← Back to Home</a>
+    <a class="back-link" href="index.html">← Back to Home</a>
+
+    <div class="page-title">
       <h1>Our Games</h1>
       <p>Explore our portfolio of Roblox games</p>
     </div>
 
-    <div class="games-grid">
+    <section class="grid">
 
       <!-- GAME 1 -->
-      <div class="game-card">
-        <img src="png/1.png" alt="Climb the Tower of the Scary Brainrot">
-        <h3>Climb the Tower of the Scary Brainrot</h3>
+      <article class="card">
+        <div class="thumb-wrap">
+          <img class="thumb" src="png/1.png" alt="Climb the Tower of the Scary Brainrot" />
+        </div>
+
+        <h3 class="card-title">Climb the Tower of the Scary Brainrot</h3>
 
         <div class="stats">
-          <div class="stat">
-            <span>Plays</span>
-            <b>11</b>
+          <div class="stat-row">
+            <span class="stat-label">Plays</span>
+            <span class="stat-value">11</span>
           </div>
-          <div class="stat">
-            <span>Playing</span>
-            <b class="green">0</b>
+          <div class="stat-row">
+            <span class="stat-label">Playing</span>
+            <span class="stat-value green">0</span>
           </div>
         </div>
 
-        <a class="view-btn" 
-           href="https://www.roblox.com/pt/games/133584961412914/Climb-the-Tower-of-the-Scary-Brainrot"
-           target="_blank">
-           View Game
+        <a class="btn" href="https://www.roblox.com/pt/games/133584961412914/Climb-the-Tower-of-the-Scary-Brainrot" target="_blank" rel="noreferrer">
+          View Game
         </a>
-      </div>
+      </article>
 
       <!-- GAME 2 -->
-      <div class="game-card">
-        <img src="png/2.png" alt="YOU VS PETER">
-        <h3>YOU VS PETER</h3>
-        <p class="co-dev">Co-Developed with Pixelcore</p>
+      <article class="card">
+        <div class="thumb-wrap">
+          <img class="thumb" src="png/2.png" alt="YOU VS PETER" />
+        </div>
+
+        <h3 class="card-title">YOU VS PETER</h3>
+        <p class="subtext">Co-Developed with Pixelcore</p>
 
         <div class="stats">
-          <div class="stat">
-            <span>Plays</span>
-            <b>22</b>
+          <div class="stat-row">
+            <span class="stat-label">Plays</span>
+            <span class="stat-value">22</span>
           </div>
-          <div class="stat">
-            <span>Playing</span>
-            <b class="green">0</b>
+          <div class="stat-row">
+            <span class="stat-label">Playing</span>
+            <span class="stat-value green">0</span>
           </div>
         </div>
 
-        <a class="view-btn"
-           href="https://www.roblox.com/pt/games/89558340223426/YOU-VS-PETER"
-           target="_blank">
-           View Game
+        <a class="btn" href="https://www.roblox.com/pt/games/89558340223426/YOU-VS-PETER" target="_blank" rel="noreferrer">
+          View Game
         </a>
-      </div>
+      </article>
 
       <!-- GAME 3 -->
-      <div class="game-card">
-        <img src="png/3.png" alt="Coming Soon">
-        <h3>Coming Soon</h3>
+      <article class="card">
+        <div class="thumb-wrap">
+          <img class="thumb" src="png/3.png" alt="Coming Soon" />
+        </div>
+
+        <h3 class="card-title">Coming Soon</h3>
 
         <div class="stats">
-          <div class="stat">
-            <span>Plays</span>
-            <b>0</b>
+          <div class="stat-row">
+            <span class="stat-label">Plays</span>
+            <span class="stat-value">0</span>
           </div>
-          <div class="stat">
-            <span>Playing</span>
-            <b class="green">0</b>
+          <div class="stat-row">
+            <span class="stat-label">Playing</span>
+            <span class="stat-value green">0</span>
           </div>
         </div>
 
-        <a class="view-btn disabled">Coming Soon</a>
-      </div>
+        <span class="btn disabled">Coming Soon</span>
+      </article>
 
-    </div>
-
+    </section>
   </div>
 </main>
 
-<footer>
-  <div class="container">
-    © 2026 Drax Studio
+<footer class="footer">
+  <div class="container footer-row">
+    <div>© 2026 Drax Studio</div>
+    <div class="footer-links">
+      <a href="games.html">Games</a>
+      <a href="contact.html">Contact</a>
+    </div>
   </div>
 </footer>
 
